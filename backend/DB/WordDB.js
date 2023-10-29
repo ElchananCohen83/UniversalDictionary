@@ -13,7 +13,7 @@ async function run() {
     const collection = db.collection('EnglishToHebrew');
     return collection
   } catch (err) {
-    console.error('An error occurred:', err);
+    return console.error('An error occurred:', err);
   }
 }
 
@@ -26,7 +26,7 @@ const getAllCollectioDB = async () => {
     const documents = await collection.find().toArray();
     return documents;
   } catch (e) {
-    throw new Error(e.message);
+    return new Error(e.message);
   }
 };
 
@@ -48,13 +48,13 @@ const getFindWordDB = async (SearchWord) => {
       return null
   } else {
   documents.forEach(document => {
-      const value = [document.name, document.value]
-      console.log(value);
-      return value
+      const document = [document.name, document.value]
+      console.log(document);
+      return document
     });
   }  
   } catch (err) {
-    console.error('An error occurred:', err);
+    return console.error('An error occurred:', err);
   } finally {
     await client.close();
   }

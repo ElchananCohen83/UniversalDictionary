@@ -1,6 +1,7 @@
 import { getFindWordService, getAllCollectioServices } from "../services/WordServices.js";
 
-const getFindWordController = async (req, res) => {
+
+const getAllCollectioController = async (req, res) => {
   try {
     const result = await getFindWordService();
     res.send(result);
@@ -8,8 +9,10 @@ const getFindWordController = async (req, res) => {
     throw new Error(e.message);
   }
 };
-const getAllCollectioController = async (req, res) => {
-  const { SearchWord } = req.params;
+
+
+const  getFindWordController = async (req, res) => {
+  //const { SearchWord } = req.params;
   try {
     const result = await getAllCollectioServices(SearchWord);
     res.send(result);

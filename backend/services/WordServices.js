@@ -3,7 +3,8 @@ import { getAllCollectioDB, getFindWordDB } from "../DB/WordDB.js";
 
 const getAllCollectioServices = async () => {
   try {
-    return await getQuestionAllCollectio();
+    const [res] = await getAllCollectioDB();
+    return res
   } catch (e) {
     throw new Error(e.message);
   }
@@ -12,7 +13,7 @@ const getAllCollectioServices = async () => {
 
 const getFindWordService = async (SearchWord) => {
   try {
-    const [res] = await getQuestionFindWord(SearchWord);
+    const [res] = await getFindWordDB(SearchWord);
     return res
   } catch (e) {
     throw new Error(e.message);
