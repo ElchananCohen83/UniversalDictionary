@@ -1,25 +1,38 @@
-import { getFindWordService, getAllCollectioServices } from "../services/WordServices.js";
+import { getInsertWordDB, getSelectAllCollectionDB, getfindWordDB } from "../action/wordFunction.js";
 
 
-const getAllCollectioController = async (req, res) => {
+const getInsertWordController = async (req, res) => {
   try {
-    const result = await getFindWordService();
-    res.send(result);
-  } catch (e) {
-    throw new Error(e.message);
+    const data = req.query;
+    const result = getInsertWordDB(data);
+    console.log(req.query);
+    res.json(result)
+  } catch (error) {
+    res.status(500).json({ error: error.message }); // Send an error response
   }
 };
 
 
-const  getFindWordController = async (req, res) => {
-  //const { SearchWord } = req.params;
+const getfindWordController = async (req, res) => {
   try {
-    const result = await getAllCollectioServices(SearchWord);
-    res.send(result);
-  } catch (e) {
-    throw new Error(e.message);
+    const data = req.query;
+    const result = await getfindWordDB(data);
+    console.log(result);
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({ error: error.message }); // Send an error response
   }
 };
 
 
-module.exports = {getFindWordController, getAllCollectioController}
+const getSelectAllController = async (req, res) => {
+  try {
+    const documents = await getSelectAllCollectionDB();
+    res.json(documents); // Send the documents as JSON response
+  } catch (error) {
+    res.status(500).json({ error: error.message }); // Send an error response
+  }
+};
+
+
+export { getInsertWordController, getfindWordController, getSelectAllController };
