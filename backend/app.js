@@ -1,10 +1,32 @@
-const express = require('express');
+import express from "express" 
+import dotenv from "dotenv"
+import bodyParser from "body-parser";
+import {connectToDatabase} from "./db/dbConnect.js"
+import { getInsertWordController, getfindWordController, getSelectAllController } from "./controllers/wordController.js"
+import { insertUserController, insertUserControllerMiddleware, chackUserLoginController } from "./controllers/userController.js"
+
+dotenv.config({
+  path: './.env'
+});
+
 const app = express();
+const port = process.env.PORT || 3001
 
-// Middleware setup
+const url = `localhost:${port}`
 
-// Routes
+app.use(bodyParser.urlencoded({extended: true}))
+app.use(express.json())
 
-// Error handling middleware
+connectToDatabase()
 
-module.exports = app;
+app.post('/register', insertUserControllerMiddleware,  insertUserController)
+app.get('/login', chackUserLoginController)
+
+app.post('/insertWordDB', getInsertWordController)
+app.get('/find',  getfindWordController)
+app.get('/selectAllCollection', getSelectAllController)
+
+
+app.listen(port, () => {
+    console.log(`server is running in port: ${port}`);
+  });

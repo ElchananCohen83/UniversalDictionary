@@ -1,0 +1,49 @@
+const { MongoClient } = require('mongodb');
+require('dotenv').config();
+
+// Replace with your MongoDB Atlas connection details
+const username = process.env.DB_USERNAME;
+const password = process.env.DB_PASSWORD; 
+const clusterUri = process.env.CLUSTER_URI;
+//console.log(username);
+
+const client = new MongoClient(`mongodb+srv://${username}:${password}${clusterUri}`);
+
+async function run() {
+    try {
+        // Connect to your cluster
+        await client.connect();
+        
+        // Access your database and collection
+        const db = client.db('UniversalDictionary');
+        //const collection = db.collection('HebrewToEnglish');
+        const collection = db.collection('EnglishToHebrew');
+
+        //const query = { name: "a few" };
+        const query = {
+            name: {
+              $regex: "few",
+              $options: "i" // Use 'i' for case-insensitive matching, remove it for case-sensitive matching
+            }
+          };
+        const result = await collection.find(query);
+
+        // Use toArray to convert the cursor to an array for easier processing
+        const documents = await result.toArray();
+
+        if (documents.length === 0) {
+            console.log("The word is not found.");
+        } else {
+        documents.forEach(document => {
+            console.log(document.name, document.value);
+        });
+        }
+
+    } catch (err) {
+        console.error('An error occurred:', err);
+    } finally {
+        await client.close();
+    }
+}
+
+run().catch(console.error);

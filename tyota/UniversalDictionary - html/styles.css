@@ -1,0 +1,83 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align content to the top of the page */
+    height: calc(100vh - 100px); /* Subtract 100px from the viewport height */
+    margin: 0;
+    padding-top: 100px; /* Add 100px of padding to the top */
+}
+
+
+
+table {
+    width: 100%;
+}
+
+input[type="file"] {
+    margin-bottom: 10px;
+}
+
+#searchContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    
+    text-align: center;
+    padding: 20px;
+    border: 2px solid #ccc;
+    border-radius: 40px;
+    background-color: #f0f0f0;
+}
+
+label {
+    margin-right: 10px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#tableContainer {
+    margin-top: 20px;
+    overflow-x: auto;
+}
+
+/* Media Query for Tablets */
+@media (max-width: 768px) {
+    body {
+        align-items: center; /* Center content vertically on smaller screens */
+        padding-top: 0; /* Remove top padding */
+    }
+}
+
+/* Media Query for Smartphones */
+@media (max-width: 576px) {
+    #container {
+        padding: 10px; /* Reduce container padding on smaller screens */
+    }
+
+    button {
+        font-size: 14px; /* Reduce button font size on smaller screens */
+    } 
+}
+
+
+th, td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
