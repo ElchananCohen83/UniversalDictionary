@@ -1,5 +1,10 @@
-const { MongoClient } = require('mongodb');
-require('dotenv').config();
+import {MongoClient} from "mongodb";
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+//const { MongoClient } = require('mongodb');
+//require('dotenv').config();
 
 // Replace with your MongoDB Atlas connection details
 const username = process.env.DB_USERNAME;

@@ -1,7 +1,7 @@
-import express from "express" 
+import express from "express"
 import dotenv from "dotenv"
 import bodyParser from "body-parser";
-import {connectToDatabase} from "./db/dbConnect.js"
+import { connectToDatabase } from "./db/dbConnect.js"
 import { getInsertWordController, getfindWordController, getSelectAllController } from "./controllers/wordController.js"
 import { insertUserController, insertUserControllerMiddleware, chackUserLoginController } from "./controllers/userController.js"
 
@@ -14,19 +14,19 @@ const port = process.env.PORT || 3001
 
 const url = `localhost:${port}`
 
-app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.json())
 
 connectToDatabase()
 
-app.post('/register', insertUserControllerMiddleware,  insertUserController)
+app.post('/register', insertUserControllerMiddleware, insertUserController)
 app.get('/login', chackUserLoginController)
 
 //app.post('/insertWordDB', getInsertWordController)
-app.post('/find',  getfindWordController)
+app.post('/find', getfindWordController)
 app.get('/selectAllCollection', getSelectAllController)
 
 
 app.listen(port, () => {
-    console.log(`server is running in port: ${port}`);
-  });
+  console.log(`server is running in port: ${port}`);
+});
