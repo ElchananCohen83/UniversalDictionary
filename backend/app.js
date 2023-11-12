@@ -22,8 +22,8 @@ connectToDatabase()
 app.post('/register', insertUserControllerMiddleware,  insertUserController)
 app.get('/login', chackUserLoginController)
 
-app.post('/insertWordDB', getInsertWordController)
-app.get('/find',  getfindWordController)
+//app.post('/insertWordDB', getInsertWordController)
+app.post('/find',  getfindWordController)
 app.get('/selectAllCollection', getSelectAllController)
 
 
