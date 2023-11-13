@@ -2,7 +2,7 @@ import express from "express"
 import dotenv from "dotenv"
 import bodyParser from "body-parser";
 import { connectToDatabase } from "./db/dbConnect.js"
-import { getInsertWordController, getfindWordController, getSelectAllController } from "./controllers/wordController.js"
+import { getfindWordController, getfindByLetterController } from "./controllers/wordController.js"
 import { insertUserController, insertUserControllerMiddleware, chackUserLoginController } from "./controllers/userController.js"
 
 dotenv.config({
@@ -22,9 +22,9 @@ connectToDatabase()
 app.post('/register', insertUserControllerMiddleware, insertUserController)
 app.get('/login', chackUserLoginController)
 
-//app.post('/insertWordDB', getInsertWordController)
-app.post('/find', getfindWordController)
-app.get('/selectAllCollection', getSelectAllController)
+//app.post('/insertWordDB', insertWordController)
+app.post('/findWord', getfindWordController)
+app.get('/findByLetter', getfindByLetterController)
 
 
 app.listen(port, () => {
