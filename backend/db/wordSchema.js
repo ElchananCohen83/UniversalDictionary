@@ -7,4 +7,8 @@ const dictionary = new mongoose.Schema({
     maxTimeMS: 60000, // Set to 60 seconds (adjust as needed)
 });
 
-export const Dictionary = mongoose.model('En_To_Heb', dictionary, 'En_To_Heb');
+function model(collection) {
+    return mongoose.model(collection, dictionary, collection);
+}
+
+export {model}
