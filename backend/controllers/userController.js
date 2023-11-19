@@ -1,5 +1,6 @@
 import { insertUsersDB, chackUserLoginDB, checksIfUsernameExists } from '../action/userFunction.js';
 import { check, validationResult } from "express-validator";
+import { connectToDatabase } from "../db/dbConnect.js"
 
 const insertUserControllerMiddleware = [
   check("email", "Please provide a valid email").isEmail(),
@@ -8,7 +9,7 @@ const insertUserControllerMiddleware = [
 
 const insertUserController = async (req, res) => {
   connectToDatabase();
-  const data = req.query;
+  const data = req.body;
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     const errorMessages = errors.array().map(error => error.msg);
@@ -21,7 +22,7 @@ const insertUserController = async (req, res) => {
     try {
       const success = await insertUsersDB(data);
       if (success) {
-        return res.status(201).json({ message: 'User inserted successfully', data: success });
+        return res.status(201).json({ message: 'User inserted successfully', token: success });
       } else {
         return res.status(500).json({ error: 'User insertion failed' });
       }
@@ -31,15 +32,15 @@ const insertUserController = async (req, res) => {
   }
 };
 
-
 const chackUserLoginController = async (req, res) => {
   connectToDatabase();
-  const data = req.query
+  const data = req.body
+  console.log(data);
   const result = await chackUserLoginDB(data)
   if (result) {
-    return res.status(400).json({ errors: result });
+    return res.status(200).send({ message: "You connected to success", token: result });
   }
-  return res.status(200).send({ message: "You connected to success", token: data });
+  return res.status(400).json({ massege: "Email or Password is incorrect." });
 };
 
 
