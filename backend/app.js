@@ -5,6 +5,7 @@ import { connectToDatabase } from "./db/dbConnect.js"
 import { getfindWordController, getfindByLetterController } from "./controllers/wordController.js"
 import { insertUserController, insertUserControllerMiddleware, chackUserLoginController } from "./controllers/userController.js"
 import verifyToken from "./middleware/auth_JWT.js";
+import cors from "cors";
 
 dotenv.config()
 
@@ -15,6 +16,7 @@ const url = `localhost:${port}`
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.json())
+app.use(cors());
 app.use(verifyToken)
 
 connectToDatabase()

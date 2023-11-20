@@ -35,8 +35,8 @@ const insertUserController = async (req, res) => {
 const chackUserLoginController = async (req, res) => {
   connectToDatabase();
   const data = req.body
-  console.log(data);
   const result = await chackUserLoginDB(data)
+  console.log(result);
   if (result) {
     return res.status(200).send({ message: "You connected to success", token: result });
   }
