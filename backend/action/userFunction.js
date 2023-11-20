@@ -1,7 +1,12 @@
-import { User } from '../db/userSchema.js';
+import { User } from '../models/userSchema.js';
 import bcrypt from "bcrypt";
 import JWT from "jsonwebtoken";
+import dotenv from "dotenv"
 
+
+dotenv.config({
+  path: './.env'
+});
 
 const MAX_RETRIES = 3; // You can adjust this value
 const RETRY_INTERVAL = 1000; // You can adjust this interval
@@ -18,13 +23,23 @@ async function insertUsersDB(data) {
         lastName: data.lastName,
         email: data.email,
         password: password,
-        token: null,
         title: data.title
       });
       const result = await user.save();
-
       console.log(`${result._id} document inserted.`);
-      return user;
+
+      // Set the expiration time (in seconds)
+      const expiresIn = 86400; // 24 hour
+
+      const payload = {
+        email: data.email,
+        timestamp: Date.now(),
+      };
+      
+      const token = JWT.sign(payload, jwt_secret, { expiresIn }, { algorithm: "HS256" });
+
+      return token;
+
     } catch (e) {
       if (e.message.includes('buffering timed out')) {
         console.warn(`Insertion attempt ${retries + 1} timed out. Retrying...`);
@@ -47,7 +62,7 @@ async function insertUsersDB(data) {
   throw new Error('User insertion failed');
 }
 
-
+const jwt_secret = process.env.JWT_SECRET;
 
 
 async function chackUserLoginDB(data) {
@@ -57,22 +72,20 @@ async function chackUserLoginDB(data) {
       const documents = await checksIfUsernameExists(data);
       if (!documents) {
         console.log("Username does not exist, you can register!");
-        return "Username does not exist, you can register!"
+        return false
       } else {
         const isPasswordValid = await bcrypt.compare(data.password, documents.password);
         if (isPasswordValid) {
-          if (!documents.token) {
-            const token = await JWT.sign(data.email, 'megobb');
-            const updatedUser = await User.findOneAndUpdate(
-              { email: data.email }, // Use the appropriate filter to locate the user
-              { $set: { token: token } }, // Set the new token value
-              { new: true } // This option returns the updated document
-            );
-          }
-          return documents
+          const payload = {
+            email: data.email,
+            timestamp: Date.now(),
+          };
+          const token = JWT.sign(payload, jwt_secret, { algorithm: "HS256" });
+
+          return token
         } else {
           console.log("Email or Password is incorrect.");
-          return "Email or Password is incorrect."
+          return false
         }
       }
     } catch (e) {

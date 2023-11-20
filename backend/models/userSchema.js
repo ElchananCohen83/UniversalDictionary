@@ -1,5 +1,7 @@
 import mongoose from "mongoose";
 
+const allowedTitles = ['Student', 'Teacher', 'Linguist', 'Other'];
+
 const userSchema = new mongoose.Schema({
   firstName: {
     type: String,
@@ -17,12 +19,15 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  date: {
+  title: {
+    type: String,
+    enum: allowedTitles,
+  },
+  //token: String,
+  createdAt: {
     type: Date,
     default: Date.now,
   },
-  title: String,
-  token: String,
 }, {
   maxTimeMS: 60000 // Set to 60 seconds (adjust as needed)
 });
