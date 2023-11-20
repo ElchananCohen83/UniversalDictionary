@@ -62,8 +62,8 @@ export default function CustomizedInputBase() {
               color: "#F6C927",
               backgroundColor: "#21213E",
             }}
-            placeholder=" Search for word"
-            inputProps={{ "aria-label": " search for word" }}
+            placeholder="  Search for word"
+            inputProps={{ "aria-label": "  search for word" }}
             endAdornment={<React.Fragment />}
           />
           <IconButton type="button" sx={{ p: "10px" }} aria-label="search">

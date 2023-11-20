@@ -35,13 +35,27 @@ function Header() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  // const handleLoginClick = (action) => {
+
+  //   // Navigate to the appropriate page based on the action
+  //   if (action === "register") {
+  //     navigate("/register");
+  //   } else if (action === "login") {
+  //     navigate("/login");
+  //   }
+  // };
+
   const handleLoginClick = (action) => {
-    // Navigate to the appropriate page based on the action
-    if (action === "register") {
-      navigate("/register");
-    } else if (action === "login") {
-      navigate("/login");
-    }
+    // Move the navigation logic inside a useEffect
+    React.useEffect(() => {
+      // Navigate to the appropriate page based on the action
+      if (action === "register") {
+        navigate("/register");
+      } else if (action === "login") {
+        navigate("/login");
+      }
+    }, [action]);
   };
 
   return (
@@ -72,7 +86,7 @@ function Header() {
               }}
             />
 
-            {pages.map((page) => (
+            {/* {pages.map((page) => (
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
@@ -84,21 +98,17 @@ function Header() {
               >
                 {page}
               </Button>
-            ))}
+            ))} */}
           </Box>
           <div style={{ display: "flex", alignItems: "center" }}>
-            <a href="#" onClick={handleLoginClick}>
-              הרשמה
-            </a>
+            <a href="#" onClick={() => navigate("/register")}>הרשמה</a>
             <p> / </p>
-            <a href="#" onClick={handleLoginClick}>
-              התחברות
-            </a>
+            <a href="#" onClick={() => navigate("/login")}>התחברות</a>
           </div>
 
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+              <IconButton onClick={handleLoginClick} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/ElchananPicture.jpg" />
               </IconButton>
             </Tooltip>
@@ -107,6 +117,6 @@ function Header() {
       </AppBar>
     </div>
   );
-}
+};
 
 export default Header;

@@ -35,7 +35,7 @@ function SignUp() {
       setSuccess(response.data.message)
       setErrors('')
 
-      navigate('/login');
+      navigate('/userTitle');
       //navigate(`/userTitle?email=${encodeURIComponent(email)}`);
 
 

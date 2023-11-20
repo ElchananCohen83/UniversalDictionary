@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import axios from "axios";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -9,6 +8,9 @@ import Select from "@mui/material/Select";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import Footer from "./components/Footer";
+import api from './services/api';
+
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -21,13 +23,7 @@ const MenuProps = {
   },
 };
 
-const allowedTitles = [
-  "developer",
-  "project manager",
-  "product manager",
-  "designer",
-  "Other",
-];
+const allowedTitles = ['Student', 'Teacher', 'Linguist', 'Other']
 
 const theme = createTheme({
   palette: {
@@ -38,13 +34,12 @@ const theme = createTheme({
   },
 });
 
-export default function UserClassification() {
-  const [personTitle, setPersonTitle] = React.useState("");
-  const [errors, setErrors] = React.useState("");
-  const [success, setSuccess] = React.useState("");
-  const [token, setToken] = useState("");
-  const [emailParam, setEmailParam] = useState("");
+export default function UserTitle() {
+
+  const { personTitle, setPersonTitle, errors, setErrors, success, setSuccess, token, setToken, emailParam, setEmailParam } = useCustomState();
+
   const location = useLocation();
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -68,16 +63,14 @@ export default function UserClassification() {
     };
 
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/users/userTitle",
-        data
-      );
-      const receivedToken = response.data.token;
-      setToken(receivedToken);
-      console.log(token);
-      setSuccess(response.data.msg);
-      setErrors("");
-      //navigate("/");
+      //const response = await api.post('/userTitle', data);
+
+      // const receivedToken = response.data.token;
+      // setToken(receivedToken);
+      // setSuccess(response.data.msg);
+      // setErrors("");
+
+      navigate('/login');
     } catch (error) {
       if (error.response && error.response.data && error.response.data.errors) {
         setErrors(error.response.data.errors.join(", "));
@@ -150,6 +143,7 @@ export default function UserClassification() {
           </Button>
         </div>
       </Box>
+      <Footer />
     </div>
   );
 }
