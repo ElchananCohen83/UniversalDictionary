@@ -1,15 +1,25 @@
-import React from 'react';
-import Footer from './components/Footer';
-import Navigate from './utils/useNavigate';
+import * as React from "react";
+import Header from ".//components/Header";
 
-function Homepage() {
+export default function HomePage() {
   return (
-    <div>
-      <h1>Home Page</h1>
-      <button onClick={Navigate('/login')}>Login</button>
-      <Footer />
+    <div
+      style={{
+        backgroundColor: "#21213E",
+      }}
+    >
+      <Header />
+
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "flex-start",
+          height: "100vh",
+          backgroundColor: "#21213E",
+        }}
+      ></div>
     </div>
   );
 }
-
-export default Homepage;
