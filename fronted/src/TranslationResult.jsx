@@ -63,7 +63,15 @@ const TranslationResult = () => {
   }
 
   return (
-    <div style={{ marginTop: "20px" }}>
+    <div 
+    style={{
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "flex-start",
+      height: "100vh",
+      backgroundColor: "#21213E",
+    }}>
       {data.map((wordObject) => (
         <Paper
           key={wordObject._id}
@@ -77,9 +85,9 @@ const TranslationResult = () => {
           }}
         >
           <Typography variant="subtitle1" sx={{ marginRight: "10px" }}>
-            {`Original: ${wordObject.original}`}
+            {wordObject.original}
           </Typography>
-          <Typography variant="subtitle1">{`Translated: ${wordObject.translation}`}</Typography>
+          <Typography variant="subtitle1">{wordObject.translation}</Typography>
         </Paper>
       ))}
     </div>

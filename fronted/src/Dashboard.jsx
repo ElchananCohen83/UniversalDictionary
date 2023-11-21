@@ -38,7 +38,7 @@ export default function Dashboard() {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "flex-start",
-          height: "100vh",
+          height: "10vh",
           backgroundColor: "#21213E",
         }}
       >
