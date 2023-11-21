@@ -31,12 +31,11 @@ function SignUp() {
     };
 
     try {
-      const response = await api.post('/register', data);
+      const response = await api.post('/api/users/register', data);
       setSuccess(response.data.message)
       setErrors('')
 
-      navigate('/userTitle');
-      //navigate(`/userTitle?email=${encodeURIComponent(email)}`);
+      navigate(`/api/users/userTitle?email=${encodeURIComponent(email)}`);
 
 
     } catch (error) {

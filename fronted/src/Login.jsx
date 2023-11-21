@@ -29,9 +29,9 @@ function SignIn() {
     };
 
     try {
-      const response = await api.post('/login', data);
+      const response = await api.post('/api/users/login', data);
       console.log(response.data);
-      navigate('/dashboard');
+      navigate('/api/users/dashboard');
 
       setErrors('');
       setSuccess(response.data.message);
@@ -103,7 +103,7 @@ function SignIn() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="/register" variant="body2">
+                <Link href="/api/users/register" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

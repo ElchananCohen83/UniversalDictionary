@@ -11,7 +11,7 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import TranslationResult from "./TranslationResult";
 
-export default function CustomizedInputBase() {
+export default function Dashboard() {
   const [translations, setTranslations] = React.useState(null);
 
   const handleSearch = async (searchTerm) => {
