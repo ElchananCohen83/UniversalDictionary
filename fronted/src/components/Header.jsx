@@ -14,6 +14,7 @@ import InterpreterModeIcon from "@mui/icons-material/InterpreterMode";
 import { useNavigate } from "react-router-dom";
 
 const pages = ["Tools", "Discuss", "About"];
+
 const settings = ["Profile", "Account", "Logout"];
 
 function Header() {
@@ -36,28 +37,6 @@ function Header() {
     setAnchorElUser(null);
   };
 
-  // const handleLoginClick = (action) => {
-
-  //   // Navigate to the appropriate page based on the action
-  //   if (action === "register") {
-  //     navigate("/register");
-  //   } else if (action === "login") {
-  //     navigate("/login");
-  //   }
-  // };
-
-  const handleLoginClick = (action) => {
-    // Move the navigation logic inside a useEffect
-    React.useEffect(() => {
-      // Navigate to the appropriate page based on the action
-      if (action === "register") {
-        navigate("/register");
-      } else if (action === "login") {
-        navigate("/login");
-      }
-    }, [action]);
-  };
-
   return (
     <div>
       <AppBar
@@ -76,6 +55,7 @@ function Header() {
           }}
         >
           <Box sx={{ display: "flex", alignItems: "center" }}>
+<<<<<<< HEAD
             <IconButton onClick={() => navigate("/")} sx={{ p: 0 }}>
               <img
                 alt="logo"
@@ -87,6 +67,18 @@ function Header() {
                 }}
               />
             </IconButton>
+=======
+            <img
+              src={"/UDlogo.png"}
+              alt="Logo"
+              onClick={navigate("/api/users/login")} sx={{ p: 0 }}
+              style={{
+                display: { xs: "none", md: "flex" },
+                marginRight: "8px", // Adjust the margin as needed
+                height: "24px", // Adjust the height as needed
+              }}
+            />
+>>>>>>> 9c6950cd3733b992cc52a59f82a3fd8b2eb2027e
 
             {/* {pages.map((page) => (
               <Button
@@ -128,8 +120,13 @@ function Header() {
               </a>
             </div>
             <Tooltip title="Open settings">
+<<<<<<< HEAD
               <IconButton onClick={handleLoginClick} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/AnonymousUser.png" />
+=======
+              <IconButton sx={{ p: 0 }}>
+                <Avatar alt="Remy Sharp" src="/Picture.jpg" />
+>>>>>>> 9c6950cd3733b992cc52a59f82a3fd8b2eb2027e
               </IconButton>
             </Tooltip>
           </Box>

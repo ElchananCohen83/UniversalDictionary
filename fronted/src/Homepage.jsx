@@ -1,5 +1,6 @@
 import * as React from "react";
 import Header from ".//components/Header";
+import Footer from "./components/Footer";
 
 export default function HomePage() {
   return (
@@ -20,6 +21,7 @@ export default function HomePage() {
           backgroundColor: "#21213E",
         }}
       ></div>
+      <Footer />
     </div>
   );
 }

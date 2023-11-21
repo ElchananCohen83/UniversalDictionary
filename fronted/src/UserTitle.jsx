@@ -64,7 +64,7 @@ export default function UserTitle() {
     };
 
     try {
-      //const response = await api.post('/userTitle', data);
+      const response = await api.post('/api/users/userTitle', data);
 
       // const receivedToken = response.data.token;
       // setToken(receivedToken);
@@ -84,66 +84,68 @@ export default function UserTitle() {
   };
 
   return (
-    <div
-      style={{
-        background: "#21213E",
-        height: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Box
-        sx={{
+    <div>
+      <div
+        style={{
+          background: "#21213E",
+          height: "100vh",
           display: "flex",
-          flexDirection: "column",
+          justifyContent: "center",
           alignItems: "center",
-          backgroundColor: "#21213E",
         }}
       >
-        <h1
-          style={{
-            color: "#ffffff",
-            marginBottom: "20px",
-            fontFamily: "'Roboto', sans-serif",
-            fontSize: "1em",
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            backgroundColor: "#21213E",
           }}
         >
-          Please choose the <span style={{ color: "#F6C927" }}>title</span> that
-          describes you:
-        </h1>
-
-        <div>
-          <div style={{ background: "#F6C927", marginTop: "25px" }}>
-            <FormControl sx={{ m: 1, width: 300 }}>
-              <InputLabel id="demo-single-checkbox-label">Select</InputLabel>
-              <Select
-                labelId="demo-single-checkbox-label"
-                id="demo-single-checkbox"
-                value={personTitle}
-                onChange={handleChange}
-                input={<OutlinedInput label="Select" />}
-                MenuProps={MenuProps}
-              >
-                {allowedTitles.map((title) => (
-                  <MenuItem key={title} value={title}>
-                    {title}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </div>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            onClick={handleSubmit}
-            sx={{ mt: 3, mb: 2, backgroundColor: "#F6C927" }}
+          <h1
+            style={{
+              color: "#ffffff",
+              marginBottom: "20px",
+              fontFamily: "'Roboto', sans-serif",
+              fontSize: "1em",
+            }}
           >
-            Submit
-          </Button>
-        </div>
-      </Box>
+            Please choose the <span style={{ color: "#F6C927" }}>title</span> that
+            describes you:
+          </h1>
+
+          <div>
+            <div style={{ background: "#F6C927", marginTop: "25px" }}>
+              <FormControl sx={{ m: 1, width: 300 }}>
+                <InputLabel id="demo-single-checkbox-label">Select</InputLabel>
+                <Select
+                  labelId="demo-single-checkbox-label"
+                  id="demo-single-checkbox"
+                  value={personTitle}
+                  onChange={handleChange}
+                  input={<OutlinedInput label="Select" />}
+                  MenuProps={MenuProps}
+                >
+                  {allowedTitles.map((title) => (
+                    <MenuItem key={title} value={title}>
+                      {title}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </div>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              onClick={handleSubmit}
+              sx={{ mt: 3, mb: 2, backgroundColor: "#F6C927" }}
+            >
+              Submit
+            </Button>
+          </div>
+        </Box>
+      </div>
       <Footer />
     </div>
   );

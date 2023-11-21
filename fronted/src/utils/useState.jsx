@@ -8,7 +8,6 @@ function useCustomState(){
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState('')
   const [success, setSuccess] = useState('')
-  
   const [personTitle, setPersonTitle] = useState("");
   const [token, setToken] = useState("");
   const [emailParam, setEmailParam] = useState("");
