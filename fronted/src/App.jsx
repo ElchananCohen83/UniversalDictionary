@@ -22,10 +22,10 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Homepage />} />
-          <Route path="/api/users/register" element={<SignUp />} />
-          <Route path="/api/users/userTitle" element={<UserTitle />} />
-          <Route path="/api/users/login" element={<SingIn />} />
-          <Route path="/api/users/dashboard" element={<Dashboard />} />
+          <Route path="/register" element={<SignUp />} />
+          <Route path="/userTitle" element={<UserTitle />} />
+          <Route path="/login" element={<SingIn />} />
+          <Route path="/dashboard" element={<Dashboard />} />
 
         </Routes>
       </Router>

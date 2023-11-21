@@ -35,7 +35,7 @@ function SignUp() {
       setSuccess(response.data.message)
       setErrors('')
 
-      navigate(`/api/users/userTitle?email=${encodeURIComponent(email)}`);
+      navigate(`/userTitle?email=${encodeURIComponent(email)}`);
 
 
     } catch (error) {

@@ -81,9 +81,9 @@ function Header() {
             ))} */}
           </Box>
           <div style={{ display: "flex", alignItems: "center" }}>
-            <a href="#" onClick={() => navigate("/api/users/register")}>הרשמה</a>
+            <a href="#" onClick={() => navigate("/register")}>הרשמה</a>
             <p> / </p>
-            <a href="#" onClick={() => navigate("/api/users/login")}>התחברות</a>
+            <a href="#" onClick={() => navigate("/login")}>התחברות</a>
           </div>
 
           <Box sx={{ display: "flex", alignItems: "center" }}>
