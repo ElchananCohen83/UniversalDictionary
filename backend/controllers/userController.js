@@ -1,4 +1,4 @@
-import { insertUsersDB, chackUserLoginDB, checksIfUsernameExists } from '../action/userFunction.js';
+import { insertUsersDB, getUpdateUserTitleDB, chackUserLoginDB, checksIfUsernameExists } from '../services/userServices.js';
 import { check, validationResult } from "express-validator";
 import { connectToDatabase } from "../db/dbConnect.js"
 
@@ -32,6 +32,23 @@ const insertUserController = async (req, res) => {
   }
 };
 
+const getUpdateUserTitleController = async (req, res) => {
+  try {
+    connectToDatabase();
+    const data = req.body
+    const result = await getUpdateUserTitleDB(data)
+    if (result) {
+      console.log("The update was successful");
+      return res.status(200).json({ message: "The update was successful" });
+    }
+    return res.status(400).send({
+      massage: "Username does not exist, you can register!"
+    });
+  } catch (error) {
+    return res.status(400).json({ error: error.message });
+  }
+};
+
 const chackUserLoginController = async (req, res) => {
   connectToDatabase();
   const data = req.body
@@ -44,4 +61,4 @@ const chackUserLoginController = async (req, res) => {
 };
 
 
-export { insertUserController, insertUserControllerMiddleware, chackUserLoginController };
+export { insertUserController, insertUserControllerMiddleware, getUpdateUserTitleController, chackUserLoginController };

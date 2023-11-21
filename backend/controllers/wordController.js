@@ -1,4 +1,4 @@
-import { getfindByLetterDB, getfindWordDB, checkCollection } from "../action/wordFunction.js";
+import { getfindByLetterDB, getfindWordDB, checkCollection } from "../services/wordServices.js";
 
 
 const getfindWordController = async (req, res) => {

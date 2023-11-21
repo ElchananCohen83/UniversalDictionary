@@ -64,6 +64,29 @@ async function insertUsersDB(data) {
 
 const jwt_secret = process.env.JWT_SECRET;
 
+async function getUpdateUserTitleDB(data) {
+  let retries = 0;
+  while (retries < MAX_RETRIES) {
+    try {
+      const filter = { email: data.email }
+      const update = { title: data.title }
+      await User.updateOne(filter, update);
+      return true
+    } catch (e) {
+      if (e.message.includes('buffering timed out')) {
+        console.warn(`Query attempt ${retries + 1} timed out. Retrying...`);
+        retries++;
+        await new Promise(resolve => setTimeout(resolve, RETRY_INTERVAL));
+      } else {
+        console.error('Error while querying users:', e);
+        throw new Error('An error occurred: ' + e);
+      }
+    }
+  }
+  console.error(`Query failed after ${MAX_RETRIES} retries.`);
+  throw new Error('An error occurred during the query.');
+}
+
 
 async function chackUserLoginDB(data) {
   let retries = 0;
@@ -135,4 +158,4 @@ async function checksIfUsernameExists(data) {
   throw new Error('An error occurred during the query.');
 }
 
-export { insertUsersDB, chackUserLoginDB, checksIfUsernameExists };
+export { insertUsersDB, getUpdateUserTitleDB, chackUserLoginDB, checksIfUsernameExists };
