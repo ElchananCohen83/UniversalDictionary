@@ -1,23 +1,32 @@
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import Footer from './components/Footer';
-import api from './services/api';
-import useCustomState from './utils/useState';
-import { useNavigate } from 'react-router-dom';
-
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import Link from "@mui/material/Link";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import Footer from "./components/Footer";
+import api from "./services/api";
+import useCustomState from "./utils/useState";
+import { useNavigate } from "react-router-dom";
+import { border } from "@mui/system";
 
 function SignIn() {
-  const { email, setEmail, password, setPassword, errors, success, setErrors, setSuccess } = useCustomState();
+  const {
+    email,
+    setEmail,
+    password,
+    setPassword,
+    errors,
+    success,
+    setErrors,
+    setSuccess,
+  } = useCustomState();
 
   const navigate = useNavigate();
 
@@ -29,15 +38,15 @@ function SignIn() {
     };
 
     try {
-      const response = await api.post('/login', data);
+      const response = await api.post("/login", data);
       console.log(response.data);
-      navigate('/dashboard');
+      navigate("/dashboard");
 
-      setErrors('');
+      setErrors("");
       setSuccess(response.data.message);
     } catch (error) {
       setErrors(error.response.data.message);
-      setSuccess('');
+      setSuccess("");
     }
   };
 
@@ -48,18 +57,24 @@ function SignIn() {
         <Box
           sx={{
             marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: '#F6C927' }}>
+          <Avatar sx={{ m: 1, bgcolor: "#F6C927" }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5" color="#F6C927">
             Sign in
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }} color="#F6C927">
+          <Box
+            component="form"
+            onSubmit={handleSubmit}
+            noValidate
+            sx={{ mt: 1 }}
+            color="#F6C927"
+          >
             <TextField
               margin="normal"
               color="primary"
@@ -71,8 +86,12 @@ function SignIn() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               inputProps={{
-                placeholder: 'Email Address',
-                style: { color: '#F6C927', placeholder: '#FF5733', background: '#21213E' },
+                placeholder: "Email Address",
+                style: {
+                  color: "#F6C927",
+                  placeholder: "#FF5733",
+                  background: "#21213E",
+                },
               }}
               autoFocus
             />
@@ -88,12 +107,26 @@ function SignIn() {
               id="password"
               autoComplete="current-password"
               inputProps={{
-                placeholder: 'Password',
-                style: { color: '#F6C927', placeholder: '#FF5733', background: '#21213E' },
+                placeholder: "Password",
+                style: {
+                  color: "#F6C927",
+                  placeholder: "#FF5733",
+                  background: "#21213E",
+                },
               }}
             />
-            <FormControlLabel control={<Checkbox value="remember" label="Primary" color="primary" />} label="Remember me" />
-            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+            <FormControlLabel
+              control={
+                <Checkbox value="remember" label="Primary" color="primary" />
+              }
+              label="Remember me"
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
               Sign In
             </Button>
             <Grid container>

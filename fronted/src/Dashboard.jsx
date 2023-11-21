@@ -28,7 +28,7 @@ export default function CustomizedInputBase() {
       <Header />
       <Container maxWidth="xl" sx={{ mt: 2, mb: 4 }}>
         <Typography variant="h4" align="center" color="#F6F1EE">
-          Hello, Elchanan!
+          {/* Hello, Elchanan! */}
         </Typography>
       </Container>
 
@@ -66,7 +66,12 @@ export default function CustomizedInputBase() {
             inputProps={{ "aria-label": "  search for word" }}
             endAdornment={<React.Fragment />}
           />
-          <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
+          <IconButton
+            type="button"
+            sx={{ p: "10px" }}
+            aria-label="search"
+            onClick={handleSearch}
+          >
             <SearchIcon />
           </IconButton>
           <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />

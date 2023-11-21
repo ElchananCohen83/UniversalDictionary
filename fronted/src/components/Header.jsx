@@ -76,15 +76,17 @@ function Header() {
           }}
         >
           <Box sx={{ display: "flex", alignItems: "center" }}>
-            <img
-              src={"/UDlogo.png"}
-              alt="Logo"
-              style={{
-                display: { xs: "none", md: "flex" },
-                marginRight: "8px", // Adjust the margin as needed
-                height: "24px", // Adjust the height as needed
-              }}
-            />
+            <IconButton onClick={() => navigate("/")} sx={{ p: 0 }}>
+              <img
+                alt="logo"
+                src={"/UDlogo.png"}
+                style={{
+                  display: { xs: "none", md: "flex" },
+                  marginRight: "8px",
+                  height: "24px",
+                }}
+              />
+            </IconButton>
 
             {/* {pages.map((page) => (
               <Button
@@ -100,16 +102,34 @@ function Header() {
               </Button>
             ))} */}
           </Box>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <a href="#" onClick={() => navigate("/register")}>הרשמה</a>
-            <p> / </p>
-            <a href="#" onClick={() => navigate("/login")}>התחברות</a>
-          </div>
 
-          <Box sx={{ display: "flex", alignItems: "center" }}>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-around",
+              backgroundColor: "#fad757",
+              borderRadius: "15px",
+              width: "200px",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <a href="#" onClick={() => navigate("/register")}>
+                הרשמה
+              </a>
+              <p> / </p>
+              <a href="#" onClick={() => navigate("/login")}>
+                התחברות
+              </a>
+            </div>
             <Tooltip title="Open settings">
               <IconButton onClick={handleLoginClick} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/ElchananPicture.jpg" />
+                <Avatar alt="Remy Sharp" src="/AnonymousUser.png" />
               </IconButton>
             </Tooltip>
           </Box>
@@ -117,6 +137,6 @@ function Header() {
       </AppBar>
     </div>
   );
-};
+}
 
 export default Header;
