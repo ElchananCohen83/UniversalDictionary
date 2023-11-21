@@ -104,8 +104,8 @@ async function chackUserLoginDB(data) {
             timestamp: Date.now(),
           };
           const token = JWT.sign(payload, jwt_secret, { algorithm: "HS256" });
-
-          return token
+          const result = {token: token, title: documents.title};
+          return result;
         } else {
           console.log("Email or Password is incorrect.");
           return false

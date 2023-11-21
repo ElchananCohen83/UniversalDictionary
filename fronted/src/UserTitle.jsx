@@ -71,7 +71,7 @@ export default function UserTitle() {
       // setSuccess(response.data.msg);
       // setErrors("");
 
-      navigate('/login');
+      navigate('/dashboard');
     } catch (error) {
       if (error.response && error.response.data && error.response.data.errors) {
         setErrors(error.response.data.errors.join(", "));

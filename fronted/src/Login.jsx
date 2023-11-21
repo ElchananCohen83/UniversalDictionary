@@ -38,14 +38,13 @@ function SignIn() {
     };
 
     try {
-<<<<<<< HEAD
-      const response = await api.post("/login", data);
-=======
-      const response = await api.post('/api/users/login', data);
->>>>>>> 9c6950cd3733b992cc52a59f82a3fd8b2eb2027e
-      console.log(response.data);
-      navigate("/dashboard");
-
+      const response = await api.post("api/users/login", data);
+      const title = response.data.title;
+      if (title) {
+        navigate('/dashboard');
+      } else {
+        navigate(`/userTitle?email=${encodeURIComponent(email)}`);
+      }
       setErrors("");
       setSuccess(response.data.message);
     } catch (error) {

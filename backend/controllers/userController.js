@@ -53,9 +53,8 @@ const chackUserLoginController = async (req, res) => {
   connectToDatabase();
   const data = req.body
   const result = await chackUserLoginDB(data)
-  console.log(result);
   if (result) {
-    return res.status(200).send({ message: "You connected to success", token: result });
+    return res.status(200).send({ message: "You connected to success", token: result.token, title: result.title });
   }
   return res.status(400).json({ massege: "Email or Password is incorrect." });
 };
