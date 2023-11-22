@@ -1,5 +1,6 @@
 import * as React from "react";
 import Header from ".//components/Header";
+import Footer from ".//components/Footer";
 import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
 import Divider from "@mui/material/Divider";
@@ -10,81 +11,109 @@ import DirectionsIcon from "@mui/icons-material/Directions";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import TranslationResult from "./TranslationResult";
+import VirtualizationTable from "./VirtualizationTable";
+import { useState } from 'react';
+
 
 export default function Dashboard() {
   const [translations, setTranslations] = React.useState(null);
+
+  const [word, setWord] = useState("");
 
   const handleSearch = async (searchTerm) => {
     const translationsData = await fetchTranslationsFromDB(searchTerm);
 
     setTranslations(translationsData);
   };
-  return (
-    <div
-      style={{
-        backgroundColor: "#21213E",
-      }}
-    >
-      <Header />
-      <Container maxWidth="xl" sx={{ mt: 2, mb: 4 }}>
-        <Typography variant="h4" align="center" color="#F6F1EE">
-          {/* Hello, Elchanan! */}
-        </Typography>
-      </Container>
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const data = {
+      original: word,
+    };
+
+    try {
+      const response = await api.post("api/words/findWord", data);
+      setErrors("");
+      setSuccess(response.data.message);
+    } catch (error) {
+      setErrors(error.response.data.message);
+      setSuccess("");
+    }
+  };
+
+  return (
+    <div>
+      <Header />
       <div
         style={{
           display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
           justifyContent: "flex-start",
-          height: "10vh",
+          flexDirection: "column",
           backgroundColor: "#21213E",
+          height: "90vh",
         }}
       >
-        <Paper
-          component="form"
-          sx={{
-            p: "2px 4px",
+        <div
+          style={{
             display: "flex",
+            flexDirection: "column",
             alignItems: "center",
-            width: 400,
-            backgroundColor: "#F6C927",
+            justifyContent: "flex-start",
+            backgroundColor: "#21213E",
           }}
         >
-          <IconButton sx={{ p: "10px" }} aria-label="menu">
-            <MenuIcon />
-          </IconButton>
-          <InputBase
+          <Paper
+            component="form"
             sx={{
-              ml: 1,
-              flex: 1,
-              color: "#F6C927",
-              backgroundColor: "#21213E",
+              m: "30px",
+              p: "2px 4px",
+              display: "flex",
+              alignItems: "center",
+              width: 400,
+              backgroundColor: "#F6C927",
             }}
-            placeholder="  Search for word"
-            inputProps={{ "aria-label": "  search for word" }}
-            endAdornment={<React.Fragment />}
-          />
-          <IconButton
-            type="button"
-            sx={{ p: "10px" }}
-            aria-label="search"
-            onClick={handleSearch}
           >
-            <SearchIcon />
-          </IconButton>
-          <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-          <IconButton
-            color="#4F4A45"
-            sx={{ p: "10px" }}
-            aria-label="directions"
-          >
-            <DirectionsIcon />
-          </IconButton>
-        </Paper>
+            <IconButton sx={{ p: "10px" }} aria-label="menu">
+              <MenuIcon />
+            </IconButton>
+            <InputBase
+              sx={{
+                ml: 1,
+                flex: 1,
+                color: "#F6C927",
+                backgroundColor: "#21213E",
+              }}
+              placeholder="  Search for word"
+              inputProps={{ "aria-label": "  search for word" }}
+              endAdornment={<React.Fragment />}
+              onChange={(e) => setWord(e.target.value)}
+            />
+            <IconButton
+              type="button"
+              sx={{ p: "10px" }}
+              aria-label="search"
+              onClick={handleSubmit}
+            >
+              <SearchIcon />
+            </IconButton>
+            <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
+            <IconButton
+              color="#4F4A45"
+              sx={{ p: "10px" }}
+              aria-label="directions"
+            >
+              <DirectionsIcon />
+            </IconButton>
+          </Paper>
+        </div>
+        <div>
+          <VirtualizationTable
+          data= {data} />
+        </div>
+        {/* <TranslationResult translations={translations} /> */}
       </div>
-      <TranslationResult translations={translations} />
+      <Footer />
     </div>
   );
 }
