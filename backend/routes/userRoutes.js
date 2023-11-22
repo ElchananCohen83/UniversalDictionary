@@ -6,11 +6,11 @@ import {
     chackUserLoginController
 } from "../controllers/userController.js";
 
-const router = Router();
+const userRoutes = Router();
 
-router.post('/register', insertUserControllerMiddleware, insertUserController)
-router.post('/userTitle', getUpdateUserTitleController)
-router.post('/login', chackUserLoginController)
+userRoutes.post('/register', insertUserControllerMiddleware, insertUserController)
+userRoutes.post('/userTitle', getUpdateUserTitleController)
+userRoutes.post('/login', chackUserLoginController)
 //router.post('/dashboard', )
 
-export default router;
+export default userRoutes;
