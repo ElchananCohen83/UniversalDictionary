@@ -38,7 +38,7 @@ function Footer() {
   };
 
   return (
-    <footer style={{ arginBottom: "0px" }}>
+    <footer style={{ bottom: 0 }}>
       <AppBar
         position="static"
         sx={{
@@ -49,12 +49,16 @@ function Footer() {
           maxWidth="xl"
           sx={{
             display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
+            alignItems: "flex-end",
+            justifyContent: "center",
             height: 74,
           }}
         >
-          <p>
+          <p
+            style={{
+              color: "#21213E",
+            }}
+          >
             &copy; Copyright Universty Dictionary {new Date().getFullYear()}
           </p>
         </Container>
