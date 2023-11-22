@@ -1,6 +1,6 @@
 import * as React from "react";
-import Header from ".//components/Header";
-import Footer from ".//components/Footer";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
 import Divider from "@mui/material/Divider";
@@ -12,17 +12,15 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import TranslationResult from "./TranslationResult";
 import VirtualizationTable from "./VirtualizationTable";
-import { useState } from 'react';
-
+import { useState } from "react";
 
 export default function Dashboard() {
   const [translations, setTranslations] = React.useState(null);
-
   const [word, setWord] = useState("");
+  const [isSearchClicked, setIsSearchClicked] = useState(false);
 
   const handleSearch = async (searchTerm) => {
     const translationsData = await fetchTranslationsFromDB(searchTerm);
-
     setTranslations(translationsData);
   };
 
@@ -31,6 +29,7 @@ export default function Dashboard() {
     const data = {
       original: word,
     };
+    setIsSearchClicked(true);
 
     try {
       const response = await api.post("api/words/findWord", data);
@@ -107,10 +106,7 @@ export default function Dashboard() {
             </IconButton>
           </Paper>
         </div>
-        <div>
-          <VirtualizationTable
-          data= {data} />
-        </div>
+        <div>{isSearchClicked && <VirtualizationTable data={data} />}</div>
         {/* <TranslationResult translations={translations} /> */}
       </div>
       <Footer />
