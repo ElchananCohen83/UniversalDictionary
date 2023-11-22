@@ -28,9 +28,7 @@ export default function Dashboard() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = {
-      original: word,
-    };
+    const data = { original: word };
     setIsSearchClicked(true);
 
     try {

@@ -37,7 +37,7 @@ async function insertUsersDB(data) {
         email: data.email,
         timestamp: Date.now(),
       };
-      
+
       const token = JWT.sign(payload, jwt_secret, { expiresIn }, { algorithm: "HS256" });
 
       return token;
@@ -69,10 +69,19 @@ async function getUpdateUserTitleDB(data) {
   let retries = 0;
   while (retries < MAX_RETRIES) {
     try {
-      const filter = { email: data.email }
-      const update = { title: data.title }
-      await User.updateOne(filter, update);
-      return true
+      const filter = { email: data.email };
+      const update = { title: data.title };
+
+      // Add the { runValidators: true } option to enforce schema validation
+      const result = await User.findOneAndUpdate(filter, update, { runValidators: true });
+
+      if (!result) {
+        // Handle the case where no user was found with the provided email
+        console.error("User not found");
+        return false;
+      }
+
+      return true;
     } catch (e) {
       if (e.message.includes('buffering timed out')) {
         console.warn(`Query attempt ${retries + 1} timed out. Retrying...`);
@@ -105,7 +114,7 @@ async function chackUserLoginDB(data) {
             timestamp: Date.now(),
           };
           const token = JWT.sign(payload, jwt_secret, { algorithm: "HS256" });
-          const result = {token: token, title: documents.title};
+          const result = { token: token, title: documents.title };
           return result;
         } else {
           console.log("Email or Password is incorrect.");
