@@ -146,7 +146,6 @@ export default function UserTitle() {
           </div>
         </Box>
       </div>
-      <Footer />
     </div>
   );
 }

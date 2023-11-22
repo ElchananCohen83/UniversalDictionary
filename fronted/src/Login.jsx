@@ -165,7 +165,6 @@ function SignIn() {
           </Box>
         </Box>
       </Container>
-      <Footer />
     </div>
   );
 }
