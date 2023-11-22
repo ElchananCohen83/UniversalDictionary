@@ -160,18 +160,17 @@ function SignUp() {
               </Grid>
             </Grid>
             <div>
-            {showSnackbar && (
-              <SimpleSnackbar
-                keyProp={errors || success}
-                error={errors || success}
-                onClose={handleSnackbarClose}
-              />
-            )}
+              {showSnackbar && (
+                <SimpleSnackbar
+                  keyProp={errors || success}
+                  error={errors || success}
+                  onClose={handleSnackbarClose}
+                />
+              )}
             </div>
           </Box>
         </Box>
       </Container>
-      <Footer />
     </div>
   );
 }
