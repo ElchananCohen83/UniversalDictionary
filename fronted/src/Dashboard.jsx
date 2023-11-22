@@ -10,7 +10,6 @@ import SearchIcon from "@mui/icons-material/Search";
 import DirectionsIcon from "@mui/icons-material/Directions";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import TranslationResult from "./TranslationResult";
 import VirtualizationTable from "./VirtualizationTable";
 import { useState } from "react";
 
