@@ -4,11 +4,7 @@ import Footer from "./components/Footer";
 
 export default function HomePage() {
   return (
-    <div
-      style={{
-        backgroundColor: "#21213E",
-      }}
-    >
+    <div style={{ border: "1px solid green" }}>
       <Header />
 
       <div
@@ -19,6 +15,7 @@ export default function HomePage() {
           justifyContent: "flex-start",
           height: "100vh",
           backgroundColor: "#21213E",
+          border: "1px solid red",
         }}
       ></div>
       <Footer />

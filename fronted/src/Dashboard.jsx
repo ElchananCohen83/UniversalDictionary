@@ -15,9 +15,12 @@ import VirtualizationTable from "./VirtualizationTable";
 import { useState } from "react";
 
 export default function Dashboard() {
-  const [translations, setTranslations] = React.useState(null);
+  const [translations, setTranslations] = useState(null);
   const [word, setWord] = useState("");
   const [isSearchClicked, setIsSearchClicked] = useState(false);
+  const [errors, setErrors] = useState(null);
+  const [success, setSuccess] = useState(null);
+  let result;
 
   const handleSearch = async (searchTerm) => {
     const translationsData = await fetchTranslationsFromDB(searchTerm);
@@ -33,6 +36,8 @@ export default function Dashboard() {
 
     try {
       const response = await api.post("api/words/findWord", data);
+      console.log(response, 88888888);
+      result = response;
       setErrors("");
       setSuccess(response.data.message);
     } catch (error) {
@@ -42,7 +47,7 @@ export default function Dashboard() {
   };
 
   return (
-    <div>
+    <div style={{ border: "1px solid green" }}>
       <Header />
       <div
         style={{
@@ -106,8 +111,7 @@ export default function Dashboard() {
             </IconButton>
           </Paper>
         </div>
-        <div>{isSearchClicked && <VirtualizationTable data={data} />}</div>
-        {/* <TranslationResult translations={translations} /> */}
+        <div>{isSearchClicked && <VirtualizationTable data={result} />}</div>
       </div>
       <Footer />
     </div>

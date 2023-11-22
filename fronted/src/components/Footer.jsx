@@ -38,7 +38,7 @@ function Footer() {
   };
 
   return (
-    <div style={{ marginBottom: "0px" }}>
+    <footer style={{ arginBottom: "0px" }}>
       <AppBar
         position="static"
         sx={{
@@ -53,9 +53,13 @@ function Footer() {
             justifyContent: "space-between",
             height: 74,
           }}
-        ></Container>
+        >
+          <p>
+            &copy; Copyright Universty Dictionary {new Date().getFullYear()}
+          </p>
+        </Container>
       </AppBar>
-    </div>
+    </footer>
   );
 }
 
