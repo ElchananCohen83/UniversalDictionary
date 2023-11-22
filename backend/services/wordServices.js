@@ -39,8 +39,9 @@ async function getfindWordDB(data) {
   try {
     const query = {
       original: {
-        $regex: data.original,
-        $options: "i" // Use 'i' for case-insensitive matching, remove it for case-sensitive matching
+        $regex: new RegExp(`^\\b${data.original}\\b`, 'i'),
+        // $regex: new RegExp(`^${data.original}`),
+        // $options: "i" // Use 'i' for case-insensitive matching, remove it for case-sensitive matching
       }
     };
     // Create a Mongoose model query

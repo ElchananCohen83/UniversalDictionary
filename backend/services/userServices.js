@@ -8,6 +8,8 @@ dotenv.config({
   path: './.env'
 });
 
+const jwt_secret = process.env.JWT_SECRET;
+
 const MAX_RETRIES = 3; // You can adjust this value
 const RETRY_INTERVAL = 1000; // You can adjust this interval
 
@@ -62,7 +64,6 @@ async function insertUsersDB(data) {
   throw new Error('User insertion failed');
 }
 
-const jwt_secret = process.env.JWT_SECRET;
 
 async function getUpdateUserTitleDB(data) {
   let retries = 0;
