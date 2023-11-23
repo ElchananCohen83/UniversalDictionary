@@ -10,8 +10,8 @@ import SearchIcon from "@mui/icons-material/Search";
 import DirectionsIcon from "@mui/icons-material/Directions";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import TranslationResult from "./TranslationResult";
-import VirtualizationTable from "./VirtualizationTable";
+import ReactVirtualizedTable from "./VirtualizationTable";
+import api from "./services/api";
 import { useState } from "react";
 
 export default function Dashboard() {
@@ -20,7 +20,8 @@ export default function Dashboard() {
   const [isSearchClicked, setIsSearchClicked] = useState(false);
   const [errors, setErrors] = useState(null);
   const [success, setSuccess] = useState(null);
-  let result;
+  const [result, setResult] = useState(null);  // Declare result state
+
 
   const handleSearch = async (searchTerm) => {
     const translationsData = await fetchTranslationsFromDB(searchTerm);
@@ -33,16 +34,18 @@ export default function Dashboard() {
     setIsSearchClicked(true);
 
     try {
-      const response = await api.post("api/words/findWord", data);
-      console.log(response, 88888888);
-      result = response;
-      setErrors("");
+      //const response = await api.get("/api/words/findWord", data);
+      const response = await api.get(`/api/words/findWord?original=${data.original}`);
       setSuccess(response.data.message);
+      setResult(response.data.data);  // Set the result state
+      setErrors("");
     } catch (error) {
-      setErrors(error.response.data.message);
+      console.log(222222);
+      //setErrors(error.response.data.errors.join(', '));
       setSuccess("");
     }
   };
+
 
   return (
     <div>
@@ -109,7 +112,8 @@ export default function Dashboard() {
             </IconButton>
           </Paper>
         </div>
-        <div>{isSearchClicked && <VirtualizationTable data={result} />}</div>
+        <div>{isSearchClicked && <ReactVirtualizedTable props={result} />}</div>
+
       </div>
       <Footer />
     </div>
