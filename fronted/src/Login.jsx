@@ -43,7 +43,7 @@ function SignIn() {
     };
 
     try {
-      const response = await api.post("api/users/login", data);
+      const response = await api.post("/api/users/login", data);
       const title = response.data.title;
       setSuccess(response.data.message);
       setErrors('');
