@@ -12,6 +12,7 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import ReactVirtualizedTable from "./VirtualizationTable";
 import api from "./services/api";
+
 import { useState } from "react";
 
 export default function Dashboard() {
