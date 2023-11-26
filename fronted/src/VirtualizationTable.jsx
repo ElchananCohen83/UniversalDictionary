@@ -8,10 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { TableVirtuoso } from "react-virtuoso";
 
-const columns = [
-  { width: 150, label: "English", dataKey: "original", english: true },
-  { width: 150, label: "עברית", dataKey: "translation", english: false },
-];
+let columns = [];
 
 const VirtuosoTableComponents = {
   Scroller: React.forwardRef((props, ref) => (
@@ -78,9 +75,23 @@ function rowContent(_index, row) {
 }
 
 export default function ReactVirtualizedTable(props) {
-  //const tableHeight = Math.min((props.length + 1) * 23.3, 400);
-  const tableHeight = Math.min((props.props && props.props.length + 1) * 23.3, 430);
+  if (props.props) {
+    const letter = props.props[0].original.charAt(0);
+    if ((letter >= 'A' && letter <= 'Z') || (letter >= 'a' && letter <= 'z')) {
+      columns = [
+        { width: 150, label: "English", dataKey: "original", english: true },
+        { width: 150, label: "עברית", dataKey: "translation", english: false },
+      ];
+    } else {
+      columns = [
+        { width: 150, label: "English", dataKey: "translation", english: true },
+        { width: 150, label: "עברית", dataKey: "dottedOriginal", english: false },
+      ];
+    }
+  }
 
+
+  const tableHeight = Math.min((props.props && props.props.length + 1.6) * 23.3, 430);
 
   return (
     <Paper

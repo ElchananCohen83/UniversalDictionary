@@ -31,21 +31,19 @@ export default function Dashboard() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = { original: word };
+    console.log(data.original);
     setIsSearchClicked(true);
 
     try {
-      //const response = await api.get("/api/words/findWord", data);
       const response = await api.get(`/api/words/findWord?original=${data.original}`);
       setSuccess(response.data.message);
       setResult(response.data.data);  // Set the result state
       setErrors("");
     } catch (error) {
-      console.log(222222);
-      //setErrors(error.response.data.errors.join(', '));
+      setErrors(error.response.data.errors.join(', '));
       setSuccess("");
     }
   };
-
 
   return (
     <div>
