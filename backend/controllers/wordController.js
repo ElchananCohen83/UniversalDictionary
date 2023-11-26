@@ -5,7 +5,7 @@ const getfindWordController = async (req, res) => {
     const data = req.query;
     const result = await getfindWordDB(data);
     if (result) {
-    return res.status(200).json({ data: result });
+      return res.status(200).json({ data: result });
     } else {
       return res.status(400).json({ error: 'Word not found' });
     }

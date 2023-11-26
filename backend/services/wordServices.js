@@ -24,18 +24,16 @@ async function getfindWordDB(data) {
     const query = {
       original: questionInLanguage
     };
-    // Create a Mongoose model query
-    const result = collection === 'En_To_Heb'
-    ? await Dictionary.find(query).exec()
-    : await Dictionary.find(query).select('dottedOriginal translation').exec();
+
+    const result = await Dictionary.find(query).exec();
 
     const modifiedResult = result.map(item => {
       const { dottedOriginal, ...rest } = item;
       return { original: dottedOriginal, ...rest };
     });
-    
+
     console.log(modifiedResult);
-  
+
 
     if (result.length === 0) {
       console.log("The word is not found.");
@@ -69,26 +67,4 @@ async function getfindByLetterDB(data) {
     return new Error(e.message);
   }
 }
-
-
-
 export { getfindByLetterDB, getfindWordDB, checkCollection };
-
-
-// async function insertWordDB(data) {
-//   const collection = await checkCollection(data)
-//   console.log(collection);
-//   Dictionary = await model(collection)
-
-//   try {
-//     const dictionary = new Dictionary({
-//       original: data.original,
-//       translation: data.translation
-//     });
-//     const result = await dictionary.save();
-//     console.log(`${result._id} document inserted.`);
-//     return;
-//   } catch (e) {
-//     throw new Error('User insertion failed.');
-//   }
-// }
