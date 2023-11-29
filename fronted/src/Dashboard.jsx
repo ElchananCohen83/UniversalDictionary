@@ -21,8 +21,7 @@ export default function Dashboard() {
   const [isSearchClicked, setIsSearchClicked] = useState(false);
   const [errors, setErrors] = useState(null);
   const [success, setSuccess] = useState(null);
-  const [result, setResult] = useState(null);  // Declare result state
-
+  const [result, setResult] = useState(null); // Declare result state
 
   const handleSearch = async (searchTerm) => {
     const translationsData = await fetchTranslationsFromDB(searchTerm);
@@ -36,12 +35,14 @@ export default function Dashboard() {
     setIsSearchClicked(true);
 
     try {
-      const response = await api.get(`/api/words/findWord?original=${data.original}`);
+      const response = await api.get(
+        `/api/words/findWord?original=${data.original}`
+      );
       setSuccess(response.data.message);
-      setResult(response.data.data);  // Set the result state
+      setResult(response.data.data); // Set the result state
       setErrors("");
     } catch (error) {
-      setErrors(error.response.data.errors.join(', '));
+      setErrors(error.response.data.errors.join(", "));
       setSuccess("");
     }
   };
@@ -74,13 +75,13 @@ export default function Dashboard() {
               p: "2px 4px",
               display: "flex",
               alignItems: "center",
-              width: 400,
+              width: "500px",
               backgroundColor: "#F6C927",
               "@media (max-width: 600px)": {
                 width: "90%", // Adjust width for smaller screens
               },
-            }}
-          >
+            }}
+          >
             <IconButton sx={{ p: "10px" }} aria-label="menu">
               <MenuIcon />
             </IconButton>
@@ -115,7 +116,6 @@ export default function Dashboard() {
           </Paper>
         </div>
         <div>{isSearchClicked && <ReactVirtualizedTable props={result} />}</div>
-
       </div>
       <Footer />
     </div>
