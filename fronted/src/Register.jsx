@@ -13,11 +13,15 @@ import Container from '@mui/material/Container';
 import Footer from './components/Footer';
 import api from './services/api';
 import useCustomState from './utils/useState.jsx';
+import SimpleSnackbar from './components/snackbars.jsx';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 
 
 function SignUp() {
   const { firstName, setFirstName, lastName, setLastName, email, setEmail, password, setPassword, errors, success, setErrors, setSuccess } = useCustomState();
+  const [showSnackbar, setShowSnackbar] = useState(false); // Initialize showSnackbar state
 
   const navigate = useNavigate();
 
@@ -34,21 +38,22 @@ function SignUp() {
       const response = await api.post('/api/users/register', data);
       setSuccess(response.data.message)
       setErrors('')
-
+      setShowSnackbar(true); // Set showSnackbar to true after successful signup
       navigate('/login');
-
-
     } catch (error) {
       if (error.response && error.response.data && error.response.data.errors) {
-
         setErrors(error.response.data.errors.join(', '));
         setSuccess('');
+        setShowSnackbar(true); // Set showSnackbar to true after successful signup
       } else {
         console.error('Undetected error', error.message);
       }
     }
-
   }
+
+  const handleSnackbarClose = () => {
+    setShowSnackbar(false); // Close the snackbar when user clicks "close" or after a timeout
+  };
 
   return (
     <div>
@@ -154,16 +159,18 @@ function SignUp() {
                 </Link>
               </Grid>
             </Grid>
-            <Typography component="p" variant="p" color="error">
-              {errors}
-            </Typography>
-            <Typography component="p" variant="p" color="green">
-              {success}
-            </Typography>
+            <div>
+              {showSnackbar && (
+                <SimpleSnackbar
+                  keyProp={errors || success}
+                  error={errors || success}
+                  onClose={handleSnackbarClose}
+                />
+              )}
+            </div>
           </Box>
         </Box>
       </Container>
-      <Footer />
     </div>
   );
 }

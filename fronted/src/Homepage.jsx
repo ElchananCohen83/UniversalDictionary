@@ -4,11 +4,7 @@ import Footer from "./components/Footer";
 
 export default function HomePage() {
   return (
-    <div
-      style={{
-        backgroundColor: "#21213E",
-      }}
-    >
+    <div>
       <Header />
 
       <div

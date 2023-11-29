@@ -3,7 +3,10 @@ import { check, validationResult } from "express-validator";
 import { connectToDatabase } from "../db/dbConnect.js"
 
 const insertUserControllerMiddleware = [
-  check("email", "Please provide a valid email").isEmail(),
+  check("email")
+    .isEmail().withMessage("Please provide a valid email")
+    .matches(/^[a-zA-Z0-9@._-]+$/).withMessage("Email must contain only English letters, numbers, and standard email characters"),
+  // Other validation checks can be added here
   check("password", "Please provide a password that is greater than 8 characters").isLength({ min: 8 })
 ];
 
@@ -24,7 +27,7 @@ const insertUserController = async (req, res) => {
       if (success) {
         return res.status(201).json({ message: 'User inserted successfully', token: success });
       } else {
-        return res.status(500).json({ error: 'User insertion failed' });
+        return res.status(400).json({ error: 'User insertion failed' });
       }
     } catch (error) {
       return res.status(400).json({ error: error.message });
@@ -50,13 +53,19 @@ const getUpdateUserTitleController = async (req, res) => {
 };
 
 const chackUserLoginController = async (req, res) => {
-  connectToDatabase();
-  const data = req.body
-  const result = await chackUserLoginDB(data)
-  if (result) {
-    return res.status(200).send({ message: "You connected to success", token: result.token, title: result.title });
+  try {
+    connectToDatabase();
+    const data = req.body
+    console.log(data);
+    const result = await chackUserLoginDB(data)
+    if (result) {
+      return res.status(200).send({ message: "You connected to success", token: result.token, title: result.title });
+    } else {
+      return res.status(400).json({ errors: ['Email or Password is incorrect'] })
+    }
+  } catch (error) {
+    return res.status(400).json({ error: error.message });
   }
-  return res.status(400).json({ massege: "Email or Password is incorrect." });
 };
 
 

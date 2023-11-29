@@ -51,7 +51,7 @@ function Header() {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            height: 128,
+            height: 74,
           }}
         >
           <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -66,7 +66,6 @@ function Header() {
                 }}
               />
             </IconButton>
-
 
             {/* {pages.map((page) => (
               <Button
@@ -110,7 +109,6 @@ function Header() {
             <Tooltip title="Open settings">
               <IconButton sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/AnonymousUser.png" />
-
               </IconButton>
             </Tooltip>
           </Box>

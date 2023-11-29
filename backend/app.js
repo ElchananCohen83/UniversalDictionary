@@ -1,9 +1,10 @@
 import express from "express"
 import bodyParser from "body-parser";
 import { connectToDatabase } from "./db/dbConnect.js"
-import { getfindWordController, getfindByLetterController } from "./controllers/wordController.js"
 import verifyToken from "./middleware/auth_JWT.js";
-import router from "./routes/userRoutes.js"
+import userRoutes from "./routes/userRoutes.js"
+import wordRoutes from "./routes/wordRoutes.js"
+
 import cors from "cors";
 
 const app = express();
@@ -13,13 +14,9 @@ app.use(express.json())
 app.use(cors());
 //app.use(verifyToken)
 
-app.use("/api/users", router)
+app.use("/api/users", userRoutes)
+app.use("/api/words", wordRoutes)
 
 connectToDatabase()
-
-//app.post('/insertWordDB', insertWordController)
-app.post('/findWord', getfindWordController)
-app.get('/findLetter', getfindByLetterController)
-
 
 export default app;

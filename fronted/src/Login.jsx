@@ -15,6 +15,8 @@ import api from "./services/api";
 import useCustomState from "./utils/useState";
 import { useNavigate } from "react-router-dom";
 import { border } from "@mui/system";
+import SimpleSnackbar from './components/snackbars.jsx';
+import { useState } from 'react';
 
 function SignIn() {
   const {
@@ -28,6 +30,9 @@ function SignIn() {
     setSuccess,
   } = useCustomState();
 
+  const [showSnackbar, setShowSnackbar] = useState(false); // Initialize showSnackbar state
+
+
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
@@ -38,19 +43,25 @@ function SignIn() {
     };
 
     try {
-      const response = await api.post("api/users/login", data);
+      const response = await api.post("/api/users/login", data);
       const title = response.data.title;
+      setSuccess(response.data.message);
+      setErrors('');
+      setShowSnackbar(true); // Set showSnackbar to true after successful signup
       if (title) {
         navigate('/dashboard');
       } else {
         navigate(`/userTitle?email=${encodeURIComponent(email)}`);
       }
-      setErrors("");
-      setSuccess(response.data.message);
     } catch (error) {
-      setErrors(error.response.data.message);
-      setSuccess("");
+      setErrors(error.response.data.errors.join(', '));
+      setSuccess('');
+      setShowSnackbar(true); // Set showSnackbar to true after successful signup
     }
+  };
+
+  const handleSnackbarClose = () => {
+    setShowSnackbar(false); // Close the snackbar when user clicks "close" or after a timeout
   };
 
   return (
@@ -144,16 +155,16 @@ function SignIn() {
                 </Link>
               </Grid>
             </Grid>
-            <Typography component="p" variant="p" color="error">
-              {errors}
-            </Typography>
-            <Typography component="p" variant="p" color="green">
-              {success}
-            </Typography>
+            {showSnackbar && (
+              <SimpleSnackbar
+                keyProp={errors || success}
+                error={errors || success}
+                onClose={handleSnackbarClose}
+              />
+            )}
           </Box>
         </Box>
       </Container>
-      <Footer />
     </div>
   );
 }
