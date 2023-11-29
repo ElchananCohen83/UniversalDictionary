@@ -32,14 +32,10 @@ async function getfindWordDB(data) {
       return { original: dottedOriginal, ...rest };
     });
 
-    console.log(modifiedResult);
-
-
     if (result.length === 0) {
       console.log("The word is not found.");
       return null;
     } else {
-      console.log(result);
       return result;
     }
   } catch (err) {
@@ -58,10 +54,9 @@ async function getfindByLetterDB(data) {
       original: { $regex: new RegExp(`^${letter}`, 'i') }
     };
 
-    console.log(query);
     // Query documents and print them
     const documents = await Dictionary.find(query).exec(); // Use Mongoose's .find() and .exec()
-    console.log(documents);
+    console.log(documents.length);
     return documents;
   } catch (e) {
     return new Error(e.message);
