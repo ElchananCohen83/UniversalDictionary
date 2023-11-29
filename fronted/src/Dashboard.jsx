@@ -76,8 +76,11 @@ export default function Dashboard() {
               alignItems: "center",
               width: 400,
               backgroundColor: "#F6C927",
-            }}
-          >
+              "@media (max-width: 600px)": {
+                width: "90%", // Adjust width for smaller screens
+              },
+            }}
+          >
             <IconButton sx={{ p: "10px" }} aria-label="menu">
               <MenuIcon />
             </IconButton>
