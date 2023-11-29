@@ -16,6 +16,7 @@ import api from "./services/api";
 import { useState } from "react";
 
 export default function Dashboard() {
+
   const [translations, setTranslations] = useState(null);
   const [word, setWord] = useState("");
   const [isSearchClicked, setIsSearchClicked] = useState(false);
@@ -31,19 +32,28 @@ export default function Dashboard() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = { original: word };
-    console.log(data.original);
     setIsSearchClicked(true);
 
-    try {
-      const response = await api.get(
-        `/api/words/findWord?original=${data.original}`
-      );
-      setSuccess(response.data.message);
-      setResult(response.data.data); // Set the result state
-      setErrors("");
-    } catch (error) {
-      setErrors(error.response.data.errors.join(", "));
-      setSuccess("");
+    if (data.original !== '') {
+      try {
+        const response = await api.get(`/api/words/findWord?original=${data.original}`);
+        setSuccess(response.data.message);
+        setResult(response.data.data); // Set the result state
+        setErrors("");
+      } catch (error) {
+        setResult('')
+        setErrors(error.response.data.errors.join(", "));
+        setSuccess("");
+      }
+    } else {
+      setResult('')
+    };
+  }
+
+
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      handleSubmit(event);
     }
   };
 
@@ -82,9 +92,9 @@ export default function Dashboard() {
               },
             }}
           >
-            <IconButton sx={{ p: "10px" }} aria-label="menu">
+            {/* <IconButton sx={{ p: "10px" }} aria-label="menu">
               <MenuIcon />
-            </IconButton>
+            </IconButton> */}
             <InputBase
               sx={{
                 ml: 1,
@@ -96,6 +106,7 @@ export default function Dashboard() {
               inputProps={{ "aria-label": "  search for word" }}
               endAdornment={<React.Fragment />}
               onChange={(e) => setWord(e.target.value)}
+              onKeyPress={handleKeyPress} // Add this line to handle Enter key press
             />
             <IconButton
               type="button"
@@ -106,13 +117,13 @@ export default function Dashboard() {
               <SearchIcon />
             </IconButton>
             <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-            <IconButton
+            {/* <IconButton
               color="#4F4A45"
               sx={{ p: "10px" }}
               aria-label="directions"
             >
               <DirectionsIcon />
-            </IconButton>
+            </IconButton> */}
           </Paper>
         </div>
         <div>{isSearchClicked && <ReactVirtualizedTable props={result} />}</div>
