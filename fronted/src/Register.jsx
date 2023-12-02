@@ -41,7 +41,7 @@ function SignUp() {
       setShowSnackbar(true); // Set showSnackbar to true after successful signup
       navigate('/login');
     } catch (error) {
-      if (error.response && error.response.data && error.response.data.errors) {
+      if (error.response && error.response.data && error.response.data.errors) {        
         setErrors(error.response.data.errors.join(', '));
         setSuccess('');
         setShowSnackbar(true); // Set showSnackbar to true after successful signup

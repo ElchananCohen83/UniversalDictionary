@@ -10,11 +10,9 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import Footer from "./components/Footer";
 import api from "./services/api";
 import useCustomState from "./utils/useState";
 import { useNavigate } from "react-router-dom";
-import { border } from "@mui/system";
 import SimpleSnackbar from './components/snackbars.jsx';
 import { useState } from 'react';
 
@@ -44,21 +42,32 @@ function SignIn() {
 
     try {
       const response = await api.post("/api/users/login", data);
+      const token = response.data.token;
+      localStorage.setItem('authToken', token);
+
       const title = response.data.title;
+
       setSuccess(response.data.message);
       setErrors('');
       setShowSnackbar(true); // Set showSnackbar to true after successful signup
+
       if (title) {
         navigate('/dashboard');
       } else {
-        navigate(`/userTitle?email=${encodeURIComponent(email)}`);
+        navigate(`/userTitle`);//?email=${encodeURIComponent(email)}
       }
+
     } catch (error) {
-      setErrors(error.response.data.errors.join(', '));
-      setSuccess('');
-      setShowSnackbar(true); // Set showSnackbar to true after successful signup
+      if (error.response && error.response.data && error.response.data.errors) {
+        setErrors(error.response.data.errors);
+        setSuccess('');
+        setShowSnackbar(true); // Set showSnackbar to true after successful signup
+      } else {
+        console.error('Undetected error', error.message);
+      }
     }
-  };
+  }
+
 
   const handleSnackbarClose = () => {
     setShowSnackbar(false); // Close the snackbar when user clicks "close" or after a timeout

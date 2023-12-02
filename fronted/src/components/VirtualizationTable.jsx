@@ -74,7 +74,7 @@ function rowContent(_index, row) {
   );
 }
 
-export default function ReactVirtualizedTable(props) {
+function ReactVirtualizedTable(props) {
   if (props.props) {
     const letter = props.props[0].original.charAt(0);
     if ((letter >= "A" && letter <= "Z") || (letter >= "a" && letter <= "z")) {
@@ -144,3 +144,5 @@ export default function ReactVirtualizedTable(props) {
     </Paper>
   );
 }
+
+export default ReactVirtualizedTable;

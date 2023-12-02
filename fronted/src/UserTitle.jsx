@@ -59,18 +59,13 @@ export default function UserTitle() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = {
-      email: emailParam,
       title: personTitle,
     };
 
     try {
       const response = await api.post('/api/users/userTitle', data);
-
-      // const receivedToken = response.data.token;
-      // setToken(receivedToken);
-      // setSuccess(response.data.msg);
-      // setErrors("");
-
+      setSuccess(response.data.message);
+      setErrors("");
       navigate('/dashboard');
     } catch (error) {
       if (error.response && error.response.data && error.response.data.errors) {

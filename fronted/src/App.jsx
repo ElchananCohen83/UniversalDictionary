@@ -1,11 +1,13 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Homepage from "./Homepage";
-import SignUp from "./Register";
-import SingIn from "./Login"; // Import the Login component
-import Dashboard from "./Dashboard";
-import UserTitle from './UserTitle';
+import checkToken from "./services/verifyToken.js";
+import SignUp from "./Register.jsx";
+import SingIn from "./Login.jsx";
+import UserTitle from './UserTitle.jsx';
+import Dashboard from "./Dashboard.jsx";
+import api from "../src/services/api.js";
 
 const theme = createTheme({
   palette: {
@@ -17,18 +19,73 @@ const theme = createTheme({
 });
 
 function App() {
+
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  const navigate = useNavigate();
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+
+      const response = await checkToken();
+      if (response === 200 && (window.location.pathname === '/register' || window.location.pathname === '/login')) {navigate('/dashboard');}
+      setIsLoaded(true);
+    };
+
+    const axiosInterceptorRequest = api.interceptors.request.use(
+      (config) => {
+        const token = localStorage.getItem('authToken');
+        
+        if (token) {
+          config.headers.authorization = token;
+        }
+        return config;
+      },
+      (error) => {
+
+        return Promise.reject(error);
+      }
+    );
+
+    const axiosInterceptorResponse = api.interceptors.response.use(
+      (response) => {
+        return response;
+      },
+      (error) => {
+        if (error.response && error.response.status === 401 && !['/register', '/login', '/'].includes(window.location.pathname)) {
+            console.log('You are not authorized');
+            navigate('/login');
+        }
+        return Promise.reject(error);
+      }
+    );
+    
+    // setIsLoaded(true);
+    fetchData();
+
+    return () => {
+      api.interceptors.request.eject(axiosInterceptorRequest);
+      api.interceptors.response.eject(axiosInterceptorResponse);
+    };
+  }, [navigate]);
+
   return (
     <ThemeProvider theme={theme}>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Homepage />} />
-          <Route path="/register" element={<SignUp />} />
-          <Route path="/userTitle" element={<UserTitle />} />
-          <Route path="/login" element={<SingIn />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-
-        </Routes>
-      </Router>
+      <Routes>
+      {!isLoaded ? (
+          console.log('Error loading')
+          
+        ) : (
+          <>
+            <Route path="/" element={<Homepage />} />
+            <Route path="/register" element={<SignUp />} />
+            <Route path="/userTitle" element={<UserTitle />} />
+            <Route path="/login" element={<SingIn />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+          </>
+        )}
+      </Routes>
     </ThemeProvider>
   );
 }
