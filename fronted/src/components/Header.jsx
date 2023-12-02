@@ -1,41 +1,64 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
-import InterpreterModeIcon from "@mui/icons-material/InterpreterMode";
+import IconButton from "@mui/material/IconButton";
+import Container from "@mui/material/Container";
 import { useNavigate } from "react-router-dom";
+import UserMenu from "./UserMenu";
+import api from "../services/api";
 
-const pages = ["Tools", "Discuss", "About"];
-
-const settings = ["Profile", "Account", "Logout"];
 
 function Header() {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const [userName, setUserName] = useState(false);
+  const [success, setSuccess] = useState("");
+  const [errors, setErrors] = useState("");
+  const [showSnackbar, setShowSnackbar] = useState(false);
+
+  const pages = ["אודות", "המדריך", "המילון האוניברסלי"];
+
+
   const navigate = useNavigate();
+
+  const handleSubmit = async () => {
+    try {
+      const token = localStorage.getItem('authToken')
+
+      const response = await api.get(`/api/users/avatar`, { headers: { authorization: token, }, });
+
+      const data = response.data
+
+      setUserName(data);
+      console.log('userName', userName, data);
+      // setSuccess(response.data.message);
+      setErrors("");
+      setShowSnackbar(true);
+    } catch (error) {
+      // setErrors(error.response.data.errors.join(", "));
+      setSuccess("");
+      setShowSnackbar(true);
+    }
+  };
+
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
 
-  const handleCloseNavMenu = () => {
+
+  const handleCloseNavMenu = (page) => {
+    if (page === 'המילון האוניברסלי') {
+      navigate('/dashboard');
+    }
     setAnchorElNav(null);
   };
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
+  useEffect(() => {
+    // Call the handleSubmit function when the component mounts
+    handleSubmit();
+  }, []);
 
   return (
     <div>
@@ -48,69 +71,72 @@ function Header() {
         <Container
           maxWidth="xl"
           sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
             height: 74,
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            paddingLeft: "16px", // Add left padding to the container
+            paddingRight: "16px", // Add right padding to the container
           }}
         >
-          <Box sx={{ display: "flex", alignItems: "center" }}>
+          <Box>
             <IconButton onClick={() => navigate("/")} sx={{ p: 0 }}>
               <img
                 alt="logo"
                 src={"/UDlogo.png"}
                 style={{
-                  display: { xs: "none", md: "flex" },
-                  marginRight: "8px",
+                  display: "block",
                   height: "24px",
+                  paddingRight: "40px",
                 }}
               />
             </IconButton>
-
-            {/* {pages.map((page) => (
+            {pages.map((page) => (
               <Button
                 key={page}
-                onClick={handleCloseNavMenu}
-                sx={{
-                  mx: 2,
-                  color: "white",
-                  display: { xs: "none", md: "block" },
-                }}
+                onClick={() => handleCloseNavMenu(page)}
+                style={{ color: "black", fontSize: "20px", fontWeight: "bold", paddingInline: "16px", textDecoration: "none" }}
               >
                 {page}
               </Button>
-            ))} */}
+            ))}
           </Box>
 
           <Box
             sx={{
               display: "flex",
               alignItems: "center",
-              justifyContent: "space-around",
               backgroundColor: "#fad757",
               borderRadius: "15px",
-              width: "200px",
+              paddingLeft: "8px",
+              paddingRight: "8px",
+              marginLeft: "auto",
             }}
           >
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-              }}
-            >
-              <a href="#" onClick={() => navigate("/register")}>
-                הרשמה
-              </a>
-              <p> / </p>
-              <a href="#" onClick={() => navigate("/login")}>
-                התחברות
-              </a>
-            </div>
-            <Tooltip title="Open settings">
-              <IconButton sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/AnonymousUser.png" />
-              </IconButton>
-            </Tooltip>
+            {userName ? (
+              <p style={{ fontSize: "20px", fontWeight: "bold", paddingInline: "4px" }}>
+                {userName.firstName} {userName.lastName}
+              </p>
+            ) : (
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <a
+                  href="#" onClick={() => navigate("/register")}
+                  style={{ fontSize: "20px", fontWeight: "bold", paddingInline: "4px", textDecoration: "none" }}
+                >
+                  הרשמה
+                </a>
+                <p
+                  style={{ fontSize: "20px", fontWeight: "bold" }}
+                > / </p>
+                <a
+                  href="#" onClick={() => navigate("/login")}
+                  style={{ fontSize: "20px", fontWeight: "bold", paddingInline: "4px", textDecoration: "none" }}
+                >
+                  התחברות
+                </a>
+              </div>
+            )}
+            <UserMenu props={userName} />
           </Box>
         </Container>
       </AppBar>
