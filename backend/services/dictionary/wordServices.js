@@ -1,4 +1,4 @@
-import { model } from '../models/wordSchema.js';
+import { model } from '../../models/wordSchema.js';
 
 async function checkCollection(data) {
   let collection = null

@@ -1,4 +1,9 @@
 import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+
+dotenv.config({
+  path: './.env'
+});
 
 const jwtSecret = process.env.JWT_SECRET;
 
@@ -8,9 +13,17 @@ const verifyToken = (req, res, next) => {
   const token = req.headers.authorization;
 
   // List of routes where JWT verification is not required
-  const excludedRoutes = ['api/users/register', 'api/users/login', 'api/users/userTitle'];
+  const excludedRoutes = [
+    '/api/users/',
+    '/api/users/register',
+    '/api/users/login',
+    '/api/users/userTitle',
+    '/api/users/verifyToken',
+    '/api/users/avatar'
+  ];
 
   if (!excludedRoutes.includes(req.path)) {
+
     if (token) {
       try {
         // Verify the token
@@ -28,30 +41,4 @@ const verifyToken = (req, res, next) => {
   }
 };
 
-
 export default verifyToken;
-
-
-
-
-
-
-// import { expressjwt } from 'express-jwt';
-
-// // Set the JWT secret
-// const jwt_secret = process.env.JWT_SECRET || 'megobb';
-
-// const token = 'eyJhbGciOiJIUzI1NiJ9.aGhAampqampqampqampqampqamouY29t.UlR8638RE8BEet0A-gXX4CjFi95x4-1ENnOmvvk1L8g';
-
-// // Middleware for JWT validation
-// const jwtMiddleware = expressjwt({
-//   secret: jwt_secret,
-//   algorithms: ['HS256'],
-//   function (req, res) {
-//     if (!req.auth.admin) return res.sendStatus(401);
-//     res.sendStatus(200);
-//   }
-// }).unless({ path: ['/register'] });
-
-
-// export {jwtMiddleware}

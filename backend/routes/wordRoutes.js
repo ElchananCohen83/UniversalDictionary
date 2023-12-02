@@ -2,7 +2,7 @@ import { Router } from "express";
 import {
     getfindWordController,
     getfindByLetterController
-} from "../controllers/wordController.js";
+} from "../controllers/dictionaryController/wordController.js";
 
 
 const wordRoutes = Router();
