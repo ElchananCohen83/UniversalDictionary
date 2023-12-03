@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import Divider from "@mui/material/Divider";
+
 
 function SearchByLetter() {
   const [selectedHebrewLetter, setSelectedHebrewLetter] = useState("");
@@ -48,6 +50,7 @@ function SearchByLetter() {
   return (
     <div
       style={{
+        borderRadius: '5px',
         backgroundColor: "#F6C927",
         display: "flex",
         alignItems: "center",
@@ -59,21 +62,9 @@ function SearchByLetter() {
         overflowX: "auto",
       }}
     >
-      <div>
-        {/* <label htmlFor="hebrewToEnglish">Hebrew to English:</label> */}
-        <select
-          id="hebrewToEnglish"
-          value={selectedHebrewLetter}
-          onChange={handleHebrewToEnglishChange}
-        >
-          <option value="">Heb to Eng</option>
-          {hebrewLetters.map((letter, index) => (
-            <option key={index} value={letter}>
-              {letter}
-            </option>
-          ))}
-        </select>
-      </div>
+
+      <label htmlFor="hebrewToEnglish" style={{ textAlign: "center", fontSize: "1rem" }}>dictionary by letter:</label>
+
       <div>
         {/* <label htmlFor="englishToHebrew">English to Hebrew:</label> */}
         <select
@@ -83,14 +74,34 @@ function SearchByLetter() {
         >
           <option value="">Eng to Heb</option>
           {englishLetters.map((letter, index) => (
-            <option key={index} value={letter}>
+            <option key={index} value={letter} style={{ textAlign: "center", fontSize: "20px" }}>
               {letter}
             </option>
           ))}
         </select>
       </div>
+
+      <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
+
+
       <div>
-        <p>:חיפוש לפי אות</p>
+        <select
+          id="hebrewToEnglish"
+          value={selectedHebrewLetter}
+          onChange={handleHebrewToEnglishChange}
+        >
+          <option value="" >Heb to Eng</option>
+          {hebrewLetters.map((letter, index) => (
+            <option key={index} value={letter} style={{ textAlign: "center", fontSize: "20px", fontWeight: "bold" }}>
+              {letter}
+            </option>
+          ))}
+        </select>
+      </div>
+
+
+      <div>
+        <p style={{ textAlign: "center", fontSize: "1rem", fontWeight: "bold" }} >:מילון לפי אות</p>
       </div>
     </div>
   );

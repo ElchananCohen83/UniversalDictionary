@@ -9,7 +9,6 @@ import Paper from "@mui/material/Paper";
 import { TableVirtuoso } from "react-virtuoso";
 import CopyButton from './CopyButton'; // Import CopyButton component
 
-// Move columns and VirtuosoTableComponents here if they are not used outside the component
 
 function ReactVirtualizedTable(props) {
   const [clickedCell, setClickedCell] = useState(null);
@@ -145,12 +144,10 @@ function ReactVirtualizedTable(props) {
     }
   }
 
-
   const tableHeight = Math.min(
     (props.props && props.props.length + 1.6) * 23.3,
     430
   );
-
 
 
   const maxTableHeight = "calc(100vh - 200px)"; // Example: 100vh minus 200px for the footer
