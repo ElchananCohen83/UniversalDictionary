@@ -12,11 +12,11 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import ReactVirtualizedTable from "./components/VirtualizationTable";
 import api from "./services/api";
+import LetterSearch from "./LetterSearch";
 
 import { useState } from "react";
 
 export default function Dashboard() {
-
   const [translations, setTranslations] = useState(null);
   const [word, setWord] = useState("");
   const [isSearchClicked, setIsSearchClicked] = useState(false);
@@ -34,22 +34,23 @@ export default function Dashboard() {
     const data = { original: word };
     setIsSearchClicked(true);
 
-    if (data.original !== '') {
+    if (data.original !== "") {
       try {
-        const response = await api.get(`/api/words/findWord?original=${data.original}`);
+        const response = await api.get(
+          `/api/words/findWord?original=${data.original}`
+        );
         setSuccess(response.data.message);
         setResult(response.data.data); // Set the result state
         setErrors("");
       } catch (error) {
-        setResult('')
+        setResult("");
         setErrors(error.response.data.errors.join(", "));
         setSuccess("");
       }
     } else {
-      setResult('')
-    };
-  }
-
+      setResult("");
+    }
+  };
 
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
@@ -125,6 +126,9 @@ export default function Dashboard() {
               <DirectionsIcon />
             </IconButton> */}
           </Paper>
+        </div>
+        <div>
+          <LetterSearch />
         </div>
         <div>{isSearchClicked && <ReactVirtualizedTable props={result} />}</div>
       </div>
