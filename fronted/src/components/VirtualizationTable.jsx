@@ -109,37 +109,13 @@ function ReactVirtualizedTable(props) {
     const letter = props.props[0].original.charAt(0);
     if ((letter >= "A" && letter <= "Z") || (letter >= "a" && letter <= "z")) {
       columns = [
-        {
-          width: "50%",
-          maxWidth: 150,
-          label: "English",
-          dataKey: "original",
-          english: true,
-        },
-        {
-          width: "50%",
-          maxWidth: 150,
-          label: "עברית",
-          dataKey: "translation",
-          english: false,
-        },
+        { width: "50%", maxWidth: 150, label: "English", dataKey: "original", english: true, },
+        { width: "50%", maxWidth: 150, label: "עברית", dataKey: "translation", english: false, },
       ];
     } else {
       columns = [
-        {
-          width: "50%",
-          maxWidth: 150,
-          label: "English",
-          dataKey: "translation",
-          english: true,
-        },
-        {
-          width: "50%",
-          maxWidth: 150,
-          label: "עברית",
-          dataKey: "dottedOriginal",
-          english: false,
-        },
+        { width: "50%", maxWidth: 150, label: "English", dataKey: "translation", english: true, },
+        { width: "50%", maxWidth: 150, label: "עברית", dataKey: "dottedOriginal", english: false, },
       ];
     }
   }
@@ -179,7 +155,7 @@ function ReactVirtualizedTable(props) {
           overflowY: "auto",
         }}
       />
-      {clickedCell && (
+      {/* {clickedCell && (
         <div
           onClick={closeCopyButton}
           style={{
@@ -192,7 +168,7 @@ function ReactVirtualizedTable(props) {
         >
           <CopyButton text={clickedCell.rowData[clickedCell.columnKey]} />
         </div>
-      )}
+      )} */}
     </Paper>
   );
 }

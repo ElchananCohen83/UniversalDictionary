@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef } from 'react';
 
 const CopyButton = ({ text }) => {
   const textRef = useRef(null);

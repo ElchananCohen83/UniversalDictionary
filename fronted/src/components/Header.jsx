@@ -31,7 +31,6 @@ function Header() {
       const data = response.data
 
       setUserName(data);
-      console.log('userName', userName, data);
       // setSuccess(response.data.message);
       setErrors("");
       setShowSnackbar(true);
@@ -43,9 +42,9 @@ function Header() {
   };
 
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
+  // const handleOpenNavMenu = (event) => {
+  //   setAnchorElNav(event.currentTarget);
+  // };
 
 
   const handleCloseNavMenu = (page) => {

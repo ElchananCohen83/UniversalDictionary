@@ -9,8 +9,8 @@ function Search({ onDataReceived }) {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const searchData = { original: Word };
-        onDataReceived(searchData);
+        const ReqByValue = { original: Word };
+        onDataReceived(ReqByValue);
     };
 
     const handleKeyPress = (event) => {

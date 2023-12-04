@@ -13,12 +13,20 @@ export default function Dashboard() {
   const [errors, setErrors] = useState(null);
   const [success, setSuccess] = useState(null);
   const [result, setResult] = useState(null);
+  const [SearchByLetter, setSearchByLetter] = useState(null);
 
-  const handleSearchDataReceived = async (searchData) => {
+
+  const handleSearchDataReceived = async (ReqByValue) => {
     try {
-      const response = await api.get(
-        `/api/words/findWord?original=${searchData.original}`
-      );
+
+      let response;
+
+      if (!SearchByLetter) {
+        // response = await api.get(`/api/words/findWord?original=${ReqByValue.original}`);
+      } else if (SearchByLetter) {
+        response = await api.get(`/api/words/findLetter?original=${ReqByValue.original}`);
+      }
+
       setSuccess(response.data.message);
       setResult(response.data.data);
       setErrors("");
@@ -29,6 +37,11 @@ export default function Dashboard() {
       setSuccess("");
     }
   };
+
+  const handleSelectLetter = (event, reason) => {
+    setSearchByLetter(true)
+  }
+
 
   return (
     <div>
@@ -46,9 +59,13 @@ export default function Dashboard() {
           <Search onDataReceived={handleSearchDataReceived} />
         </div>
 
-        <div
-        >
-          <LetterSearch />
+        <div>
+          <LetterSearch
+            onDataReceived={(data) => {
+              handleSearchDataReceived(data);
+              handleSelectLetter()
+            }}
+          />
         </div>
 
         <div>{isSearchClicked && <ReactVirtualizedTable props={result} />}</div>
