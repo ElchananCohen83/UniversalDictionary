@@ -22,7 +22,7 @@ export default function Dashboard() {
       let response;
 
       if (!SearchByLetter) {
-        // response = await api.get(`/api/words/findWord?original=${ReqByValue.original}`);
+        response = await api.get(`/api/words/findWord?original=${ReqByValue.original}`);
       } else if (SearchByLetter) {
         response = await api.get(`/api/words/findLetter?original=${ReqByValue.original}`);
       }
