@@ -45,9 +45,7 @@ function SearchByLetter({ onDataReceived }) {
   );
 
   // Array of Hebrew letters (customize as needed)
-  const hebrewLetters = Array.from({ length: 27 }, (_, index) =>
-    String.fromCharCode(1488 + index)
-  );
+  const hebrewLetters = ['א', 'ב', 'ג', 'ד', 'ה', 'ו', 'ז', 'ח', 'ט', 'י', 'כ', 'ל', 'מ', 'נ', 'ס', 'ע', 'פ', 'צ', 'ק', 'ר', 'ש', 'ת',]
 
 
   return (
