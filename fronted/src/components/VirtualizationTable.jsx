@@ -152,7 +152,7 @@ function ReactVirtualizedTable(props) {
 
   const maxTableHeight = "calc(100vh - 200px)"; // Example: 100vh minus 200px for the footer
 
-  const tableStyle = { userSelect: 'none' };
+  const tableStyle = { userSelect: 'none', WebkitUserSelect: 'none' };
 
 
   return (
