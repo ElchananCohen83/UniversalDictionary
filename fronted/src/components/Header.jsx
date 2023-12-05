@@ -7,10 +7,9 @@ import Container from "@mui/material/Container";
 import { useNavigate } from "react-router-dom";
 import UserMenu from "./UserMenu";
 import api from "../services/api";
-
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 function Header() {
-
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [userName, setUserName] = useState(false);
   const [success, setSuccess] = useState("");
@@ -19,43 +18,37 @@ function Header() {
 
   const pages = ["אודות", "המדריך", "המילון האוניברסלי"];
 
-
   const navigate = useNavigate();
+
+  const isNarrowScreen = useMediaQuery("(max-width:750px)");
 
   const handleSubmit = async () => {
     try {
-      const token = localStorage.getItem('authToken')
+      const token = localStorage.getItem("authToken");
 
-      const response = await api.get(`/api/users/avatar`, { headers: { authorization: token, }, });
+      const response = await api.get(`/api/users/avatar`, {
+        headers: { authorization: token },
+      });
 
-      const data = response.data
+      const data = response.data;
 
       setUserName(data);
-      // setSuccess(response.data.message);
       setErrors("");
       setShowSnackbar(true);
     } catch (error) {
-      // setErrors(error.response.data.errors.join(", "));
       setSuccess("");
       setShowSnackbar(true);
     }
   };
 
-
-  // const handleOpenNavMenu = (event) => {
-  //   setAnchorElNav(event.currentTarget);
-  // };
-
-
   const handleCloseNavMenu = (page) => {
-    if (page === 'המילון האוניברסלי') {
-      navigate('/dashboard');
+    if (page === "המילון האוניברסלי") {
+      navigate("/dashboard");
     }
     setAnchorElNav(null);
   };
 
   useEffect(() => {
-    // Call the handleSubmit function when the component mounts
     handleSubmit();
   }, []);
 
@@ -74,8 +67,9 @@ function Header() {
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            paddingLeft: "16px", // Add left padding to the container
-            paddingRight: "16px", // Add right padding to the container
+            paddingLeft: "16px",
+            paddingRight: "16px",
+            flexDirection: "row",
           }}
         >
           <Box>
@@ -90,52 +84,114 @@ function Header() {
                 }}
               />
             </IconButton>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={() => handleCloseNavMenu(page)}
-                style={{ color: "black", fontSize: "20px", fontWeight: "bold", paddingInline: "16px", textDecoration: "none" }}
-              >
-                {page}
-              </Button>
-            ))}
+            {isNarrowScreen ? null : (
+              <>
+                {pages.map((page) => (
+                  <Button
+                    key={page}
+                    onClick={() => handleCloseNavMenu(page)}
+                    style={{
+                      color: "black",
+                      fontSize: "20px",
+                      fontWeight: "bold",
+                      paddingInline: "16px",
+                      textDecoration: "none",
+                    }}
+                  >
+                    {page}
+                  </Button>
+                ))}
+              </>
+            )}
           </Box>
+
+          {isNarrowScreen && (
+            <div>
+              <select
+                id="NavBar"
+                //value={selectedHebrewLetter}
+                // onChange={handleHebrewToEnglishChange}
+                // onClick={() => {
+                //   handleSubmit(); // Assuming you want to handle submit on select click
+                //   handleSelectLetter(); // Call handleSelectLetter on click
+                // }}
+              >
+                <option value="">Select</option>
+                {pages.map((page) => (
+                  <option
+                    key={page}
+                    value={page}
+                    style={{ textAlign: "center", fontSize: "20px" }}
+                  >
+                    {page}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
 
           <Box
             sx={{
               display: "flex",
               alignItems: "center",
-              backgroundColor: "#F6C927",//#fad757
+              backgroundColor: "#F6C927",
               borderRadius: "15px",
               paddingLeft: "8px",
               paddingRight: "8px",
-              marginLeft: "auto",
+              marginLeft: isNarrowScreen ? 0 : "auto",
+              marginTop: isNarrowScreen ? "16px" : 0,
             }}
           >
             {userName ? (
-              <p style={{ fontSize: "20px", fontWeight: "bold", paddingInline: "4px" }}>
-                {userName.firstName} {userName.lastName}
-              </p>
+              <>
+                {isNarrowScreen ? (
+                  <UserMenu props={userName} />
+                ) : (
+                  <>
+                    <p
+                      style={{
+                        fontSize: "20px",
+                        fontWeight: "bold",
+                        paddingInline: "4px",
+                      }}
+                    >
+                      {userName.firstName} {userName.lastName}
+                    </p>
+                    <UserMenu props={userName} />
+                  </>
+                )}
+              </>
             ) : (
-              <div style={{ display: "flex", alignItems: "center" }}>
-                <a
-                  href="#" onClick={() => navigate("/register")}
-                  style={{ fontSize: "20px", fontWeight: "bold", paddingInline: "4px", textDecoration: "none" }}
-                >
-                  הרשמה
-                </a>
-                <p
-                  style={{ fontSize: "20px", fontWeight: "bold" }}
-                > / </p>
-                <a
-                  href="#" onClick={() => navigate("/login")}
-                  style={{ fontSize: "20px", fontWeight: "bold", paddingInline: "4px", textDecoration: "none" }}
-                >
-                  התחברות
-                </a>
-              </div>
+              <>
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <a
+                    href="#"
+                    onClick={() => navigate("/register")}
+                    style={{
+                      fontSize: "20px",
+                      fontWeight: "bold",
+                      paddingInline: "4px",
+                      textDecoration: "none",
+                    }}
+                  >
+                    הרשמה
+                  </a>
+                  <p style={{ fontSize: "20px", fontWeight: "bold" }}> / </p>
+                  <a
+                    href="#"
+                    onClick={() => navigate("/login")}
+                    style={{
+                      fontSize: "20px",
+                      fontWeight: "bold",
+                      paddingInline: "4px",
+                      textDecoration: "none",
+                    }}
+                  >
+                    התחברות
+                  </a>
+                </div>
+              </>
             )}
-            <UserMenu props={userName} />
           </Box>
         </Container>
       </AppBar>
