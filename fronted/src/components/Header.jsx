@@ -10,13 +10,14 @@ import api from "../services/api";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 function Header() {
-  const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [userName, setUserName] = useState(false);
   const [success, setSuccess] = useState("");
   const [errors, setErrors] = useState("");
+  const [selectPage, setSelectPage] = useState("");
   const [showSnackbar, setShowSnackbar] = useState(false);
 
-  const pages = ["אודות", "המדריך", "המילון האוניברסלי"];
+  const pages = ["המילון האוניברסלי", "המדריך",  "אודות" ];
+
 
   const navigate = useNavigate();
 
@@ -41,12 +42,14 @@ function Header() {
     }
   };
 
-  const handleCloseNavMenu = (page) => {
-    if (page === "המילון האוניברסלי") {
+
+  const handleCloseNavMenu = (event) => {
+    if ((event && event.target && event.target.value && event.target.value === "המילון האוניברסלי") || event === "המילון האוניברסלי") {
       navigate("/dashboard");
     }
     setAnchorElNav(null);
   };
+
 
   useEffect(() => {
     handleSubmit();
@@ -84,6 +87,7 @@ function Header() {
                 }}
               />
             </IconButton>
+
             {isNarrowScreen ? null : (
               <>
                 {pages.map((page) => (
@@ -109,12 +113,8 @@ function Header() {
             <div>
               <select
                 id="NavBar"
-                //value={selectedHebrewLetter}
-                // onChange={handleHebrewToEnglishChange}
-                // onClick={() => {
-                //   handleSubmit(); // Assuming you want to handle submit on select click
-                //   handleSelectLetter(); // Call handleSelectLetter on click
-                // }}
+                onChange={handleCloseNavMenu}
+                style={{ direction: "rtl" }}
               >
                 <option value="">Select</option>
                 {pages.map((page) => (
