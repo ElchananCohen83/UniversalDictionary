@@ -74,7 +74,7 @@ function Header() {
     <div>
       <AppBar position="static" sx={{ backgroundColor: "#F6C927" }}>
         <Container
-          maxWidth="xl"
+          maxWidth={false}
           sx={{
             height: 74,
             display: "flex",
@@ -130,7 +130,6 @@ function Header() {
             </div>
           ) : (
             <Box>
-              {" "}
               <IconButton onClick={() => navigate("/")} sx={{ p: 0 }}>
                 <img
                   alt="logo"
