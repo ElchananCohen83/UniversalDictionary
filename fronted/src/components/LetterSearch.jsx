@@ -56,10 +56,9 @@ function SearchByLetter({ onDataReceived }) {
         display: "flex",
         alignItems: "center",
         justifyContent: "space-around",
-        marginBottom: "20px",
         margin: "auto",
-        width: "90%",
-        maxWidth: "500px",
+        width: "92%",
+        maxWidth: "503px",
         overflowX: "auto",
       }}
     >

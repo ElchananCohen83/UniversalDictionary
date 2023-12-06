@@ -32,6 +32,8 @@ function Search({ onDataReceived }) {
                 alignItems: "center",
                 justifyContent: "flex-start",
                 backgroundColor: "#21213E",
+                marginTop: "9px",
+                marginBottom: "9px",
             }}
         >
             <Paper

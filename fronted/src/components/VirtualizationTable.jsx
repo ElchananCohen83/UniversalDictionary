@@ -108,8 +108,8 @@ function ReactVirtualizedTable(props) {
     const letter = props.props[0].original.charAt(0);
     if ((letter >= "A" && letter <= "Z") || (letter >= "a" && letter <= "z")) {
       columns = [
-        { width: "50%", maxWidth: 150, label: "English", dataKey: "original", english: true, },
-        { width: "50%", maxWidth: 150, label: "עברית", dataKey: "translation", english: false, },
+        { width: "50%", maxWidth: 150, label: "English", dataKey: "original", english: true },
+        { width: "50%", maxWidth: 150, label: "עברית", dataKey: "translation", english: false },
       ];
     } else {
       columns = [
@@ -148,7 +148,7 @@ function ReactVirtualizedTable(props) {
         itemContent={rowContent}
         style={{
           ...tableStyle,
-          backgroundColor: "#F6C927",
+          backgroundColor: "#f0e9a5", //"#F6C927"
           height: `${tableHeight}px`,
           maxHeight: maxTableHeight,
           overflowY: "auto",
