@@ -13,15 +13,14 @@ function Header() {
   const [userName, setUserName] = useState(false);
   const [success, setSuccess] = useState("");
   const [errors, setErrors] = useState("");
-  const [selectPage, setSelectPage] = useState("");
   const [showSnackbar, setShowSnackbar] = useState(false);
 
-  const pages = ["המילון האוניברסלי", "המדריך",  "אודות" ];
+  const pages = ["המילון האוניברסלי", "המדריך", "אודות"];
 
 
   const navigate = useNavigate();
 
-  const isNarrowScreen = useMediaQuery("(max-width:750px)");
+  const isNarrowScreen = useMediaQuery("(max-width:900px)"); //750px
 
   const handleSubmit = async () => {
     try {
@@ -59,10 +58,9 @@ function Header() {
     <div>
       <AppBar
         position="static"
-        sx={{
-          backgroundColor: "#F6C927",
-        }}
+        sx={{ backgroundColor: "#F6C927" }}
       >
+
         <Container
           maxWidth="xl"
           sx={{
@@ -75,6 +73,7 @@ function Header() {
             flexDirection: "row",
           }}
         >
+
           <Box>
             <IconButton onClick={() => navigate("/")} sx={{ p: 0 }}>
               <img
@@ -114,7 +113,7 @@ function Header() {
               <select
                 id="NavBar"
                 onChange={handleCloseNavMenu}
-                style={{ direction: "rtl" }}
+                style={{ direction: "rtl", padding: "5px", border: "1px solid #ccc" }}
               >
                 <option value="">Select</option>
                 {pages.map((page) => (
@@ -200,3 +199,36 @@ function Header() {
 }
 
 export default Header;
+
+
+// {/* <style>
+//                 {`select {
+//                     /* Remove default arrow in Firefox */
+//                     -moz-appearance: none;
+//                     /* Remove default arrow in other browsers */
+//                     -webkit-appearance: none;
+//                     appearance: none;
+//                     /* Add your custom styling here, like a background or border */
+//                     padding: 5px;
+//                     border: 1px solid #ccc;
+//                   }
+
+//                   /* Add a custom arrow background or icon */
+//                   select::after {
+//                     content: '\\25BC'; /* Unicode character for down arrow */
+//                     font-size: 12px;
+//                     color: #555;
+//                     position: absolute;
+//                     right: 10px;
+//                     top: 50%;
+//                     transform: translateY(-50%);
+//                     pointer-events: none; /* Make sure the arrow doesn't interfere with clicking */
+//                   }
+//                 `}
+//               </style> */}
+
+// <select
+//   id="NavBar"
+//   onChange={handleCloseNavMenu}
+//   style={{ direction: "rtl" }}
+// ></select>
