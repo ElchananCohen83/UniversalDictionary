@@ -6,32 +6,38 @@ import ReactVirtualizedTable from "./components/VirtualizationTable";
 import Search from "./components/Search";
 import LetterSearch from "./components/LetterSearch";
 
-
 export default function Dashboard() {
-
   const [isSearchClicked, setIsSearchClicked] = useState(false);
   const [errors, setErrors] = useState(null);
   const [success, setSuccess] = useState(null);
   const [result, setResult] = useState(null);
   const [SearchByLetter, setSearchByLetter] = useState(null);
-
+  const [wordNotFound, setWorfNotFound] = useState(false);
+  const [searchedWord, setSearchedWord] = useState("");
 
   const handleSearchDataReceived = async (ReqByValue) => {
     try {
-
       let response;
 
       if (!SearchByLetter) {
-        response = await api.get(`/api/words/findWord?original=${ReqByValue.original}`);
+        response = await api.get(
+          `/api/words/findWord?original=${ReqByValue.original}`
+        );
       } else if (SearchByLetter) {
         response = await api.get(`/api/words/findLetter?original=${ReqByValue.original}`);
-        setSearchByLetter(null)
       }
 
       setSuccess(response.data.message);
+
       setResult(response.data.data);
-      setErrors("");
-      setIsSearchClicked(true); // Set isSearchClicked to true when data is received
+
+      if (response.data.message === "Word not found") {
+        setSearchedWord(response.data.data.original);
+        setWorfNotFound(true);
+      } else {
+        setErrors("");
+        setIsSearchClicked(true); // Set isSearchClicked to true when data is received
+      }
     } catch (error) {
       setResult("");
       setErrors(error.response.data.errors.join(", "));
@@ -42,6 +48,7 @@ export default function Dashboard() {
   const handleSelectLetter = (event, reason) => {
     setSearchByLetter(true)
   }
+
 
   return (
     <div>
@@ -60,7 +67,7 @@ export default function Dashboard() {
           <LetterSearch
             onDataReceived={(data) => {
               handleSearchDataReceived(data);
-              handleSelectLetter()
+              handleSelectLetter();
             }}
           />
 
@@ -70,6 +77,7 @@ export default function Dashboard() {
 
         </div>
 
+        <div>{isSearchClicked && <ReactVirtualizedTable props={result} />}</div>
       </div>
       <Footer />
     </div>
