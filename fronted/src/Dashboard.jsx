@@ -25,6 +25,7 @@ export default function Dashboard() {
         response = await api.get(`/api/words/findWord?original=${ReqByValue.original}`);
       } else if (SearchByLetter) {
         response = await api.get(`/api/words/findLetter?original=${ReqByValue.original}`);
+        setSearchByLetter(null)
       }
 
       setSuccess(response.data.message);
@@ -41,7 +42,6 @@ export default function Dashboard() {
   const handleSelectLetter = (event, reason) => {
     setSearchByLetter(true)
   }
-
 
   return (
     <div>
