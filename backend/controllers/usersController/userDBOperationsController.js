@@ -16,7 +16,7 @@ const validationUserMiddlewareController = [
     check("email")
         .isEmail().withMessage("Please provide a valid email")
         .matches(/^[a-zA-Z0-9@._-]+$/).withMessage("Email must contain only English letters, numbers, and standard email characters"),
-    check("password", "Please provide a password that is greater than 8 characters").isLength({ min: 8 })
+    check("password", "Please provide a password that is greater than 10 characters").isLength({ min: 10 })
 ];
 
 

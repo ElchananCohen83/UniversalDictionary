@@ -5,9 +5,10 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import Container from "@mui/material/Container";
 import { useNavigate } from "react-router-dom";
-import MenuIcon from '@mui/icons-material/Menu';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem'; import useMediaQuery from "@mui/material/useMediaQuery";
+import MenuIcon from "@mui/icons-material/Menu";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import UserMenu from "./UserMenu";
 import api from "../services/api";
 
@@ -18,14 +19,11 @@ function Header() {
   const [showSnackbar, setShowSnackbar] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
 
-
   const pages = ["המילון האוניברסלי", "המדריך", "אודות"];
-
 
   const navigate = useNavigate();
 
   const isNarrowScreen = useMediaQuery("(max-width:900px)"); //750px
-
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -55,14 +53,18 @@ function Header() {
     }
   };
 
-
   const handleCloseNavMenu = (event) => {
-    if ((event && event.target && event.target.value && event.target.value === "המילון האוניברסלי") || event === "המילון האוניברסלי") {
+    if (
+      (event &&
+        event.target &&
+        event.target.value &&
+        event.target.value === "המילון האוניברסלי") ||
+      event === "המילון האוניברסלי"
+    ) {
       navigate("/dashboard");
     }
     setAnchorEl(null);
   };
-
 
   useEffect(() => {
     handleSubmit();
@@ -70,13 +72,9 @@ function Header() {
 
   return (
     <div>
-      <AppBar
-        position="static"
-        sx={{ backgroundColor: "#F6C927" }}
-      >
-
+      <AppBar position="static" sx={{ backgroundColor: "#F6C927" }}>
         <Container
-          maxWidth="xl"
+          maxWidth={false}
           sx={{
             height: 74,
             display: "flex",
@@ -87,48 +85,14 @@ function Header() {
             flexDirection: "row",
           }}
         >
-
-          <Box>
-            <IconButton onClick={() => navigate("/")} sx={{ p: 0 }}>
-              <img
-                alt="logo"
-                src={"/UDlogo.png"}
-                style={{
-                  display: "block",
-                  height: "24px",
-                  paddingRight: "40px",
-                }}
-              />
-            </IconButton>
-
-            {isNarrowScreen ? null : (
-              <>
-                {pages.map((page) => (
-                  <Button
-                    key={page}
-                    onClick={() => handleCloseNavMenu(page)}
-                    style={{
-                      color: "black",
-                      fontSize: "20px",
-                      fontWeight: "bold",
-                      paddingInline: "16px",
-                      textDecoration: "none",
-                    }}
-                  >
-                    {page}
-                  </Button>
-                ))}
-              </>
-            )}
-          </Box>
-
-          {isNarrowScreen && (
+          {isNarrowScreen ? (
             <div>
               <IconButton
                 id="NavBar"
                 aria-controls="simple-menu"
                 aria-haspopup="true"
                 onClick={handleClick}
+                sx={{ mb: "5px" }}
               >
                 <MenuIcon />
               </IconButton>
@@ -139,16 +103,60 @@ function Header() {
                 open={Boolean(anchorEl)}
                 onClose={() => handleClose()}
               >
-                <MenuItem onClick={() => handleClose('')}>
-                  <em>Select</em>
-                </MenuItem>
                 {pages.map((page) => (
-                  <MenuItem key={page} onClick={() => handleClose(page)}>
+                  <MenuItem
+                    sx={{ justifyContent: "center" }}
+                    key={page}
+                    onClick={() => handleClose(page)}
+                  >
                     {page}
                   </MenuItem>
                 ))}
               </Menu>
+
+              <IconButton
+                onClick={() => navigate("/")}
+                sx={{ p: 0, ml: "20px" }}
+              >
+                <img
+                  alt="logo"
+                  src={"/UDlogo.png"}
+                  style={{
+                    display: "block",
+                    height: "24px",
+                  }}
+                />
+              </IconButton>
             </div>
+          ) : (
+            <Box>
+              <IconButton onClick={() => navigate("/")} sx={{ p: 0 }}>
+                <img
+                  alt="logo"
+                  src={"/UDlogo.png"}
+                  style={{
+                    display: "block",
+                    height: "24px",
+                    paddingRight: "40px",
+                  }}
+                />
+              </IconButton>
+              {pages.map((page) => (
+                <Button
+                  key={page}
+                  onClick={() => handleCloseNavMenu(page)}
+                  style={{
+                    color: "black",
+                    fontSize: "20px",
+                    fontWeight: "bold",
+                    paddingInline: "16px",
+                    textDecoration: "none",
+                  }}
+                >
+                  {page}
+                </Button>
+              ))}
+            </Box>
           )}
 
           <Box
@@ -160,7 +168,6 @@ function Header() {
               paddingLeft: "8px",
               paddingRight: "8px",
               marginLeft: isNarrowScreen ? 0 : "auto",
-              marginTop: isNarrowScreen ? "16px" : 0,
             }}
           >
             {userName ? (
@@ -221,7 +228,6 @@ function Header() {
 }
 
 export default Header;
-
 
 // {/* <style>
 //                 {`select {
