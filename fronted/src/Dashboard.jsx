@@ -20,10 +20,13 @@ export default function Dashboard() {
       let response;
 
       if (!SearchByLetter) {
-        response = await api.get(`/api/words/findWord?original=${ReqByValue.original}`);
+        response = await api.get(
+          `/api/words/findWord?original=${ReqByValue.original}`
+        );
       } else if (SearchByLetter) {
-        response = await api.get(`/api/words/findLetter?original=${ReqByValue.original}`);
-        setSearchByLetter(null)
+        response = await api.get(
+          `/api/words/findLetter?original=${ReqByValue.original}`
+        );
       }
 
       setSuccess(response.data.message);
@@ -45,22 +48,24 @@ export default function Dashboard() {
   };
 
   const handleSelectLetter = (event, reason) => {
-    setSearchByLetter(true)
-  }
-
+    setSearchByLetter(true);
+  };
 
   return (
     <div>
+      <Header />
       <div
         style={{
           display: "flex",
           justifyContent: "flex-start",
           flexDirection: "column",
           backgroundColor: "#21213E",
-          height: "110vh",
-        }}>
-
-        <Header />
+          height: "90vh",
+        }}
+      >
+        <div>
+          <Search onDataReceived={handleSearchDataReceived} />
+        </div>
 
         <div>
           <LetterSearch
@@ -69,14 +74,28 @@ export default function Dashboard() {
               handleSelectLetter();
             }}
           />
-
-          <Search onDataReceived={handleSearchDataReceived} />
-
-          {isSearchClicked && <ReactVirtualizedTable props={result} />}
-
         </div>
 
         <div>{isSearchClicked && <ReactVirtualizedTable props={result} />}</div>
+        <div>
+          {wordNotFound && (
+            <div
+              style={{
+                margin: "auto",
+                width: "90%",
+                maxWidth: "500px",
+                overflowX: "auto",
+                marginTop: "15px",
+                backgroundColor: "#F6C927",
+              }}
+            >
+              <p>
+                the word <span style={{ color: "red" }}>{searchedWord}</span> is
+                not found
+              </p>
+            </div>
+          )}
+        </div>
       </div>
       <Footer />
     </div>
