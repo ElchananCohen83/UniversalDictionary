@@ -5,15 +5,19 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import Container from "@mui/material/Container";
 import { useNavigate } from "react-router-dom";
+import MenuIcon from '@mui/icons-material/Menu';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem'; import useMediaQuery from "@mui/material/useMediaQuery";
 import UserMenu from "./UserMenu";
 import api from "../services/api";
-import useMediaQuery from "@mui/material/useMediaQuery";
 
 function Header() {
   const [userName, setUserName] = useState(false);
   const [success, setSuccess] = useState("");
   const [errors, setErrors] = useState("");
   const [showSnackbar, setShowSnackbar] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+
 
   const pages = ["המילון האוניברסלי", "המדריך", "אודות"];
 
@@ -21,6 +25,16 @@ function Header() {
   const navigate = useNavigate();
 
   const isNarrowScreen = useMediaQuery("(max-width:900px)"); //750px
+
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = (value) => {
+    setAnchorEl(null);
+    handleCloseNavMenu(value); // Call your custom onChange function
+  };
 
   const handleSubmit = async () => {
     try {
@@ -46,7 +60,7 @@ function Header() {
     if ((event && event.target && event.target.value && event.target.value === "המילון האוניברסלי") || event === "המילון האוניברסלי") {
       navigate("/dashboard");
     }
-    setAnchorElNav(null);
+    setAnchorEl(null);
   };
 
 
@@ -110,22 +124,30 @@ function Header() {
 
           {isNarrowScreen && (
             <div>
-              <select
+              <IconButton
                 id="NavBar"
-                onChange={handleCloseNavMenu}
-                style={{ direction: "rtl", padding: "5px", border: "1px solid #ccc" }}
+                aria-controls="simple-menu"
+                aria-haspopup="true"
+                onClick={handleClick}
               >
-                <option value="">Select</option>
+                <MenuIcon />
+              </IconButton>
+              <Menu
+                id="simple-menu"
+                anchorEl={anchorEl}
+                keepMounted
+                open={Boolean(anchorEl)}
+                onClose={() => handleClose()}
+              >
+                <MenuItem onClick={() => handleClose('')}>
+                  <em>Select</em>
+                </MenuItem>
                 {pages.map((page) => (
-                  <option
-                    key={page}
-                    value={page}
-                    style={{ textAlign: "center", fontSize: "20px" }}
-                  >
+                  <MenuItem key={page} onClick={() => handleClose(page)}>
                     {page}
-                  </option>
+                  </MenuItem>
                 ))}
-              </select>
+              </Menu>
             </div>
           )}
 
