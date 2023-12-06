@@ -71,7 +71,7 @@ function Header() {
   }, []);
 
   return (
-    <div>
+    <div style={{marginBottom: '25px'}}>
       <AppBar position="static" sx={{ backgroundColor: "#F6C927" }}>
         <Container
           maxWidth={false}

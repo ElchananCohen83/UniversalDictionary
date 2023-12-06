@@ -7,7 +7,6 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { TableVirtuoso } from "react-virtuoso";
-import CopyButton from './CopyButton'; // Import CopyButton component
 
 
 function ReactVirtualizedTable(props) {
@@ -109,8 +108,8 @@ function ReactVirtualizedTable(props) {
     const letter = props.props[0].original.charAt(0);
     if ((letter >= "A" && letter <= "Z") || (letter >= "a" && letter <= "z")) {
       columns = [
-        { width: "50%", maxWidth: 150, label: "English", dataKey: "original", english: true, },
-        { width: "50%", maxWidth: 150, label: "עברית", dataKey: "translation", english: false, },
+        { width: "50%", maxWidth: 150, label: "English", dataKey: "original", english: true },
+        { width: "50%", maxWidth: 150, label: "עברית", dataKey: "translation", english: false },
       ];
     } else {
       columns = [
@@ -149,26 +148,12 @@ function ReactVirtualizedTable(props) {
         itemContent={rowContent}
         style={{
           ...tableStyle,
-          backgroundColor: "#F6C927",
+          backgroundColor: "#f0e9a5", //"#F6C927"
           height: `${tableHeight}px`,
           maxHeight: maxTableHeight,
           overflowY: "auto",
         }}
       />
-      {/* {clickedCell && (
-        <div
-          onClick={closeCopyButton}
-          style={{
-            position: 'absolute',
-            top: `${clickedCell.position.top}px`,
-            left: `${clickedCell.position.left}px`,
-            backgroundColor: 'white',
-            boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.5)',
-          }}
-        >
-          <CopyButton text={clickedCell.rowData[clickedCell.columnKey]} />
-        </div>
-      )} */}
     </Paper>
   );
 }
