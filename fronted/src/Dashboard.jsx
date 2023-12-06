@@ -45,19 +45,16 @@ export default function Dashboard() {
 
   return (
     <div>
-      <Header />
       <div
         style={{
           display: "flex",
           justifyContent: "flex-start",
           flexDirection: "column",
           backgroundColor: "#21213E",
-          height: "90vh",
-        }}
-      >
-        <div>
-          <Search onDataReceived={handleSearchDataReceived} />
-        </div>
+          height: "110vh",
+        }}>
+
+        <Header />
 
         <div>
           <LetterSearch
@@ -66,9 +63,13 @@ export default function Dashboard() {
               handleSelectLetter()
             }}
           />
+
+          <Search onDataReceived={handleSearchDataReceived} />
+
+          {isSearchClicked && <ReactVirtualizedTable props={result} />}
+
         </div>
 
-        <div>{isSearchClicked && <ReactVirtualizedTable props={result} />}</div>
       </div>
       <Footer />
     </div>
