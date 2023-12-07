@@ -138,6 +138,8 @@ function ReactVirtualizedTable(props) {
         width: "90%",
         maxWidth: "500px",
         overflowX: "auto",
+        marginBottom: "15px",
+
       }}
     >
       <TableVirtuoso
@@ -150,7 +152,7 @@ function ReactVirtualizedTable(props) {
           ...tableStyle,
           backgroundColor: "#f0e9a5", //"#F6C927"
           height: `${tableHeight}px`,
-          maxHeight: maxTableHeight,
+          maxHeight: maxTableHeight, //maxTableHeight
           overflowY: "auto",
         }}
       />

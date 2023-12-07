@@ -20,13 +20,10 @@ export default function Dashboard() {
       let response;
 
       if (!SearchByLetter) {
-        response = await api.get(
-          `/api/words/findWord?original=${ReqByValue.original}`
-        );
+        response = await api.get(`/api/words/findWord?original=${ReqByValue.original}`);
       } else if (SearchByLetter) {
-        response = await api.get(
-          `/api/words/findLetter?original=${ReqByValue.original}`
-        );
+        response = await api.get(`/api/words/findLetter?original=${ReqByValue.original}`);
+        setSearchByLetter(null)
       }
 
       setSuccess(response.data.message);
@@ -52,21 +49,9 @@ export default function Dashboard() {
   };
 
   return (
-    <div>
+    <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
       <Header />
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "flex-start",
-          flexDirection: "column",
-          backgroundColor: "#21213E",
-          height: "90vh",
-        }}
-      >
-        <div>
-          <Search onDataReceived={handleSearchDataReceived} />
-        </div>
-
+      <div style={{ flex: 1, backgroundColor: "#21213E" }}>
         <div>
           <LetterSearch
             onDataReceived={(data) => {
@@ -75,7 +60,9 @@ export default function Dashboard() {
             }}
           />
         </div>
-
+        <div>
+          <Search onDataReceived={handleSearchDataReceived} />
+        </div>
         <div>{isSearchClicked && <ReactVirtualizedTable props={result} />}</div>
         <div>
           {wordNotFound && (
