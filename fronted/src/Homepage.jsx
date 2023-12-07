@@ -16,7 +16,7 @@ export default function HomePage() {
 
         <Header />
         <div style={{ textAlign: 'center', color: "white"}}>
-          <h1 style={{fontSize: '100px', margin: '50px'}}>המילון העולמי</h1>
+          <h1 style={{fontSize: '100px', margin: '50px'}}>המילון האוניברסלי</h1>
           <h2 style={{fontSize: '50px'}}>עברי-אנגלי</h2>
           <h2 style={{fontSize: '50px'}}>אנגלי-עברי</h2>
           <h2>***</h2>
