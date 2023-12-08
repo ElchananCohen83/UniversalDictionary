@@ -63,8 +63,9 @@ export default function Dashboard() {
         <div>
           <Search onDataReceived={handleSearchDataReceived} />
         </div>
-        {/* <div>{isSearchClicked && <ReactVirtualizedTable props={result} />}</div> */}
-        <div>{result && <ReactVirtualizedTable props={result} />}</div>
+
+        <div>{isSearchClicked && <ReactVirtualizedTable props={result} />}</div>
+
         <div>
           {wordNotFound && (
             <div
