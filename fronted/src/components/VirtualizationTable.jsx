@@ -7,6 +7,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { TableVirtuoso } from "react-virtuoso";
+import CopyButton from './CopyButton'; // Import CopyButton component
 
 
 function ReactVirtualizedTable(props) {
@@ -156,6 +157,20 @@ function ReactVirtualizedTable(props) {
           overflowY: "auto",
         }}
       />
+      {/* {clickedCell && (
+        <div
+          onClick={closeCopyButton}
+          style={{
+            position: 'absolute',
+            top: `${clickedCell.position.top}px`,
+            left: `${clickedCell.position.left}px`,
+            backgroundColor: 'white',
+            boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.5)',
+          }}
+        >
+          <CopyButton text={clickedCell.rowData[clickedCell.columnKey]} />
+        </div>
+      )} */}
     </Paper>
   );
 }
