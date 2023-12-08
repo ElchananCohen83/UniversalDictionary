@@ -76,9 +76,8 @@ export default function Dashboard() {
                 backgroundColor: "#F6C927",
               }}
             >
-              <p>
-                the word <span style={{ color: "red" }}>{searchedWord}</span> is
-                not found
+              <p style={{ direction: "rtl" }}>
+                מצטערים המילה '<span style={{ color: "red" }}>{searchedWord}</span>' לא נמצאה במילון
               </p>
             </div>
           )}
@@ -88,3 +87,4 @@ export default function Dashboard() {
     </div>
   );
 }
+
