@@ -20,12 +20,10 @@ export default function Dashboard() {
       let response;
 
       if (!SearchByLetter) {
-        setIsSearchClicked(false);
         response = await api.get(`/api/words/findWord?original=${ReqByValue.original}`);
       } else if (SearchByLetter) {
         response = await api.get(`/api/words/findLetter?original=${ReqByValue.original}`);
         setSearchByLetter(null)
-        setIsSearchClicked(true); // Set isSearchClicked to true when data is received
       }
 
       setSuccess(response.data.message);
@@ -35,6 +33,10 @@ export default function Dashboard() {
       if (response.data.message === "Word not found") {
         setSearchedWord(response.data.data.original);
         setWorfNotFound(true);
+        setIsSearchClicked(false); // Set isSearchClicked to true when data is received
+      } else {
+        setWorfNotFound(false);
+        setIsSearchClicked(true); // Set isSearchClicked to true when data is received
       }
 
     } catch (error) {
@@ -65,8 +67,8 @@ export default function Dashboard() {
         </div>
 
         <div>{isSearchClicked && <ReactVirtualizedTable props={result} />}</div>
-        
-        //if wordNotFound
+
+        {/* if wordNotFound */}
         <div>
           {wordNotFound && (
             <div
