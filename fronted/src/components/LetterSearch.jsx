@@ -78,7 +78,9 @@ function SearchByLetter({ onDataReceived }) {
           marginTop: "15px",
         }}
       >
-        <label htmlFor="hebrewToEnglish" style={{ textAlign: "center", fontSize: "1rem" }}>dictionary by letter:</label>
+        <div>
+          <p style={{ textAlign: "center", fontSize: "1rem", fontWeight: "bold" }} > dictionary by letter: </p>
+        </div>
 
         <div>
           <select
