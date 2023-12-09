@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import api from "./services/api";
@@ -14,6 +14,21 @@ export default function Dashboard() {
   const [SearchByLetter, setSearchByLetter] = useState(null);
   const [wordNotFound, setWorfNotFound] = useState(false);
   const [searchedWord, setSearchedWord] = useState("");
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth <= 600);
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize(); // Set initial screen size
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
 
   const handleSearchDataReceived = async (ReqByValue) => {
     try {
@@ -73,15 +88,18 @@ export default function Dashboard() {
           {wordNotFound && (
             <div
               style={{
+                borderRadius: '5px',
+                backgroundColor: "#F6C927",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-around",
                 margin: "auto",
-                width: "90%",
-                maxWidth: "500px",
+                width: isSmallScreen ? "92%" : "508px",
                 overflowX: "auto",
                 marginTop: "15px",
-                backgroundColor: "#F6C927",
               }}
             >
-              <p style={{ direction: "rtl" }}>
+              <p style={{ direction: "rtl"}}>
                 מצטערים המילה '<span style={{ color: "red" }}>{searchedWord}</span>' לא נמצאה במילון
               </p>
             </div>
