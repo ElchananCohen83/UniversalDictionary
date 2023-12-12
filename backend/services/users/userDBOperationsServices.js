@@ -112,18 +112,20 @@ async function UserByCriteria(data) {
     try {
         const query = {
             $or: [
-                { email: data.email },
-                { username: data.username },
-                { firstName: { $regex: new RegExp(data.firstName, 'i') } },
-                { lastName: { $regex: new RegExp(data.lastName, 'i') } }
-            ]
+                data.email ? { email: data.email } : null,
+                data.firstName ? { firstName:{ $regex: new RegExp(`^${data.firstName}$`, 'i') } } : null,
+                data.lastName ? { lastName: { $regex: new RegExp(`^${data.lastName}$`, 'i') } } : null
+            ].filter(condition => condition !== null)
+            
         };
-        const documents = await User.find( query, { isDeleted: false }).select('-password');
+        console.log(query);
+
+        const documents = await User.find(query, { isDeleted: false }).select('-password');
 
         if (!documents) {
             return null; // User doesn't exist
         } else {
-            console.log('User found:', documents);
+            // console.log('User found:', documents);
             return documents; // User exists
         }
     } catch (e) {
