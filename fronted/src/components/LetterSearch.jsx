@@ -96,7 +96,7 @@ function SearchByLetter({ onDataReceived }) {
             key={index}
             value={letter}
             style={{ textAlign: "center", fontSize: "20px" }}
-            onClick={() => {
+            onChange={() => {
               handleSubmit(); // Assuming you want to handle submit on select click
               handleSelectLetter(); // Call handleSelectLetter on click
             }}          >
@@ -122,7 +122,7 @@ function SearchByLetter({ onDataReceived }) {
             key={index}
             value={letter}
             style={{ textAlign: "center", fontSize: "20px" }}
-            onClick={() => {
+            onChange={() => {
               handleSubmit(); // Assuming you want to handle submit on select click
               handleSelectLetter(); // Call handleSelectLetter on click
             }}
