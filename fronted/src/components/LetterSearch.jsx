@@ -39,7 +39,6 @@ function SearchByLetter({ onDataReceived }) {
       setSelectedEnglishLetter("")
     }
 
-    console.log(selectedEnglishLetter, selectedHebrewLetter);
     onDataReceived(ReqByValue);
   };
 
