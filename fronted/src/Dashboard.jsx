@@ -15,8 +15,6 @@ export default function Dashboard() {
   const [wordNotFound, setWordNotFound] = useState(false);
   const [searchedWord, setSearchedWord] = useState("");
   const [isSmallScreen, setIsSmallScreen] = useState(false);
-  const [data, setData] = useState(false);
-
 
   useEffect(() => {
     const handleResize = () => {
@@ -33,37 +31,32 @@ export default function Dashboard() {
 
 
   const handleSearchDataReceived = async (ReqByValue) => {
-    if (ReqByValue) {
-      try {
-        let response;
-        if (!SearchByLetter) {
-          response = await api.get(`/api/words/findWord?original=${ReqByValue.original}`);
-        } else if (SearchByLetter) {
-          response = await api.get(`/api/words/findLetter?original=${ReqByValue.original}`);
-          setSearchByLetter(null)
-        }
+    try {
+      let response;
 
-        setSuccess(response.data.message);
-        setResult(response.data.data);
-        setErrors("");
-
-        if (response.data.message === "Word not found") {
-          setSearchedWord(response.data.data.original);
-          setWordNotFound(true);
-          setIsSearchClicked(false); // Set isSearchClicked to true when data is received
-        } else {
-          setWordNotFound(false);
-          setIsSearchClicked(true); // Set isSearchClicked to true when data is received
-        }
-
-      } catch (error) {
-        setResult("");
-        setErrors(error.response.data.errors.join(", "));
-        setSuccess("");
+      if (!SearchByLetter) {
+        response = await api.get(`/api/words/findWord?original=${ReqByValue.original}`);
+      } else if (SearchByLetter) {
+        response = await api.get(`/api/words/findLetter?original=${ReqByValue.original}`);
+        setSearchByLetter(null)
       }
-    } else {
 
-      handleSearchDataReceived(data)
+      setIsSearchClicked(true); // Set isSearchClicked to true when data is received
+      setWordNotFound(false);
+      setSuccess(response.data.message);
+      setResult(response.data.data);
+      setErrors("");
+
+      if (response.data.message === "Word not found") {
+        setSearchedWord(response.data.data.original);
+        setWordNotFound(true);
+        setIsSearchClicked(false); // Set isSearchClicked to true when data is received
+      }
+
+    } catch (error) {
+      setResult("");
+      setErrors(error.response.data.errors.join(", "));
+      setSuccess("");
     }
   };
 
@@ -78,13 +71,11 @@ export default function Dashboard() {
         <div>
           <LetterSearch
             onDataReceived={(data) => {
-              setData(data);
               handleSearchDataReceived(data);
               handleSelectLetter();
             }}
           />
         </div>
-
         <div>
           <Search onDataReceived={handleSearchDataReceived} />
         </div>
@@ -107,7 +98,7 @@ export default function Dashboard() {
                 marginTop: "15px",
               }}
             >
-              <p style={{ direction: "rtl" }}>
+              <p style={{ direction: "rtl"}}>
                 מצטערים המילה '<span style={{ color: "red" }}>{searchedWord}</span>' לא נמצאה במילון
               </p>
             </div>
@@ -118,4 +109,3 @@ export default function Dashboard() {
     </div>
   );
 }
-
