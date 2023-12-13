@@ -42,15 +42,21 @@ function SearchByLetter({ onDataReceived }) {
     onDataReceived(ReqByValue);
   };
 
+  const handleSelectLetter = () => {
+    handleSubmit();
+    onLetterSelect(); // Call the provided onLetterSelect function
+  };
 
   // Function to handle the change in the Hebrew to English select box
   const handleHebrewToEnglishChange = (event) => {
     setSelectedHebrewLetter(event.target.value);
+    handleSelectLetter(); // Handle the selection change
   };
 
   // Function to handle the change in the English to Hebrew select box
   const handleEnglishToHebrewChange = (event) => {
     setSelectedEnglishLetter(event.target.value);
+    handleSelectLetter(); // Handle the selection change
   };
 
   // Array of English letters (customize as needed)
