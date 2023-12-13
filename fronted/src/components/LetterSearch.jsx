@@ -46,13 +46,11 @@ function SearchByLetter({ onDataReceived }) {
   // Function to handle the change in the Hebrew to English select box
   const handleHebrewToEnglishChange = (event) => {
     setSelectedHebrewLetter(event.target.value);
-    handleSubmit(); // Handle form submission
   };
 
   // Function to handle the change in the English to Hebrew select box
   const handleEnglishToHebrewChange = (event) => {
     setSelectedEnglishLetter(event.target.value);
-    handleSubmit(); // Handle form submission
   };
 
   // Array of English letters (customize as needed)
@@ -98,7 +96,10 @@ function SearchByLetter({ onDataReceived }) {
             key={index}
             value={letter}
             style={{ textAlign: "center", fontSize: "20px" }}
-          >
+            onClick={() => {
+              handleSubmit(); // Assuming you want to handle submit on select click
+              handleSelectLetter(); // Call handleSelectLetter on click
+            }}          >
             {letter}
           </option>
         ))}
@@ -121,6 +122,10 @@ function SearchByLetter({ onDataReceived }) {
             key={index}
             value={letter}
             style={{ textAlign: "center", fontSize: "20px" }}
+            onClick={() => {
+              handleSubmit(); // Assuming you want to handle submit on select click
+              handleSelectLetter(); // Call handleSelectLetter on click
+            }}
           >
             {letter}
           </option>
