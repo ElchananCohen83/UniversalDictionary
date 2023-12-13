@@ -21,7 +21,7 @@ export default function HomePage() {
           // padding: "20px", // Add padding for better readability
         }}
       >
-        <h1 style={{ fontSize: '8vw', margin: '20vw' }}>המילון האוניברסלי</h1>
+        <h1 style={{ fontSize: '8vw', marginTop: '20vw' }}>המילון האוניברסלי</h1>
         <h2 style={{ fontSize: '5vw' }}>עברי-אנגלי</h2>
         <h2 style={{ fontSize: '5vw' }}>אנגלי-עברי</h2>
         <h2>***</h2>
