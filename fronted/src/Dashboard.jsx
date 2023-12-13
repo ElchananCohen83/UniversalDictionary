@@ -15,7 +15,7 @@ export default function Dashboard() {
   const [wordNotFound, setWordNotFound] = useState(false);
   const [searchedWord, setSearchedWord] = useState("");
   const [isSmallScreen, setIsSmallScreen] = useState(false);
-  const [forceRender, setForceRender] = useState(false);
+  // const [forceRender, setForceRender] = useState(false);
 
 
   useEffect(() => {
@@ -64,7 +64,7 @@ export default function Dashboard() {
 
   const handleSelectLetter = (event, reason) => {
     setSearchByLetter(true);
-    setForceRender(prev => !prev); // toggle the forceRender state
+    // setForceRender(prev => !prev); // toggle the forceRender state
   };
 
   return (
@@ -83,7 +83,8 @@ export default function Dashboard() {
           <Search onDataReceived={handleSearchDataReceived} />
         </div>
 
-        <div>{isSearchClicked && <ReactVirtualizedTable props={result} key={forceRender} />}</div>
+        <div>{(isSearchClicked || SearchByLetter) && <ReactVirtualizedTable props={result} />}</div>
+        {/* <div>{isSearchClicked && <ReactVirtualizedTable props={result} key={forceRender} />}</div> */}
 
         {/* if wordNotFound */}
         <div>
