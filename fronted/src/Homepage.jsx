@@ -1,5 +1,5 @@
 import * as React from "react";
-import Header from ".//components/Header";
+import Header from "./components/Header";
 import Footer from "./components/Footer";
 
 export default function HomePage() {
@@ -12,15 +12,21 @@ export default function HomePage() {
           flexDirection: "column",
           backgroundColor: "#21213E",
           height: "110vh",
-        }}>
-
+        }}
+      >
         <Header />
-        <div style={{ textAlign: 'center', color: "white"}}>
-          <h1 style={{fontSize: '100px', margin: '50px'}}>המילון האוניברסלי</h1>
-          <h2 style={{fontSize: '50px'}}>עברי-אנגלי</h2>
-          <h2 style={{fontSize: '50px'}}>אנגלי-עברי</h2>
+        <div
+          style={{
+            textAlign: "center",
+            color: "white",
+            padding: "20px", // Add padding for better readability
+          }}
+        >
+          <h1 style={{ fontSize: '5vw', margin: '2vw' }}>המילון האוניברסלי</h1>
+          <h2 style={{ fontSize: '3vw' }}>עברי-אנגלי</h2>
+          <h2 style={{ fontSize: '3vw' }}>אנגלי-עברי</h2>
           <h2>***</h2>
-          <h3 style={{fontSize: '30px'}}>עורכת ראשית: ינטי הופמן</h3>
+          <h3 style={{ fontSize: '2vw' }}>עורכת ראשית: ינטי הופמן</h3>
         </div>
       </div>
       <Footer />
