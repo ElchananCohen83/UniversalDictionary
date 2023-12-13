@@ -24,7 +24,6 @@ function SearchByLetter({ onDataReceived }) {
 
 
   const handleSubmit = async (event) => {
-
     let ReqByValue;
 
     if (selectedHebrewLetter) {
@@ -41,7 +40,6 @@ function SearchByLetter({ onDataReceived }) {
 
     onDataReceived(ReqByValue);
   };
-
 
   // Function to handle the change in the Hebrew to English select box
   const handleHebrewToEnglishChange = (event) => {
@@ -81,56 +79,53 @@ function SearchByLetter({ onDataReceived }) {
         <p style={{ textAlign: "center", fontSize: "1rem", fontWeight: "bold" }} > dictionary by letter: </p>
       </div>
 
-      <select
-        id="englishToHebrew"
-        value={selectedEnglishLetter}
-        onChange={handleEnglishToHebrewChange}
-      onClick={() => {
-        handleSubmit(); // Assuming you want to handle submit on select click
-        handleSelectLetter(); // Call handleSelectLetter on click
-      }}
-      >
-        <option value="">Eng to Heb</option>
-        {englishLetters.map((letter, index) => (
-          <option
-            key={index}
-            value={letter}
-            style={{ textAlign: "center", fontSize: "20px" }}
-            onChange={() => {
-              handleSubmit(); // Assuming you want to handle submit on select click
-              handleSelectLetter(); // Call handleSelectLetter on click
-            }}          >
-            {letter}
-          </option>
-        ))}
-      </select>
+      <div>
+        <select
+          id="englishToHebrew"
+          value={selectedEnglishLetter}
+          onChange={handleEnglishToHebrewChange}
+          onClick={() => {
+            handleSubmit(); // Assuming you want to handle submit on select click
+            handleSelectLetter(); // Call handleSelectLetter on click
+          }}
+        >
+          <option value="">Eng to Heb</option>
+          {englishLetters.map((letter, index) => (
+            <option
+              key={index}
+              value={letter}
+              style={{ textAlign: "center", fontSize: "20px" }}
+            >
+              {letter}
+            </option>
+          ))}
+        </select>
+      </div>
 
       <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
 
-      <select
-        id="hebrewToEnglish"
-        value={selectedHebrewLetter}
-        onChange={handleHebrewToEnglishChange}
-        onClick={() => {
-          handleSubmit(); // Assuming you want to handle submit on select click
-          handleSelectLetter(); // Call handleSelectLetter on click
-        }}
-      >
-        <option value="" >Heb to Eng</option>
-        {hebrewLetters.map((letter, index) => (
-          <option
-            key={index}
-            value={letter}
-            style={{ textAlign: "center", fontSize: "20px" }}
-            onChange={() => {
-              handleSubmit(); // Assuming you want to handle submit on select click
-              handleSelectLetter(); // Call handleSelectLetter on click
-            }}
-          >
-            {letter}
-          </option>
-        ))}
-      </select>
+      <div>
+        <select
+          id="hebrewToEnglish"
+          value={selectedHebrewLetter}
+          onChange={handleHebrewToEnglishChange}
+          onClick={() => {
+            handleSubmit(); // Assuming you want to handle submit on select click
+            handleSelectLetter(); // Call handleSelectLetter on click
+          }}
+        >
+          <option value="" >Heb to Eng</option>
+          {hebrewLetters.map((letter, index) => (
+            <option
+              key={index}
+              value={letter}
+              style={{ textAlign: "center", fontSize: "20px" }}
+            >
+              {letter}
+            </option>
+          ))}
+        </select>
+      </div>
 
       <div>
         <p style={{ textAlign: "center", fontSize: "1rem", fontWeight: "bold" }} >:מילון לפי אות</p>
