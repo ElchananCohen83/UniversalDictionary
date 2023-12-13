@@ -12,7 +12,7 @@ export default function Dashboard() {
   const [success, setSuccess] = useState(null);
   const [result, setResult] = useState(null);
   const [SearchByLetter, setSearchByLetter] = useState(null);
-  const [wordNotFound, setWorfNotFound] = useState(false);
+  const [wordNotFound, setWordNotFound] = useState(false);
   const [searchedWord, setSearchedWord] = useState("");
   const [isSmallScreen, setIsSmallScreen] = useState(false);
 
@@ -41,17 +41,16 @@ export default function Dashboard() {
         setSearchByLetter(null)
       }
 
+      setIsSearchClicked(true); // Set isSearchClicked to true when data is received
+      setWordNotFound(false);
       setSuccess(response.data.message);
       setResult(response.data.data);
       setErrors("");
 
       if (response.data.message === "Word not found") {
         setSearchedWord(response.data.data.original);
-        setWorfNotFound(true);
+        setWordNotFound(true);
         setIsSearchClicked(false); // Set isSearchClicked to true when data is received
-      } else {
-        setWorfNotFound(false);
-        setIsSearchClicked(true); // Set isSearchClicked to true when data is received
       }
 
     } catch (error) {
