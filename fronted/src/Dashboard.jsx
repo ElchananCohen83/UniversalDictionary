@@ -15,8 +15,6 @@ export default function Dashboard() {
   const [wordNotFound, setWordNotFound] = useState(false);
   const [searchedWord, setSearchedWord] = useState("");
   const [isSmallScreen, setIsSmallScreen] = useState(false);
-  // const [forceRender, setForceRender] = useState(false);
-
 
   useEffect(() => {
     const handleResize = () => {
@@ -43,8 +41,6 @@ export default function Dashboard() {
         setSearchByLetter(null)
       }
 
-      setIsSearchClicked(true); // Set isSearchClicked to true when data is received
-      setWordNotFound(false);
       setSuccess(response.data.message);
       setResult(response.data.data);
       setErrors("");
@@ -53,6 +49,9 @@ export default function Dashboard() {
         setSearchedWord(response.data.data.original);
         setWordNotFound(true);
         setIsSearchClicked(false); // Set isSearchClicked to true when data is received
+      } else {
+        setWordNotFound(false);
+        setIsSearchClicked(true); // Set isSearchClicked to true when data is received
       }
 
     } catch (error) {
@@ -64,7 +63,6 @@ export default function Dashboard() {
 
   const handleSelectLetter = (event, reason) => {
     setSearchByLetter(true);
-    // setForceRender(prev => !prev); // toggle the forceRender state
   };
 
   return (
@@ -83,8 +81,7 @@ export default function Dashboard() {
           <Search onDataReceived={handleSearchDataReceived} />
         </div>
 
-        <div>{(isSearchClicked || SearchByLetter) && <ReactVirtualizedTable props={result} />}</div>
-        {/* <div>{isSearchClicked && <ReactVirtualizedTable props={result} key={forceRender} />}</div> */}
+        <div>{isSearchClicked && <ReactVirtualizedTable props={result} />}</div>
 
         {/* if wordNotFound */}
         <div>
