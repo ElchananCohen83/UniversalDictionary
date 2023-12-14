@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Divider from "@mui/material/Divider";
-
-
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
 
 function SearchByLetter({ onDataReceived }) {
-
-  const [selectedHebrewLetter, setSelectedHebrewLetter] = useState("");
-  const [selectedEnglishLetter, setSelectedEnglishLetter] = useState("");
+  const [selectedHebrewLetter, setSelectedHebrewLetter] = useState(null);
+  const [selectedEnglishLetter, setSelectedEnglishLetter] = useState(null);
   const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const [selectedOption, setSelectedOption] = useState("");
 
   useEffect(() => {
     const handleResize = () => {
@@ -22,119 +22,130 @@ function SearchByLetter({ onDataReceived }) {
     };
   }, []);
 
+  const handleSubmit = async (selectedValue) => {
 
-  const handleSubmit = async (event) => {
-
-    let ReqByValue;
-
-    if (selectedHebrewLetter) {
-
-      ReqByValue = { original: selectedHebrewLetter };
-      setSelectedEnglishLetter("")
-      setSelectedHebrewLetter("")
-
-    } else if (selectedEnglishLetter) {
-      ReqByValue = { original: selectedEnglishLetter };
-      setSelectedHebrewLetter("")
-      setSelectedEnglishLetter("")
-    }
+      const ReqByValue = { original: selectedValue };
+      setSelectedEnglishLetter(null);
+      setSelectedHebrewLetter(null);
 
     onDataReceived(ReqByValue);
   };
 
+  // const handleSelectLetter = () => {
+  //   // Your logic for handling select letter
+  // };
 
-  // Function to handle the change in the Hebrew to English select box
-  const handleHebrewToEnglishChange = (event) => {
-    setSelectedHebrewLetter(event.target.value);
+  const handleSelect = (selectedValue) => {
+    setSelectedOption(selectedValue);
+    handleSubmit(selectedValue);
+    // handleSelectLetter();
   };
 
-  // Function to handle the change in the English to Hebrew select box
-  const handleEnglishToHebrewChange = (event) => {
-    setSelectedEnglishLetter(event.target.value);
-  };
-
-  // Array of English letters (customize as needed)
   const englishLetters = Array.from({ length: 26 }, (_, index) =>
     String.fromCharCode(65 + index)
   );
 
-  // Array of Hebrew letters (customize as needed)
-  const hebrewLetters = ['א', 'ב', 'ג', 'ד', 'ה', 'ו', 'ז', 'ח', 'ט', 'י', 'כ', 'ל', 'מ', 'נ', 'ס', 'ע', 'פ', 'צ', 'ק', 'ר', 'ש', 'ת',]
+  const hebrewLetters = [
+    "א", "ב", "ג", "ד", "ה", "ו", "ז", "ח", "ט", "י", "כ", "ל", "מ", "נ", "ס",
+    "ע", "פ", "צ", "ק", "ר", "ש", "ת"
+  ];
 
+  return (
+    <div
+      style={{
+        borderRadius: "5px",
+        backgroundColor: "#F6C927",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-around",
+        margin: "auto",
+        width: isSmallScreen ? "92%" : "508px",
+        overflowX: "auto",
+        marginTop: "15px",
+      }}
+    >
+      <div>
+        <p style={{ textAlign: "center", fontSize: "1rem", fontWeight: "bold" }}>
+          dictionary by letter:
+        </p>
+      </div>
 
+      <div>
+        <CustomDropdown
+          label="Eng to Heb"
+          options={englishLetters}
+          selectedValue={selectedEnglishLetter}
+          onSelect={handleSelect}
+        />
+      </div>
 
-    return (
-      <div
-        style={{
-          borderRadius: '5px',
-          backgroundColor: "#F6C927",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-around",
-          margin: "auto",
-          width: isSmallScreen ? "92%" : "508px",
-          overflowX: "auto",
-          marginTop: "15px",
-        }}
-      >
-        <div>
-          <p style={{ textAlign: "center", fontSize: "1rem", fontWeight: "bold" }} > dictionary by letter: </p>
+      <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
+
+      <div>
+        <CustomDropdown
+          label="Heb to Eng"
+          options={hebrewLetters}
+          selectedValue={selectedHebrewLetter}
+          onSelect={handleSelect}
+        />
+      </div>
+
+      <div>
+        <p style={{ textAlign: "center", fontSize: "1rem", fontWeight: "bold" }}>
+          :מילון לפי אות
+        </p>
+      </div>
+    </div>
+  );
+}
+
+const CustomDropdown = ({ label, options, selectedValue, onSelect }) => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const handleClick = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const handleOptionClick = (option) => {
+    onSelect(option);
+    setIsDropdownOpen(false);
+  };
+
+  return (
+    <div>
+      <div onClick={handleClick} style={{ cursor: "pointer" }}>
+        {label}
+      </div>
+
+      {isDropdownOpen && (
+        <div
+          style={{
+            border: "1px solid #ccc",
+            padding: "5px",
+            cursor: "pointer",
+            position: "absolute",
+            zIndex: 1,
+            backgroundColor: "#fff",
+            boxShadow: "0 2px 5px rgba(0, 0, 0, 0.15)",
+          }}
+        >
+          {options.map((option, index) => (
+            <div
+              key={index}
+              onClick={() => handleOptionClick(option)}
+              style={{
+                padding: "10px",
+                cursor: "pointer",
+                borderBottom: "1px solid #ccc",
+              }}
+            >
+              {option}
+            </div>
+          ))}
         </div>
-
-        <div>
-          <select
-            id="englishToHebrew"
-            value={selectedEnglishLetter}
-            onChange={handleEnglishToHebrewChange}
-            onClick={() => {
-              handleSubmit(); // Assuming you want to handle submit on select click
-              handleSelectLetter(); // Call handleSelectLetter on click
-            }}
-
-          >
-            <option value="">Eng to Heb</option>
-            {englishLetters.map((letter, index) => (
-              <option
-                key={index}
-                value={letter}
-                style={{ textAlign: "center", fontSize: "20px" }}
-              >
-                {letter}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-
-        <div>
-          <select
-            id="hebrewToEnglish"
-            value={selectedHebrewLetter}
-            onChange={handleHebrewToEnglishChange}
-            onClick={() => {
-              handleSubmit(); // Assuming you want to handle submit on select click
-              handleSelectLetter(); // Call handleSelectLetter on click
-            }}
-          >
-            <option value="" >Heb to Eng</option>
-            {hebrewLetters.map((letter, index) => (
-              <option
-                key={index}
-                value={letter}
-                style={{ textAlign: "center", fontSize: "20px" }}
-              >
-                {letter}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div>
-          <p style={{ textAlign: "center", fontSize: "1rem", fontWeight: "bold" }} >:מילון לפי אות</p>
-        </div>
-      </div >
-    );
-  }
+      )}
+    </div>
+  );
+};
 
 export default SearchByLetter;
