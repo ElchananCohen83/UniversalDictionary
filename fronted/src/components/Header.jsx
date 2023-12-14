@@ -13,7 +13,7 @@ import UserMenu from "./UserMenu";
 import api from "../services/api";
 
 function Header() {
-  const [userName, setUserName] = useState(false);
+  const [userName, setUserName] = useState(null);
   const [success, setSuccess] = useState("");
   const [errors, setErrors] = useState("");
   const [showSnackbar, setShowSnackbar] = useState(false);
@@ -38,9 +38,7 @@ function Header() {
     try {
       const token = localStorage.getItem("authToken");
 
-      const response = await api.get(`/api/users/avatar`, {
-        headers: { authorization: token },
-      });
+      const response = await api.get(`/api/users/avatar`, { headers: { authorization: token }, });
 
       const data = response.data;
 
@@ -160,68 +158,71 @@ function Header() {
             </Box>
           )}
 
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              backgroundColor: "#F6C927",
-              borderRadius: "15px",
-              paddingLeft: "8px",
-              paddingRight: "8px",
-              marginLeft: isNarrowScreen ? 0 : "auto",
-            }}
-          >
-            {userName ? (
-              <>
-                {isNarrowScreen ? (
+          {userName !== null && (
+
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                backgroundColor: "#F6C927",
+                borderRadius: "15px",
+                paddingLeft: "8px",
+                paddingRight: "8px",
+                marginLeft: isNarrowScreen ? 0 : "auto",
+              }}
+            >
+
+              {userName ? (
+                <>
+                  {!isNarrowScreen ? (
+                    <div>
+                      <p
+                        style={{
+                          fontSize: "20px",
+                          fontWeight: "bold",
+                          paddingInline: "4px",
+                        }}
+                      >
+                        {userName.firstName} {userName.lastName}
+                      </p>
+                    </div>
+                  ) : null}
                   <UserMenu props={userName} />
-                ) : (
-                  <>
-                    <p
+                </>
+              ) : (
+                <>
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    <a
+                      href="#"
+                      onClick={() => navigate("/register")}
                       style={{
                         fontSize: "20px",
                         fontWeight: "bold",
                         paddingInline: "4px",
+                        textDecoration: "none",
                       }}
                     >
-                      {userName.firstName} {userName.lastName}
-                    </p>
-                    <UserMenu props={userName} />
-                  </>
-                )}
-              </>
-            ) : (
-              <>
-                <div style={{ display: "flex", alignItems: "center" }}>
-                  <a
-                    href="#"
-                    onClick={() => navigate("/register")}
-                    style={{
-                      fontSize: "20px",
-                      fontWeight: "bold",
-                      paddingInline: "4px",
-                      textDecoration: "none",
-                    }}
-                  >
-                    הרשמה
-                  </a>
-                  <p style={{ fontSize: "20px", fontWeight: "bold" }}> / </p>
-                  <a
-                    href="#"
-                    onClick={() => navigate("/login")}
-                    style={{
-                      fontSize: "20px",
-                      fontWeight: "bold",
-                      paddingInline: "4px",
-                      textDecoration: "none",
-                    }}
-                  >
-                    התחברות
-                  </a>
-                </div>
-              </>
-            )}
-          </Box>
+                      הרשמה
+                    </a>
+                    <p style={{ fontSize: "20px", fontWeight: "bold" }}> / </p>
+                    <a
+                      href="#"
+                      onClick={() => navigate("/login")}
+                      style={{
+                        fontSize: "20px",
+                        fontWeight: "bold",
+                        paddingInline: "4px",
+                        textDecoration: "none",
+                      }}
+                    >
+                      התחברות
+                    </a>
+                  </div>
+                </>
+              )}
+            </Box>
+          )}
+
         </Container>
       </AppBar>
     </div>
@@ -229,35 +230,3 @@ function Header() {
 }
 
 export default Header;
-
-// {/* <style>
-//                 {`select {
-//                     /* Remove default arrow in Firefox */
-//                     -moz-appearance: none;
-//                     /* Remove default arrow in other browsers */
-//                     -webkit-appearance: none;
-//                     appearance: none;
-//                     /* Add your custom styling here, like a background or border */
-//                     padding: 5px;
-//                     border: 1px solid #ccc;
-//                   }
-
-//                   /* Add a custom arrow background or icon */
-//                   select::after {
-//                     content: '\\25BC'; /* Unicode character for down arrow */
-//                     font-size: 12px;
-//                     color: #555;
-//                     position: absolute;
-//                     right: 10px;
-//                     top: 50%;
-//                     transform: translateY(-50%);
-//                     pointer-events: none; /* Make sure the arrow doesn't interfere with clicking */
-//                   }
-//                 `}
-//               </style> */}
-
-// <select
-//   id="NavBar"
-//   onChange={handleCloseNavMenu}
-//   style={{ direction: "rtl" }}
-// ></select>

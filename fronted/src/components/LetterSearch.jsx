@@ -64,7 +64,13 @@ function SearchByLetter({ onDataReceived }) {
         </p>
       </div>
 
-      <div>
+      <div
+        style={{
+          padding: "5px",
+          border: "1px solid",
+          backgroundColor: "#f0e9a5",
+        }}
+      >
         <CustomDropdown
           label="Eng to Heb"
           options={englishLetters}
@@ -75,7 +81,13 @@ function SearchByLetter({ onDataReceived }) {
 
       <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
 
-      <div>
+      <div
+        style={{
+          padding: "5px",
+          border: "1px solid",
+          backgroundColor: "#f0e9a5",
+        }}
+      >
         <CustomDropdown
           label="Heb to Eng"
           options={hebrewLetters}
@@ -135,7 +147,7 @@ const CustomDropdown = ({ label, options, selectedValue, onSelect }) => {
             cursor: "pointer",
             position: "absolute",
             zIndex: 9999,
-            backgroundColor: "#fff",
+            backgroundColor: "white",
             boxShadow: "0 2px 5px rgba(0, 0, 0, 0.15)",
           }}
         >
