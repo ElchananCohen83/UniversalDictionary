@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Divider from "@mui/material/Divider";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
+
 
 function SearchByLetter({ onDataReceived }) {
   const [selectedHebrewLetter, setSelectedHebrewLetter] = useState(null);
@@ -23,23 +22,18 @@ function SearchByLetter({ onDataReceived }) {
   }, []);
 
   const handleSubmit = async (selectedValue) => {
+    onDataReceived(selectedValue);
 
-      const ReqByValue = { original: selectedValue };
-      setSelectedEnglishLetter(null);
-      setSelectedHebrewLetter(null);
-
-    onDataReceived(ReqByValue);
+    setSelectedEnglishLetter(null);
+    setSelectedHebrewLetter(null);
   };
 
-  // const handleSelectLetter = () => {
-  //   // Your logic for handling select letter
-  // };
 
   const handleSelect = (selectedValue) => {
     setSelectedOption(selectedValue);
     handleSubmit(selectedValue);
-    // handleSelectLetter();
   };
+
 
   const englishLetters = Array.from({ length: 26 }, (_, index) =>
     String.fromCharCode(65 + index)
@@ -101,6 +95,21 @@ function SearchByLetter({ onDataReceived }) {
 
 const CustomDropdown = ({ label, options, selectedValue, onSelect }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    window.addEventListener("click", handleClickOutside);
+
+    return () => {
+      window.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
 
   const handleClick = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -111,8 +120,9 @@ const CustomDropdown = ({ label, options, selectedValue, onSelect }) => {
     setIsDropdownOpen(false);
   };
 
+
   return (
-    <div>
+    <div ref={dropdownRef}>
       <div onClick={handleClick} style={{ cursor: "pointer" }}>
         {label}
       </div>
@@ -124,7 +134,7 @@ const CustomDropdown = ({ label, options, selectedValue, onSelect }) => {
             padding: "5px",
             cursor: "pointer",
             position: "absolute",
-            zIndex: 1,
+            zIndex: 9999,
             backgroundColor: "#fff",
             boxShadow: "0 2px 5px rgba(0, 0, 0, 0.15)",
           }}

@@ -15,6 +15,8 @@ export default function Dashboard() {
   const [wordNotFound, setWordNotFound] = useState(false);
   const [searchedWord, setSearchedWord] = useState("");
   const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const [value, setValue] = useState(false);
+
 
   useEffect(() => {
     const handleResize = () => {
@@ -37,7 +39,7 @@ export default function Dashboard() {
       if (!SearchByLetter) {
         response = await api.get(`/api/words/findWord?original=${ReqByValue.original}`);
       } else if (SearchByLetter) {
-        response = await api.get(`/api/words/findLetter?original=${ReqByValue.original}`);
+        response = await api.get(`/api/words/findLetter?original=${ReqByValue}`);
         setSearchByLetter(null)
       }
 
@@ -60,9 +62,17 @@ export default function Dashboard() {
     }
   };
 
-  const handleSelectLetter = (event, reason) => {
+  const handleSelectLetter = async (value) => {
     setSearchByLetter(true);
+    setValue(value)
   };
+
+  useEffect(() => {
+    if (SearchByLetter === true) {
+      handleSearchDataReceived(value)
+    }
+  }, [SearchByLetter]); // useEffect will be called whenever SearchByLetter changes
+
 
   return (
     <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
@@ -70,9 +80,8 @@ export default function Dashboard() {
       <div style={{ flex: 1, backgroundColor: "#21213E" }}>
         <div>
           <LetterSearch
-            onDataReceived={(data) => {
-              handleSearchDataReceived(data);
-              handleSelectLetter();
+            onDataReceived={(value) => {
+              handleSelectLetter(value);
             }}
           />
         </div>
@@ -98,7 +107,7 @@ export default function Dashboard() {
                 marginTop: "15px",
               }}
             >
-              <p style={{ direction: "rtl"}}>
+              <p style={{ direction: "rtl" }}>
                 מצטערים המילה '<span style={{ color: "red" }}>{searchedWord}</span>' לא נמצאה במילון
               </p>
             </div>
