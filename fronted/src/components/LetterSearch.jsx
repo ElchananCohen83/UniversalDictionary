@@ -149,6 +149,8 @@ const CustomDropdown = ({ label, options, selectedValue, onSelect }) => {
             zIndex: 9999,
             backgroundColor: "white",
             boxShadow: "0 2px 5px rgba(0, 0, 0, 0.15)",
+            maxHeight: "300px", // Set the maximum height as needed
+            overflowY: "auto", // Enable vertical scrolling
           }}
         >
           {options.map((option, index) => (
