@@ -153,6 +153,15 @@ const CustomDropdown = ({ label, options, selectedValue, onSelect }) => {
             overflowY: "auto", // Enable vertical scrolling
           }}
         >
+          {/* Use Webkit-specific styles to hide the scrollbar */}
+          <style>
+            {`
+              ::-webkit-scrollbar {
+                width: 0 !important;
+              }
+            `}
+          </style>
+          
           {options.map((option, index) => (
             <div
               key={index}
