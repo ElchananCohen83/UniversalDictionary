@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Homepage from "./Homepage";
+import api from "../src/services/api.js";
 import checkToken from "./services/verifyToken.js";
+import Homepage from "./Homepage";
 import SignUp from "./Register.jsx";
 import SingIn from "./Login.jsx";
 import UserTitle from './UserTitle.jsx';
 import Dashboard from "./Dashboard.jsx";
-import api from "../src/services/api.js";
+import Instructions from "./Instructions.jsx";
+import About from "./About.jsx";
 
 const theme = createTheme({
   palette: {
@@ -83,6 +85,9 @@ function App() {
             <Route path="/userTitle" element={<UserTitle />} />
             <Route path="/login" element={<SingIn />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/instructions" element={<Instructions />} />
+            <Route path="/about" element={<About />} />
+
           </>
         )}
       </Routes>

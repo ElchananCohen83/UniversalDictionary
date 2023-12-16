@@ -4,14 +4,14 @@ import Footer from "./components/Footer";
 import api from "./services/api";
 import ReactVirtualizedTable from "./components/VirtualizationTable";
 import Search from "./components/Search";
-import LetterSearch from "./components/LetterSearch";
+import SearchByLetter from "./components/SearchByLetter";
 
 export default function Dashboard() {
   const [isSearchClicked, setIsSearchClicked] = useState(false);
   const [errors, setErrors] = useState(null);
   const [success, setSuccess] = useState(null);
   const [result, setResult] = useState(null);
-  const [SearchByLetter, setSearchByLetter] = useState(null);
+  const [SearchLetter, setSearchLetter] = useState(null);
   const [wordNotFound, setWordNotFound] = useState(false);
   const [searchedWord, setSearchedWord] = useState("");
   const [isSmallScreen, setIsSmallScreen] = useState(false);
@@ -36,11 +36,11 @@ export default function Dashboard() {
     try {
       let response;
 
-      if (!SearchByLetter) {
+      if (!SearchLetter) {
         response = await api.get(`/api/words/findWord?original=${ReqByValue.original}`);
-      } else if (SearchByLetter) {
+      } else if (SearchLetter) {
         response = await api.get(`/api/words/findLetter?original=${ReqByValue}`);
-        setSearchByLetter(null)
+        setSearchLetter(null)
       }
 
       setIsSearchClicked(true); // Set isSearchClicked to true when data is received
@@ -63,15 +63,15 @@ export default function Dashboard() {
   };
 
   const handleSelectLetter = async (value) => {
-    setSearchByLetter(true);
+    setSearchLetter(true);
     setValue(value)
   };
 
   useEffect(() => {
-    if (SearchByLetter === true) {
+    if (SearchLetter === true) {
       handleSearchDataReceived(value)
     }
-  }, [SearchByLetter]); // useEffect will be called whenever SearchByLetter changes
+  }, [SearchLetter]); // useEffect will be called whenever SearchByLetter changes
 
 
   return (
@@ -79,7 +79,7 @@ export default function Dashboard() {
       <Header />
       <div style={{ flex: 1, backgroundColor: "#21213E" }}>
         <div>
-          <LetterSearch
+          <SearchByLetter
             onDataReceived={(value) => {
               handleSelectLetter(value);
             }}
