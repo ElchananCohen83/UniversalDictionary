@@ -7,8 +7,6 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { TableVirtuoso } from "react-virtuoso";
-import CopyButton from './CopyButton'; // Import CopyButton component
-
 
 function ReactVirtualizedTable(props) {
   const [clickedCell, setClickedCell] = useState(null);

@@ -52,14 +52,18 @@ function Header() {
   };
 
   const handleCloseNavMenu = (event) => {
-    if (
-      (event &&
-        event.target &&
-        event.target.value &&
-        event.target.value === "המילון האוניברסלי") ||
-      event === "המילון האוניברסלי"
-    ) {
+    if ((event && event.target && event.target.value && event.target.value === "המילון האוניברסלי") || event === "המילון האוניברסלי") {
+      
       navigate("/dashboard");
+    
+    }else if ((event && event.target && event.target.value && event.target.value === "המדריך") || event === "המדריך") {
+      
+      navigate("/instructions");
+
+    }else if ((event && event.target && event.target.value && event.target.value === "אודות") || event === "אודות") {
+      
+      navigate("/about");
+
     }
     setAnchorEl(null);
   };
