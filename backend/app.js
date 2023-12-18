@@ -1,4 +1,5 @@
 import express from "express"
+import path from "path";
 import bodyParser from "body-parser";
 import { connectToDatabase } from "./db/dbConnect.js"
 import verifyToken from "./middleware/auth_JWT.js";
