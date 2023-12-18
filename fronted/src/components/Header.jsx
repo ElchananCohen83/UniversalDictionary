@@ -149,7 +149,7 @@ function Header() {
                   key={page}
                   onClick={() => handleCloseNavMenu(page)}
                   style={{
-                    color: "black",
+                    color: "#21213E",
                     fontSize: "20px",
                     fontWeight: "bold",
                     paddingInline: "16px",
@@ -183,6 +183,7 @@ function Header() {
                           fontSize: "20px",
                           fontWeight: "bold",
                           paddingInline: "4px",
+                          color: "#21213E"
                         }}
                       >
                         {userName.firstName} {userName.lastName}
@@ -202,6 +203,7 @@ function Header() {
                         fontWeight: "bold",
                         paddingInline: "4px",
                         textDecoration: "none",
+                        color: "#21213E"
                       }}
                     >
                       הרשמה
@@ -215,6 +217,7 @@ function Header() {
                         fontWeight: "bold",
                         paddingInline: "4px",
                         textDecoration: "none",
+                        color: "#21213E"
                       }}
                     >
                       התחברות
