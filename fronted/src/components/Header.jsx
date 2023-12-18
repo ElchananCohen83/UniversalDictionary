@@ -162,8 +162,6 @@ function Header() {
             </Box>
           )}
 
-          {userName !== null && (
-
             <Box
               sx={{
                 display: "flex",
@@ -225,7 +223,6 @@ function Header() {
                 </>
               )}
             </Box>
-          )}
 
         </Container>
       </AppBar>
