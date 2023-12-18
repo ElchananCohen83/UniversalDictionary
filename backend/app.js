@@ -17,10 +17,14 @@ app.use(verifyToken)
 app.use("/api/users", userRoutes)
 app.use("/api/words", wordRoutes)
 
+app.use(express.static(path.join(__dirname, 'frontend')));
+
+
 app.get('/nagishli_beta.js', (req, res) => {
-    res.type('application/javascript');
-    res.sendFile('path/to/nagishli_beta.js');
-  });
+  res.type('application/javascript');
+  res.sendFile(path.join(__dirname, 'frontend', 'nagishli_beta.js'));
+});
+
 
 connectToDatabase()
 
