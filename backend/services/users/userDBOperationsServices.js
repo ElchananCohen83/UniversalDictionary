@@ -79,7 +79,6 @@ async function getUserByToken(token) {
         if (!user) {
             return false;
         } else {
-            console.log(user.email, 1111);
             return user;
         }
     } catch (e) {
