@@ -7,15 +7,11 @@ import Search from "./components/Search";
 import SearchByLetter from "./components/SearchByLetter";
 
 export default function Dashboard() {
-  const [isSearchClicked, setIsSearchClicked] = useState(false);
-  const [errors, setErrors] = useState(null);
-  const [success, setSuccess] = useState(null);
+  const [isSmallScreen, setIsSmallScreen] = useState(null);
+  const [isWordFound, setIsWordFound] = useState(null);
   const [result, setResult] = useState(null);
   const [SearchLetter, setSearchLetter] = useState(null);
-  const [wordNotFound, setWordNotFound] = useState(false);
-  const [searchedWord, setSearchedWord] = useState("");
-  const [isSmallScreen, setIsSmallScreen] = useState(false);
-  const [value, setValue] = useState(false);
+  const [onSelect, setOnSelect] = useState(null);
 
 
   useEffect(() => {
@@ -32,44 +28,38 @@ export default function Dashboard() {
   }, []);
 
 
-  const handleSearchDataReceived = async (ReqByValue) => {
+  const handleSearchDataReceived = async (value) => {
     try {
       let response;
 
       if (!SearchLetter) {
-        response = await api.get(`/api/words/findWord?original=${ReqByValue.original}`);
+        response = await api.get(`/api/words/findWord?original=${value.original}`);
       } else if (SearchLetter) {
-        response = await api.get(`/api/words/findLetter?original=${ReqByValue}`);
+        response = await api.get(`/api/words/findLetter?original=${value}`);
         setSearchLetter(null)
       }
 
-      setIsSearchClicked(true); // Set isSearchClicked to true when data is received
-      setWordNotFound(false);
-      setSuccess(response.data.message);
+      setIsWordFound(true);
       setResult(response.data.data);
-      setErrors("");
 
       if (response.data.message === "Word not found") {
-        setSearchedWord(response.data.data.original);
-        setWordNotFound(true);
-        setIsSearchClicked(false); // Set isSearchClicked to true when data is received
+        setResult(response.data.data.original);
+        setIsWordFound(false); // Set isSearchClicked to true when data is received
       }
 
     } catch (error) {
-      setResult("");
-      setErrors(error.response.data.errors.join(", "));
-      setSuccess("");
+      setResult(null);
     }
   };
 
-  const handleSelectLetter = async (value) => {
+  const handleSelectLetter = async (onSelect) => {
     setSearchLetter(true);
-    setValue(value)
+    setOnSelect(onSelect)
   };
 
   useEffect(() => {
     if (SearchLetter === true) {
-      handleSearchDataReceived(value)
+      handleSearchDataReceived(onSelect)
     }
   }, [SearchLetter]); // useEffect will be called whenever SearchByLetter changes
 
@@ -80,20 +70,17 @@ export default function Dashboard() {
       <div style={{ flex: 1, backgroundColor: "#21213E" }}>
         <div>
           <SearchByLetter
-            onDataReceived={(value) => {
-              handleSelectLetter(value);
-            }}
+            onDataReceivedSearchByLetter = {handleSelectLetter}
           />
         </div>
         <div>
-          <Search onDataReceived={handleSearchDataReceived} />
+          <Search onDataReceivedSearch = {handleSearchDataReceived} />
         </div>
 
-        <div>{isSearchClicked && <ReactVirtualizedTable props={result} />}</div>
+        <div>{isWordFound && <ReactVirtualizedTable props={result} />}</div>
 
-        {/* if wordNotFound */}
         <div>
-          {wordNotFound && (
+          { !isWordFound && result && (
             <div
               style={{
                 borderRadius: '5px',
@@ -108,7 +95,7 @@ export default function Dashboard() {
               }}
             >
               <p style={{ direction: "rtl" }}>
-                מצטערים המילה '<span style={{ color: "red" }}>{searchedWord}</span>' לא נמצאה במילון
+                מצטערים המילה '<span style={{ color: "red" }}>{result}</span>' לא נמצאה במילון
               </p>
             </div>
           )}
