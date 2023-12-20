@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Divider from "@mui/material/Divider";
 import CustomDropdown from "./CustomDropdown";
 
-function SearchByLetter({ onDataReceived }) {
+function SearchByLetter({ onDataReceivedSearchByLetter }) {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
 
   useEffect(() => {
@@ -19,7 +19,7 @@ function SearchByLetter({ onDataReceived }) {
   }, []);
 
   const handleSubmit = async (onSelect) => {
-    onDataReceived(onSelect);
+    onDataReceivedSearchByLetter(onSelect);
   };
 
 

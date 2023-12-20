@@ -4,13 +4,13 @@ import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 
-function Search({ onDataReceived }) {
+function Search({ onDataReceivedSearch }) {
     const [Word, setWord] = useState("");
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         const ReqByValue = { original: Word };
-        onDataReceived(ReqByValue);
+        onDataReceivedSearch(ReqByValue);
     };
 
     const handleKeyPress = (event) => {

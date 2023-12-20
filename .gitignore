@@ -1,2 +1,7 @@
 tyota
 csv
+
+.env
+node_modules
+Heb_To_En
+En_To_Heb
