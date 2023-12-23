@@ -3,14 +3,16 @@ import Paper from "@mui/material/Paper";
 import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
+import api from "../services/api.js";
 
 function Search({ onDataReceivedSearch }) {
     const [Word, setWord] = useState("");
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const ReqByValue = { original: Word };
-        onDataReceivedSearch(ReqByValue);
+        const searchWord = { original: Word };
+        const response = await api.get(`/api/words/findWord?original=${searchWord.original}`);
+        onDataReceivedSearch(response);
     };
 
     const handleKeyPress = (event) => {
@@ -57,14 +59,14 @@ function Search({ onDataReceivedSearch }) {
                         color: "#F6C927",
                         backgroundColor: "#21213E",
                     }}
-                    placeholder="  Search for word"
-                    inputProps={{ "aria-label": "  search for word" }}
+                    placeholder=" Search for word"
+                    inputProps={{ "aria-label": "search for word" }}
                     endAdornment={<React.Fragment />}
                     onChange={(e) => {
                         setWord(e.target.value);
                         e.target.dir = isHebrew(e.target.value) ? "rtl" : "ltr";
                     }}
-                    onKeyPress={handleKeyPress}
+                    onKeyDown={handleKeyPress}
                 />
 
                 <IconButton

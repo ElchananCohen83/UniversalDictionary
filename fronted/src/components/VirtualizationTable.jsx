@@ -7,6 +7,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { TableVirtuoso } from "react-virtuoso";
+import CopyButton from "./CopyButton.jsx"
 
 function ReactVirtualizedTable(props) {
   const [clickedCell, setClickedCell] = useState(null);
@@ -141,6 +142,22 @@ function ReactVirtualizedTable(props) {
 
       }}
     >
+      {/* Use Webkit-specific styles to hide the scrollbar */}
+      <style>
+        {`
+            ::-webkit-scrollbar {
+                width: 5px;
+            }
+
+            ::-webkit-scrollbar-thumb {
+              background-color: #888;
+          }
+
+          ::-webkit-scrollbar-thumb:hover {
+            background-color: #555;
+        }
+        `}
+      </style>
       <TableVirtuoso
         onClick={closeCopyButton}
         data={props.props}

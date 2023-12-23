@@ -1,25 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Divider from "@mui/material/Divider";
 import CustomDropdown from "./CustomDropdown";
+import api from "../services/api.js";
+import useWindowSize from "../utils/useWindowSize.js";
 
 function SearchByLetter({ onDataReceivedSearchByLetter }) {
-  const [isSmallScreen, setIsSmallScreen] = useState(false);
 
-  useEffect(() => {
-    const handleResize = () => {
-      setIsSmallScreen(window.innerWidth <= 600);
-    };
-
-    window.addEventListener("resize", handleResize);
-    handleResize(); // Set initial screen size
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+  const isSmallScreen = useWindowSize();
 
   const handleSubmit = async (onSelect) => {
-    onDataReceivedSearchByLetter(onSelect);
+    const response = await api.get(`/api/words/findLetter?original=${onSelect}`);
+    onDataReceivedSearchByLetter(response);
   };
 
 
@@ -33,6 +24,7 @@ function SearchByLetter({ onDataReceivedSearchByLetter }) {
   ];
 
   return (
+
     <div
       style={{
         borderRadius: "5px",
@@ -46,63 +38,25 @@ function SearchByLetter({ onDataReceivedSearchByLetter }) {
         marginTop: "15px",
       }}
     >
-      <div>
-        <p style={{ textAlign: "center", fontSize: "1rem", fontWeight: "bold" }}>
-          dictionary by letter:
-        </p>
-      </div>
 
-      <div
-        style={{
-          padding: "5px",
-          border: "1px solid",
-          backgroundColor: "#f0e9a5",
-        }}
-      >
-        {/* Use Webkit-specific styles to hide the scrollbar */}
-        <style>
-        {`
-            ::-webkit-scrollbar {
-                width: 5px;
-            }
+      <p style={{ textAlign: "center", fontSize: "1rem", fontWeight: "bold" }}>dictionary by letter:</p>
 
-            ::-webkit-scrollbar-thumb {
-              background-color: #888;
-          }
-
-          ::-webkit-scrollbar-thumb:hover {
-            background-color: #555;
-        }
-        `}
-        </style>
-        <CustomDropdown
-          label="Eng to Heb"
-          options={englishLetters}
-          onSelect={handleSubmit}
-        />
-      </div>
+      <CustomDropdown
+        label="Eng to Heb"
+        options={englishLetters}
+        onSelect={handleSubmit}
+      />
 
       <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
 
-      <div
-        style={{
-          padding: "5px",
-          border: "1px solid",
-          backgroundColor: "#f0e9a5",
-        }}
-      >
-        <CustomDropdown
-          label="Heb to Eng"
-          options={hebrewLetters}
-          onSelect={handleSubmit}
-        />
-      </div>
+      <CustomDropdown
+        label="Heb to Eng"
+        options={hebrewLetters}
+        onSelect={handleSubmit}
+      />
 
-      <div>
-        <p style={{ textAlign: "center", fontSize: "1rem", fontWeight: "bold" }}>
-          :מילון לפי אות
-        </p>
-      </div>
+      <p style={{ textAlign: "center", fontSize: "1rem", fontWeight: "bold" }}>:מילון לפי אות</p>
+
     </div>
   );
 }
