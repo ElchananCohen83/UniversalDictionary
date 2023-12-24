@@ -8,7 +8,6 @@ import Select from "@mui/material/Select";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Footer from "./components/Footer";
 import useCustomState from './utils/useState';
 import api from './services/api';
 
@@ -26,14 +25,6 @@ const MenuProps = {
 
 const allowedTitles = ['Student', 'Teacher', 'Linguist', 'Other']
 
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: "#F6C927",
-    },
-    background: { default: "#0A0A1B" },
-  },
-});
 
 export default function UserTitle() {
 

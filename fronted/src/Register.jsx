@@ -10,7 +10,6 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import Footer from './components/Footer';
 import api from './services/api';
 import useCustomState from './utils/useState.jsx';
 import SimpleSnackbar from './components/snackbars.jsx';

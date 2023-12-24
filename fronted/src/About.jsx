@@ -1,6 +1,4 @@
 import * as React from "react";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
 
 export default function About() {
   return (
@@ -12,7 +10,6 @@ export default function About() {
         backgroundColor: "#21213E",
       }}
     >
-      <Header />
       <div
         style={{
           flex: "1", // Allow the content to grow and take available space
@@ -27,7 +24,6 @@ export default function About() {
         <h2>***</h2>
         <h3 style={{ fontSize: '3vw' }}>עורכת ראשית: ינטי הופמן</h3> */}
       </div>
-      <Footer />
     </div>
   );
 }

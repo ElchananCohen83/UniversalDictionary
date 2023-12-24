@@ -53,15 +53,15 @@ function Header() {
 
   const handleCloseNavMenu = (event) => {
     if ((event && event.target && event.target.value && event.target.value === "המילון האוניברסלי") || event === "המילון האוניברסלי") {
-      
+
       navigate("/dashboard");
-    
-    }else if ((event && event.target && event.target.value && event.target.value === "המדריך") || event === "המדריך") {
-      
+
+    } else if ((event && event.target && event.target.value && event.target.value === "המדריך") || event === "המדריך") {
+
       navigate("/instructions");
 
-    }else if ((event && event.target && event.target.value && event.target.value === "אודות") || event === "אודות") {
-      
+    } else if ((event && event.target && event.target.value && event.target.value === "אודות") || event === "אודות") {
+
       navigate("/about");
 
     }
@@ -87,6 +87,7 @@ function Header() {
             flexDirection: "row",
           }}
         >
+
           {isNarrowScreen ? (
             <div>
               <IconButton
@@ -132,7 +133,9 @@ function Header() {
               </IconButton>
             </div>
           ) : (
+
             <Box>
+
               <IconButton onClick={() => navigate("/")} sx={{ p: 0 }}>
                 <img
                   alt="logo"
@@ -144,6 +147,7 @@ function Header() {
                   }}
                 />
               </IconButton>
+
               {pages.map((page) => (
                 <Button
                   key={page}
@@ -159,73 +163,74 @@ function Header() {
                   {page}
                 </Button>
               ))}
+
             </Box>
           )}
 
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                backgroundColor: "#F6C927",
-                borderRadius: "15px",
-                paddingLeft: "8px",
-                paddingRight: "8px",
-                marginLeft: isNarrowScreen ? 0 : "auto",
-              }}
-            >
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              backgroundColor: "#F6C927",
+              borderRadius: "15px",
+              paddingLeft: "8px",
+              paddingRight: "8px",
+              marginLeft: isNarrowScreen ? 0 : "auto",
+            }}
+          >
 
-              {userName ? (
-                <>
-                  {!isNarrowScreen ? (
-                    <div>
-                      <p
-                        style={{
-                          fontSize: "20px",
-                          fontWeight: "bold",
-                          paddingInline: "4px",
-                          color: "#21213E"
-                        }}
-                      >
-                        {userName.firstName} {userName.lastName}
-                      </p>
-                    </div>
-                  ) : null}
-                  <UserMenu props={userName} />
-                </>
-              ) : (
-                <>
-                  <div style={{ display: "flex", alignItems: "center" }}>
-                    <a
-                      href="#"
-                      onClick={() => navigate("/register")}
+            {userName ? (
+              <>
+                {!isNarrowScreen ? (
+                  <div>
+                    <p
                       style={{
                         fontSize: "20px",
                         fontWeight: "bold",
                         paddingInline: "4px",
-                        textDecoration: "none",
                         color: "#21213E"
                       }}
                     >
-                      הרשמה
-                    </a>
-                    <p style={{ fontSize: "20px", fontWeight: "bold" }}> / </p>
-                    <a
-                      href="#"
-                      onClick={() => navigate("/login")}
-                      style={{
-                        fontSize: "20px",
-                        fontWeight: "bold",
-                        paddingInline: "4px",
-                        textDecoration: "none",
-                        color: "#21213E"
-                      }}
-                    >
-                      התחברות
-                    </a>
+                      {userName.firstName} {userName.lastName}
+                    </p>
                   </div>
-                </>
-              )}
-            </Box>
+                ) : null}
+                <UserMenu props={userName} />
+              </>
+            ) : (
+              <>
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <a
+                    href="#"
+                    onClick={() => navigate("/register")}
+                    style={{
+                      fontSize: "20px",
+                      fontWeight: "bold",
+                      paddingInline: "4px",
+                      textDecoration: "none",
+                      color: "#21213E"
+                    }}
+                  >
+                    הרשמה
+                  </a>
+                  <p style={{ fontSize: "20px", fontWeight: "bold" }}> / </p>
+                  <a
+                    href="#"
+                    onClick={() => navigate("/login")}
+                    style={{
+                      fontSize: "20px",
+                      fontWeight: "bold",
+                      paddingInline: "4px",
+                      textDecoration: "none",
+                      color: "#21213E"
+                    }}
+                  >
+                    התחברות
+                  </a>
+                </div>
+              </>
+            )}
+          </Box>
 
         </Container>
       </AppBar>
