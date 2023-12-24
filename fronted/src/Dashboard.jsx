@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
 import ReactVirtualizedTable from "./components/VirtualizationTable";
 import Search from "./components/Search";
 import SearchByLetter from "./components/SearchByLetter";
@@ -29,7 +27,6 @@ export default function Dashboard() {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
-      <Header />
       <div style={{ flex: 1, backgroundColor: "#21213E" }}>
         <div>
           <SearchByLetter
@@ -64,7 +61,6 @@ export default function Dashboard() {
           )}
         </div>
       </div>
-      <Footer />
     </div>
   );
 }

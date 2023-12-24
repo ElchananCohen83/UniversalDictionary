@@ -1,6 +1,4 @@
 import * as React from "react";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
 
 export default function Instructions() {
     return (
@@ -13,8 +11,6 @@ export default function Instructions() {
                 backgroundColor: "#21213E",
             }}
         >
-            <Header />
-
             <div style={{
                 flex: 1,
                 width: "50%",
@@ -130,9 +126,6 @@ export default function Instructions() {
                     ינטי הופמן
                 </p>
             </div>
-
-            <Footer />
-
         </div>
     );
 }
