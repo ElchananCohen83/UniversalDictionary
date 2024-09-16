@@ -19,7 +19,7 @@ function Header() {
   const [showSnackbar, setShowSnackbar] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const pages = ["המילון האוניברסלי", "המדריך", "אודות"];
+  const pages = ["המילון", "המדריך", "אודות"];
 
   const navigate = useNavigate();
 
@@ -118,7 +118,7 @@ function Header() {
                 ))}
               </Menu>
 
-              <IconButton
+{/*               <IconButton
                 onClick={() => navigate("/")}
                 sx={{ p: 0, ml: "20px" }}
               >
@@ -130,7 +130,7 @@ function Header() {
                     height: "24px",
                   }}
                 />
-              </IconButton>
+              </IconButton> */}
             </div>
           ) : (
 
