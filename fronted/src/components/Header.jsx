@@ -52,7 +52,7 @@ function Header() {
   };
 
   const handleCloseNavMenu = (event) => {
-    if ((event && event.target && event.target.value && event.target.value === "המילון האוניברסלי") || event === "המילון האוניברסלי") {
+    if ((event && event.target && event.target.value && event.target.value === "המילון") || event === "המילון") {
 
       navigate("/dashboard");
 
