@@ -136,7 +136,7 @@ function Header() {
 
             <Box>
 
-              <IconButton onClick={() => navigate("/")} sx={{ p: 0 }}>
+              {/* <IconButton onClick={() => navigate("/")} sx={{ p: 0 }}>
                 <img
                   alt="logo"
                   src={"/UDlogo.png"}
@@ -146,7 +146,7 @@ function Header() {
                     paddingRight: "40px",
                   }}
                 />
-              </IconButton>
+              </IconButton> */}
 
               {pages.map((page) => (
                 <Button
