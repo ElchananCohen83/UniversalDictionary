@@ -7,24 +7,26 @@ export default function HomePage() {
         flex: 1,
         display: "flex",
         flexDirection: "column",
-        minHeight: "100vh", // Set minimum height to 100% of the viewport height
+        minHeight: "100vh",
         backgroundColor: "#21213E",
+        justifyContent: "center", // Center content vertically
+        alignItems: "center", // Center content horizontally
       }}
     >
       <div
         style={{
-          flex: "1", // Allow the content to grow and take available space
+          flex: "1",
           textAlign: "center",
           color: "white",
-          // padding: "20px", // Add padding for better readability
+          padding: "20px", // Add padding for better readability
         }}
       >
-        <h1 style={{ fontSize: '6vw', marginTop: '3vw' }}>המילון</h1>
-        <h2 style={{ fontSize: '3vw' }}>עברי-אנגלי</h2>
-        <h2 style={{ fontSize: '3vw' }}>אנגלי-עברי</h2>
+        <h1 style={{ fontSize: "6vw", marginTop: "3vw" }}>המילון</h1>
+        <h2 style={{ fontSize: "3vw" }}>עברי-אנגלי</h2>
+        <h2 style={{ fontSize: "3vw" }}>אנגלי-עברי</h2>
         <h2>***</h2>
-{/*         <h3 style={{ fontSize: '3vw' }}>עורכת ראשית: ינטי הופמן</h3>
-      </div> */}
+        <h3 style={{ fontSize: "3vw" }}>עורכת ראשית: ינטי הופמן</h3>
+      </div>
     </div>
   );
 }
