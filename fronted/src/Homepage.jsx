@@ -19,12 +19,12 @@ export default function HomePage() {
           // padding: "20px", // Add padding for better readability
         }}
       >
-        <h1 style={{ fontSize: '6vw', marginTop: '3vw' }}>המילון האוניברסלי</h1>
+        <h1 style={{ fontSize: '6vw', marginTop: '3vw' }}>המילון</h1>
         <h2 style={{ fontSize: '3vw' }}>עברי-אנגלי</h2>
         <h2 style={{ fontSize: '3vw' }}>אנגלי-עברי</h2>
         <h2>***</h2>
-        <h3 style={{ fontSize: '3vw' }}>עורכת ראשית: ינטי הופמן</h3>
-      </div>
+{/*         <h3 style={{ fontSize: '3vw' }}>עורכת ראשית: ינטי הופמן</h3>
+      </div> */}
     </div>
   );
 }
