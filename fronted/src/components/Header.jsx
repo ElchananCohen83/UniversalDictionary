@@ -118,35 +118,35 @@ function Header() {
                 ))}
               </Menu>
 
-{/*               <IconButton
+               <IconButton
                 onClick={() => navigate("/")}
                 sx={{ p: 0, ml: "20px" }}
               >
                 <img
                   alt="logo"
-                  src={"/UDlogo.png"}
+                  src={"/logo.png"}
                   style={{
                     display: "block",
                     height: "24px",
                   }}
                 />
-              </IconButton> */}
+              </IconButton>
             </div>
           ) : (
 
             <Box>
 
-              {/* <IconButton onClick={() => navigate("/")} sx={{ p: 0 }}>
+              <IconButton onClick={() => navigate("/")} sx={{ p: 0 }}>
                 <img
                   alt="logo"
-                  src={"/UDlogo.png"}
+                  src={"/logo.png"}
                   style={{
                     display: "block",
-                    height: "24px",
+                    height: "55px",
                     paddingRight: "40px",
                   }}
                 />
-              </IconButton> */}
+              </IconButton>
 
               {pages.map((page) => (
                 <Button
