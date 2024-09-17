@@ -7,7 +7,6 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { TableVirtuoso } from "react-virtuoso";
-import CopyButton from "./CopyButton.jsx"
 
 function ReactVirtualizedTable(props) {
   const [clickedCell, setClickedCell] = useState(null);
@@ -87,7 +86,6 @@ function ReactVirtualizedTable(props) {
         {columns.map((column) => {
           let cellContent = row;
   
-          // פיצול גישה לעומק המפתח לפי dataKey (לדוגמה: translations.hebrew)
           column.dataKey.split('.').forEach(key => {
             cellContent = cellContent ? cellContent[key] : 'N/A';
           });
