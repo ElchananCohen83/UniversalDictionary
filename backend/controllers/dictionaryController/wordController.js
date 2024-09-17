@@ -6,7 +6,7 @@ import {
 const getfindWordController = async (req, res) => {
   try {
     const data = req.query;
-    if (data.original !== "") {
+    if (data.word && data.word.trim() !== "") {
       const result = await getfindWordDB(data);
       if (result) {
         return res.status(200).json({ data: result });
@@ -26,7 +26,7 @@ const getfindWordController = async (req, res) => {
 const getfindByLetterController = async (req, res) => {
   try {
     const data = req.query;
-    if (data.original !== "") {
+    if (data.word && data.word.trim() !== "") {
       const result = await getfindByLetterDB(data);
       return res.status(200).json({ data: result });
     } else {

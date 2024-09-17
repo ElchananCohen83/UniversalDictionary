@@ -13,6 +13,7 @@ import {
     Menu,
     MenuItem,
 } from "@mui/material";
+import api from "../services/api";
 
 
 const UserMenu = (props) => {
@@ -47,8 +48,8 @@ const UserMenu = (props) => {
     useEffect(() => {
         const fetchProfileData = async () => {
             try {
-                const response = await axios.get("http://localhost:5000/api/users/me");
-
+                // const response = await axios.get("http://localhost:5000/api/users/me");
+                const response = await api.get("/api/users/me");
                 if (response.status !== 200) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }

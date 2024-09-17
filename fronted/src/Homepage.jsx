@@ -25,7 +25,6 @@ export default function HomePage() {
         <h2 style={{ fontSize: "3vw" }}>עברי-אנגלי</h2>
         <h2 style={{ fontSize: "3vw" }}>אנגלי-עברי</h2>
         <h2>***</h2>
-        <h3 style={{ fontSize: "3vw" }}>עורכת ראשית: ינטי הופמן</h3>
       </div>
     </div>
   );

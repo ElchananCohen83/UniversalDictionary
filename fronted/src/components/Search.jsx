@@ -10,8 +10,10 @@ function Search({ onDataReceivedSearch }) {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const searchWord = { original: Word };
-        const response = await api.get(`/api/words/findWord?original=${searchWord.original}`);
+        const searchWord = { word: Word };
+        const response = await api.get(`/api/words/findWord?word=${searchWord.word}`);
+        // console.log(response.data.data.word);
+        
         onDataReceivedSearch(response);
     };
 

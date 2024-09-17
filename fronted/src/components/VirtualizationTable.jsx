@@ -81,40 +81,52 @@ function ReactVirtualizedTable(props) {
   }
 
 
-  function rowContent(_index, row) {
+  function rowContent(index, row) {
     return (
       <React.Fragment>
-        {columns.map((column) => (
-          <TableCell
-            key={column.dataKey}
-            align={column.english ? "left" : "right"}
-            style={{
-              padding: "0px 7px",
-              border: "1px solid grey",
-              position: 'relative',
-            }}
-            onClick={(e) => handleCellClick(column.dataKey, row, e)}
-
-          >
-            {row[column.dataKey]}
-          </TableCell>
-        ))}
+        {columns.map((column) => {
+          let cellContent = row;
+  
+          // פיצול גישה לעומק המפתח לפי dataKey (לדוגמה: translations.hebrew)
+          column.dataKey.split('.').forEach(key => {
+            cellContent = cellContent ? cellContent[key] : 'N/A';
+          });
+  
+          return (
+            <TableCell
+              key={column.dataKey}
+              align={column.english ? "left" : "right"}
+              style={{
+                padding: "0px 7px",
+                border: "1px solid grey",
+                position: 'relative',
+              }}
+            >
+              {cellContent || 'N/A'}
+            </TableCell>
+          );
+        })}
       </React.Fragment>
     );
   }
+  
 
 
   if (props.props) {
-    const letter = props.props[0].original.charAt(0);
+    const letter = props.props[0].word.charAt(0);
     if ((letter >= "A" && letter <= "Z") || (letter >= "a" && letter <= "z")) {
       columns = [
-        { width: "50%", maxWidth: 150, label: "English", dataKey: "original", english: true },
-        { width: "50%", maxWidth: 150, label: "עברית", dataKey: "translation", english: false },
+        { width: "20%", maxWidth: 150, label: "English", dataKey: "word", english: true },
+        { width: "20%", maxWidth: 150, label: "Hebrew", dataKey: "translations.hebrew", english: false },
+        { width: "20%", maxWidth: 150, label: "Arabic", dataKey: "translations.arabic", english: false },
+        { width: "20%", maxWidth: 150, label: "French", dataKey: "translations.french", english: false },
+        { width: "20%", maxWidth: 150, label: "Spanish", dataKey: "translations.spanish", english: false },
+        { width: "20%", maxWidth: 150, label: "PartSpeech", dataKey: "partOfSpeech", english: true },
       ];
     } else {
       columns = [
-        { width: "50%", maxWidth: 150, label: "English", dataKey: "translation", english: true, },
-        { width: "50%", maxWidth: 150, label: "עברית", dataKey: "dottedOriginal", english: false, },
+        { width: "50%", maxWidth: 150, label: "English", dataKey: "transcription", english: true, },
+        { width: "50%", maxWidth: 150, label: "עברית", dataKey: "word", english: false, },
       ];
     }
   }

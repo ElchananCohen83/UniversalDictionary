@@ -6,9 +6,10 @@ const connectToDatabase = async () => {
   const userName = process.env.DB_USERNAME;
   const password = process.env.DB_PASSWORD;
   const cluster = process.env.CLUSTER_URI;
-  const dbName = 'UniversalDictionary';
+  const dbName = 'Dictionary';
 
   const connectionURI = `mongodb+srv://${userName}:${password}${cluster}${dbName}`;
+
 
   try {
     if (!connect) {

@@ -6,17 +6,19 @@ import useWindowSize from "./utils/useWindowSize";
 
 export default function Dashboard() {
   const [isWordFound, setIsWordFound] = useState(null);
-  const [result, setResult] = useState(null);
+  const [result, setResult] = useState([]);
 
   const isSmallScreen = useWindowSize();
 
   const handleSearchDataReceived = async (response) => {
     try {
       setResult(response.data.data);
+      console.log("dashboard as array:", response.data.data);
+      
       setIsWordFound(true);
 
       if (response.data.message === "Word not found") {
-        setResult(response.data.data.original);
+        setResult(response.data.data.word);
         setIsWordFound(false); // Set isSearchClicked to true when data is received
       }
 

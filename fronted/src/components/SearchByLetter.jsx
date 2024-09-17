@@ -9,7 +9,7 @@ function SearchByLetter({ onDataReceivedSearchByLetter }) {
   const isSmallScreen = useWindowSize();
 
   const handleSubmit = async (onSelect) => {
-    const response = await api.get(`/api/words/findLetter?original=${onSelect}`);
+    const response = await api.get(`/api/words/findLetter?word=${onSelect}`);
     onDataReceivedSearchByLetter(response);
   };
 
